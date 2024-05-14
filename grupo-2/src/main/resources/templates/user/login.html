@@ -2,28 +2,27 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>UNLa</title>
-		<!-- Bootstrap core CSS -->
-		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="/css/modern-business.css" rel="stylesheet" />
+		<title>Login</title>
 	</head>
 	<body>
-	    <!-- Page Content -->
-	    <div class="container">
-	      <div class="jumbotron">
-	        <h1 class="display-5">Login</h1>
-	        <form th:action="@{/loginprocess}" method="post">
-		      	<input type="text" name="username" id="username" placeholder="Username" />
-		      	<input type="password" name="password" id="password" placeholder="Password" />
-		      	<input type="submit" />
-	      	</form>
-	      	<div th:if="${error != null}" class="alert alert-danger">
-		    	Invalid username or password.
-		    </div>
-	      </div>
-	    </div>
-	    <!-- Bootstrap core JavaScript -->
-	    <script src="/vendor/jquery/jquery.min.js"></script>
-	    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<header>
+			<h1>Login Page</h1>
+			<nav>
+				<ul>
+					<li><a href="#">Inicio</a></li>
+					<li><a href="#">Acerca de</a></li>
+					<li><a href="#">Contacto</a></li>
+				</ul>
+			</nav>
+		</header>
+	
+		<main>
+			<h2>Contenido principal</h2>
+			<p>Este es un párrafo de ejemplo.</p>
+		</main>
+	
+		<footer>
+			<p>Pie de página - © 2024</p>
+		</footer>
 	</body>
 </html>

@@ -3,28 +3,31 @@ package com.unla.oo2.grupo2.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
 public class UserController {
 
-	@GetMapping("/login")
-	public String login(Model model,
-						@RequestParam(name="error",required=false) String error,
-						@RequestParam(name="logout", required=false) String logout) {
-		model.addAttribute("error", error);
-		model.addAttribute("logout", logout);
-		return "/user/login";
+	@GetMapping("/user/login")
+	public ModelAndView login() {
+		return new ModelAndView("/user/login");
 	}
 
-	@GetMapping("/logout")
-	public String logout(Model model) {
-		return "/user/logout";
+	@GetMapping("/user/logout")
+	public ModelAndView logout(Model model) {
+		return new ModelAndView("/user/logout");
 	}
 
-	@GetMapping("/loginsuccess")
-	public String loginCheck() {
-		return "redirect:/index";
+	@GetMapping("/user/loginsuccess")
+	public RedirectView loginCheck() {
+		return new RedirectView("/home/index");
 	}
+
+	@GetMapping("")
+	public RedirectView redirectLogin() {
+		return new RedirectView("/user/login");
+	}
+
 }
