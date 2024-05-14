@@ -1,11 +1,9 @@
-package com.unla.ghsicilianotfi.controllers;
+package com.unla.oo2.grupo2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.unla.ghsicilianotfi.helpers.ViewRouteHelper;
 
 
 @Controller
@@ -17,12 +15,12 @@ public class UserController {
 						@RequestParam(name="logout", required=false) String logout) {
 		model.addAttribute("error", error);
 		model.addAttribute("logout", logout);
-		return ViewRouteHelper.USER_LOGIN;
+		return "/user/login";
 	}
 
 	@GetMapping("/logout")
 	public String logout(Model model) {
-		return ViewRouteHelper.USER_LOGOUT;
+		return "/user/logout";
 	}
 
 	@GetMapping("/loginsuccess")
