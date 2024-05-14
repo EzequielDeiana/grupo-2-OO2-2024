@@ -32,9 +32,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	private User buildUser(com.unla.oo2.grupo2.entity.User user, List<GrantedAuthority> grantedAuthorities) {
-		return new User(user.getUsername(), user.getPassword(), user.isEnabled(),
-						true, true, true, //accountNonExpired, credentialsNonExpired, accountNonLocked,
-						grantedAuthorities);
+		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, grantedAuthorities);
 	}
 
 	private List<GrantedAuthority> buildGrantedAuthorities(Set<UserRole> userRoles) {

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.unla.oo2.grupo2.helper.RouteHelper;
 import com.unla.oo2.grupo2.service.UserService;
 
 @Configuration
@@ -33,21 +34,20 @@ public class SecurityConfiguration {
 				.csrf(AbstractHttpConfigurer::disable)
 				.cors(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
-							"/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**").permitAll();
+					auth.requestMatchers("/static/*").permitAll();
 					auth.anyRequest().authenticated();
 				})
 				.formLogin(login -> {
-					login.loginPage("/login");
-					login.loginProcessingUrl("/loginprocess");
+					login.loginPage(RouteHelper.USER_LOGIN);
+					login.loginProcessingUrl(RouteHelper.USER_LOGIN);
 					login.usernameParameter("username");
 					login.passwordParameter("password");
-					login.defaultSuccessUrl("/loginsuccess");
+					login.defaultSuccessUrl(RouteHelper.USER_LOGIN_SUCCES);
 					login.permitAll();
 				})
 				.logout(logout -> {
-					logout.logoutUrl("/logout");
-					logout.logoutSuccessUrl("/login");
+					logout.logoutUrl(RouteHelper.USER_LOGOUT);
+					logout.logoutSuccessUrl(RouteHelper.USER_LOGIN);
 					logout.permitAll();
 				})
 				.build();
@@ -71,4 +71,5 @@ public class SecurityConfiguration {
 		return new BCryptPasswordEncoder();
 	}
 }
+
 
