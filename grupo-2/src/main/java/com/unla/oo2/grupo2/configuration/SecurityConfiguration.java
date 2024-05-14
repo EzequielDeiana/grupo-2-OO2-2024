@@ -1,4 +1,4 @@
-package com.unla.oo2.grupo2.controller;
+package com.unla.oo2.grupo2.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.unla.oo2.grupo2.service.UserService;
 
 @Configuration
 @EnableWebSecurity
