@@ -6,19 +6,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.helper.RouteHelper;
+
 @Controller
-@RequestMapping("/")
+@RequestMapping(RouteHelper.SLASH)
 public class HomeController {
 
 
-    @GetMapping("/index")
+
+    @GetMapping(RouteHelper.INDEX)
     public ModelAndView index() {
-        return new ModelAndView("/home/index");
+        return new ModelAndView(RouteHelper.HOME_INDEX);
     }
 
-    @GetMapping("/")
+    @GetMapping(RouteHelper.SLASH)
     public RedirectView redirectHome() {
-        return new RedirectView("/index");
+        return new RedirectView(RouteHelper.INDEX);
     }
 
 }
