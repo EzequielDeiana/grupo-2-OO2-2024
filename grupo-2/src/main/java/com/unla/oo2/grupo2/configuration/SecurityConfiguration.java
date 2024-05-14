@@ -34,20 +34,20 @@ public class SecurityConfiguration {
 				.csrf(AbstractHttpConfigurer::disable)
 				.cors(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/static/*").permitAll();
+					auth.requestMatchers("/css/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*", "/vendor/bootstrap/js/*").permitAll();
 					auth.anyRequest().authenticated();
 				})
 				.formLogin(login -> {
-					login.loginPage(RouteHelper.USER_LOGIN);
-					login.loginProcessingUrl(RouteHelper.USER_LOGIN);
+					login.loginPage("/user/login");
+					login.loginProcessingUrl("/loginprocess");
 					login.usernameParameter("username");
 					login.passwordParameter("password");
-					login.defaultSuccessUrl(RouteHelper.USER_LOGIN_SUCCES);
+					login.defaultSuccessUrl("/user/loginsucces");
 					login.permitAll();
 				})
 				.logout(logout -> {
-					logout.logoutUrl(RouteHelper.USER_LOGOUT);
-					logout.logoutSuccessUrl(RouteHelper.USER_LOGIN);
+					logout.logoutUrl("/user/logout");
+					logout.logoutSuccessUrl("/user/logout");
 					logout.permitAll();
 				})
 				.build();
@@ -70,6 +70,7 @@ public class SecurityConfiguration {
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
+
 }
 
 
