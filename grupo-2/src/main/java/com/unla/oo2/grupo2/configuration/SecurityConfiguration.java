@@ -17,6 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.unla.oo2.grupo2.helper.RouteHelper;
 import com.unla.oo2.grupo2.service.UserService;
 
+
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
