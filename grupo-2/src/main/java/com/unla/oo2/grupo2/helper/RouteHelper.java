@@ -9,11 +9,15 @@ public class RouteHelper {
     //Routes for the user pages
     public static final String USER_LOGIN = "/user/login";
     public static final String USER_LOGOUT  = "/user/logout";
+    public static final String USER_LOGIN_PROCESS = "/user/loginprocess";
     public static final String USER_LOGIN_SUCCES = "/user/loginsucces";
 
 
     //Routes generic 
     public static final String EMPTY = "";
     public static final String SLASH = "/";
+
+    //Routes resources
+    public static final String STATIC_ALL = "/static/*";
 
 }

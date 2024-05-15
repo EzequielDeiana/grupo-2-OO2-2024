@@ -25,13 +25,6 @@ import com.unla.oo2.grupo2.service.UserService;
 @Controller
 public class UserController {
 
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-	}
-    
-
 	@GetMapping(RouteHelper.USER_LOGIN)
 	public String login(Model model, @RequestParam(name="error",required=false) String error, @RequestParam(name="logout", required=false) String logout) {
 		model.addAttribute("error", error);
