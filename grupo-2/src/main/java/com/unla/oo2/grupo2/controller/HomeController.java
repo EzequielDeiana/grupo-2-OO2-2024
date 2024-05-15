@@ -9,19 +9,19 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.oo2.grupo2.helper.RouteHelper;
 
 @Controller
-@RequestMapping(RouteHelper.SLASH)
+@RequestMapping("/")
 public class HomeController {
 
 
 
-    @GetMapping(RouteHelper.INDEX)
+    @GetMapping("/index")
     public ModelAndView index() {
-        return new ModelAndView(RouteHelper.HOME_INDEX);
+        return new ModelAndView("/home/index");
     }
 
-    @GetMapping(RouteHelper.SLASH)
+    @GetMapping("/")
     public RedirectView redirectHome() {
-        return new RedirectView(RouteHelper.INDEX);
+        return new RedirectView("/index");
     }
 
 }

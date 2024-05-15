@@ -36,20 +36,21 @@ public class SecurityConfiguration {
 				.csrf(AbstractHttpConfigurer::disable)
 				.cors(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers(RouteHelper.STATIC_ALL).permitAll();
+					auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
+							"/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**").permitAll();
 					auth.anyRequest().authenticated();
 				})
 				.formLogin(login -> {
-					login.loginPage(RouteHelper.USER_LOGIN);
-					login.loginProcessingUrl(RouteHelper.USER_LOGIN_PROCESS);
+					login.loginPage("/login");
+					login.loginProcessingUrl("/loginprocess");
 					login.usernameParameter("username");
 					login.passwordParameter("password");
-					login.defaultSuccessUrl(RouteHelper.USER_LOGIN_SUCCES);
+					login.defaultSuccessUrl("/loginsuccess");
 					login.permitAll();
 				})
 				.logout(logout -> {
-					logout.logoutUrl(RouteHelper.USER_LOGOUT);
-					logout.logoutSuccessUrl(RouteHelper.USER_LOGOUT);
+					logout.logoutUrl("/logout");
+					logout.logoutSuccessUrl("/login");
 					logout.permitAll();
 				})
 				.build();
