@@ -8,6 +8,7 @@ class Grupo2ApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }

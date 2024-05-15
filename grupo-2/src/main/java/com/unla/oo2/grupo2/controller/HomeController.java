@@ -2,21 +2,26 @@ package com.unla.oo2.grupo2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.helper.RouteHelper;
+
 @Controller
+@RequestMapping("/")
 public class HomeController {
+
 
 
     @GetMapping("/index")
     public ModelAndView index() {
-        return new ModelAndView("/home/index");
+        return new ModelAndView(RouteHelper.HOME_INDEX);
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public RedirectView redirectHome() {
-        return new RedirectView("/index");
+        return new RedirectView(RouteHelper.INDEX);
     }
 
 }
