@@ -3,31 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-    <header>
-        <h1>Home Page</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Acerca de</a></li>
-                <li><a href="#">Contacto</a></li>
+<header class="bg-dark text-white py-4">
+    <div class="container">
+        <h1 class="text-center">Home Page</h1>
+        <nav class="text-center">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
             </ul>
         </nav>
-    </header>
+    </div>
+</header>
 
-    <main>
-        <h2>Contenido principal</h2>
-        <p>Este es un párrafo de ejemplo.</p>
-    </main>
+<main class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="text-center mb-4">Contenido principal</h2>
+            <p class="text-center">Este es un párrafo de ejemplo.</p>
+        </div>
+    </div>
+</main>
 
-    <button><a href="/logout">Logout</a></button>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <button class="btn btn-primary btn-block"><a href="/logout" class="text-white">Logout</a></button>
+        </div>
+    </div>
+</div>
 
-    <footer>
+<footer class="bg-dark text-white py-3 mt-5">
+    <div class="container text-center">
         <p>Pie de página - © 2024</p>
-    </footer>
+    </div>
+</footer>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
