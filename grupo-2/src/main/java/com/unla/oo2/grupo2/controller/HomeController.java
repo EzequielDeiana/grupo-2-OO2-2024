@@ -16,12 +16,12 @@ public class HomeController {
 
     @GetMapping("/index")
     public ModelAndView index() {
-        return new ModelAndView("/home/index");
+        return new ModelAndView(RouteHelper.HOME_INDEX);
     }
 
     @GetMapping("/")
     public RedirectView redirectHome() {
-        return new RedirectView("/index");
+        return new RedirectView(RouteHelper.INDEX);
     }
 
 }

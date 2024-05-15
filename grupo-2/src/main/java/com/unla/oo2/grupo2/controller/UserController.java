@@ -2,8 +2,10 @@ package com.unla.oo2.grupo2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.RouteMatcher.Route;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo2.helper.RouteHelper;
@@ -13,22 +15,22 @@ import com.unla.oo2.grupo2.helper.RouteHelper;
 public class UserController {
 
 	@GetMapping("/login")
-	public String login(Model model,
-						@RequestParam(name="error",required=false) String error,
-						@RequestParam(name="logout", required=false) String logout) {
-		model.addAttribute("error", error);
-		model.addAttribute("logout", logout);
-		return "/user/login";
+	public ModelAndView login(@RequestParam(name="error",required=false) String error, @RequestParam(name="logout", required=false) String logout) {
+		ModelAndView model = new ModelAndView(RouteHelper.USER_LOGIN);
+		model.addObject("error", error);
+		model.addObject("logout", logout);
+		return model;
 	}
 
 	@GetMapping("/logout")
-	public String logout(Model model) {
-		return "/user/logout";
+	public ModelAndView logout(ModelAndView model) {
+		model.setViewName(RouteHelper.USER_LOGOUT);
+		return model;
 	}
 
 	@GetMapping("/loginsuccess")
-	public String loginCheck() {
-		return "redirect:/index";
+	public RedirectView loginCheck() {
+		return new RedirectView(RouteHelper.INDEX);
 	}
 
 	/* 
