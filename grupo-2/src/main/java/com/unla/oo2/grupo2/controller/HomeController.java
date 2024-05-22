@@ -12,16 +12,14 @@ import com.unla.oo2.grupo2.helper.RouteHelper;
 @RequestMapping("/")
 public class HomeController {
 
+	@GetMapping("/index")
+	public ModelAndView index() {
+		return new ModelAndView(RouteHelper.HOME_INDEX);
+	}
 
-
-    @GetMapping("/index")
-    public ModelAndView index() {
-        return new ModelAndView(RouteHelper.HOME_INDEX);
-    }
-
-    @GetMapping("/")
-    public RedirectView redirectHome() {
-        return new RedirectView(RouteHelper.INDEX);
-    }
+	@GetMapping("/")
+	public RedirectView redirectHome() {
+		return new RedirectView(RouteHelper.INDEX);
+	}
 
 }

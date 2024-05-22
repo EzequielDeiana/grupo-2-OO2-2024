@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
-    <link rel="stylesheet" href="/css/errorPageStyle.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Error</title>
+	<link rel="stylesheet" href="/css/errorPageStyle.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Error</h1>
-    <img th:src="'http://http.cat/' + ${statusCode}" alt="Michi">
-    <p>¡Oh no! Parece que te has perdido en el camino.</p>
-    <p><a href="/">Volver a la página de inicio</a></p>
-</div>
+	<div class="container">
+		<h1>Error</h1>
+		<img th:src="'http://http.cat/' + ${statusCode}" alt="Michi">
+		<p>¡Oh no! Parece que te has perdido en el camino.</p>
+		<p><a href="/">Volver a la página de inicio</a></p>
+	</div>
 
 </body>
+
 </html>

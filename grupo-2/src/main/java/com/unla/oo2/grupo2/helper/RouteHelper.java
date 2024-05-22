@@ -10,7 +10,13 @@ public class RouteHelper {
     public static final String USER_LOGIN = "/user/login";
     public static final String USER_LOGOUT  = "/user/logout";
     public static final String USER_LOGIN_PROCESS = "/user/loginprocess";
-    public static final String USER_LOGIN_SUCCES = "/user/loginsucces";
+    public static final String USER_LOGIN_SUCCESS = "/user/loginsucces";
+    
+    //Routes for the login pages
+    public static final String LOGIN = "/login";
+    public static final String LOGIN_SUCCESS = "/loginsuccess";
+    public static final String LOGOUT = "/logout";
+    public static final String LOGOUT_SUCCESS = "/logoutsuccess";
 
 
     //Routes generic 
