@@ -8,22 +8,16 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo2.helper.RouteHelper;
 
-
 @Controller
 public class UserController {
 
 	@GetMapping("/login")
-	public ModelAndView login(@RequestParam(name="error",required=false) String error, @RequestParam(name="logout", required=false) String logout) {
-		ModelAndView model = new ModelAndView(RouteHelper.USER_LOGIN);
-		model.addObject("error", error);
-		model.addObject("logout", logout);
-		return model;
-	}
-
-	@GetMapping("/logout")
-	public ModelAndView logout(ModelAndView model) {
-		model.setViewName(RouteHelper.USER_LOGOUT);
-		return model;
+	public ModelAndView login(@RequestParam(name = "error", required = false) String error,
+			@RequestParam(name = "logout", required = false) String logout) {
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.USER_LOGIN);
+		modelAndView.addObject("error", error);
+		modelAndView.addObject("logout", logout);
+		return modelAndView;
 	}
 
 	@GetMapping("/loginsuccess")
@@ -31,28 +25,14 @@ public class UserController {
 		return new RedirectView(RouteHelper.INDEX);
 	}
 
-	/* 
-	  @GetMapping(RouteHelper.USER_LOGIN)
-	public String login(Model model, @RequestParam(name="error",required=false) String error, @RequestParam(name="logout", required=false) String logout) {
-		model.addAttribute("error", error);
-		model.addAttribute("logout", logout);
-		return RouteHelper.USER_LOGIN;
+	@GetMapping("/logout")
+	public RedirectView logout() {
+		return new RedirectView(RouteHelper.LOGOUT_SUCCESS);
 	}
 
-	@GetMapping(RouteHelper.USER_LOGOUT)
-	public String logout(Model model) {
-		return RouteHelper.USER_LOGOUT;
+	@GetMapping("/logoutsuccess")
+	public ModelAndView logoutSuccess() {
+		return new ModelAndView(RouteHelper.USER_LOGOUT);
 	}
-
-	@GetMapping(RouteHelper.USER_LOGIN_SUCCES)
-	public RedirectView loginCheck() {
-		return new RedirectView(RouteHelper.HOME_INDEX);
-	}
-
-	@GetMapping(RouteHelper.EMPTY)
-	public RedirectView redirectLogin() {
-		return new RedirectView(RouteHelper.USER_LOGIN);
-	}
-	 */
-
+	
 }
