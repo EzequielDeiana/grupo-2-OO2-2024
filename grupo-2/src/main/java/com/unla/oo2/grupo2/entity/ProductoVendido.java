@@ -22,14 +22,17 @@ public class ProductoVendido {
 	private int id;
 	@ManyToOne(optional=false)@JoinColumn(name="producto")
 	private Producto producto;
+	@ManyToOne(optional=false)@JoinColumn(name="venta")
+	private Venta venta;
 	@Column(name = "cantidad")
 	private int cantidad;
 	@Column(name = "precioTotal")
 	private double precioTotal;
 	
-	public ProductoVendido(Producto producto, int cantidad, double precioTotal) {
+	public ProductoVendido(Producto producto, Venta venta ,int cantidad, double precioTotal) {
 		super();
 		this.producto = producto;
+		this.venta = venta;
 		this.cantidad = cantidad;
 		this.precioTotal = precioTotal;
 	}

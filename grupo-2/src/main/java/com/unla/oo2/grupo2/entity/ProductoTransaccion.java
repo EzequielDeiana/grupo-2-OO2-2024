@@ -18,6 +18,7 @@ public class ProductoTransaccion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "producto")
 	private Producto producto;
 	@Column(name = "cantidad")
