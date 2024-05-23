@@ -1,19 +1,21 @@
 package com.unla.oo2.grupo2.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data @NoArgsConstructor
-public class Cliente {
-	
-	private boolean clientePremium;
+public class Admin {
+	private long cuil;
 
-	public Cliente(boolean clientePremium) {
+	public Admin(long cuil) {
 		super();
-		this.clientePremium = clientePremium;
+		this.cuil = cuil;
 	}
+	
 	
 	
 }

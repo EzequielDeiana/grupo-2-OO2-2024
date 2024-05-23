@@ -3,6 +3,11 @@ package com.unla.oo2.grupo2.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Entity
+@Data @NoArgsConstructor
 public class Venta {
 	private LocalDate fechaVenta;
 	private List<ProductoVendido> productosComprados;
