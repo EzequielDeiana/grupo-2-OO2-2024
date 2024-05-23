@@ -1,18 +1,34 @@
+/*
 package com.unla.oo2.grupo2.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
+@Table(name = "pedidoCompra")
 public class PedidoCompra {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(name = "producto")
 	private Producto producto;
+	@Column(name = "fechaLanzamiento")
 	private LocalDate fechaLanzamiento;
+	@Column(name = "comprado")
 	private boolean comprado;
+	@Column(name = "cantidadSolicitada")
 	private int cantidadSolicitada;
-	
+
 	public PedidoCompra(Producto producto, LocalDate fechaLanzamiento, boolean comprado, int cantidadSolicitada) {
 		super();
 		this.producto = producto;
@@ -20,7 +36,6 @@ public class PedidoCompra {
 		this.comprado = comprado;
 		this.cantidadSolicitada = cantidadSolicitada;
 	}
-	
-	
-	
+
 }
+*/
