@@ -1,4 +1,4 @@
-/*
+
 package com.unla.oo2.grupo2.entity;
 
 import java.time.LocalDate;
@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ public class Compra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "pedidoCompra")
+	@OneToOne(optional=false)@JoinColumn(name = "pedidoCompra")
 	private PedidoCompra pedidoCompra;
 	@Column(name = "fechaEntrega")
 	private LocalDate fechaEntrega;
@@ -29,7 +31,7 @@ public class Compra {
 	@Column(name = "cantidadComprada")
 	private int cantidadComprada;
 	
-	public Compra(PedidoCompra pedidoCompra, LocalDate fechaEntrega, LocalDate fechaLnzamiento, String proveedor,
+	public Compra(PedidoCompra pedidoCompra, LocalDate fechaEntrega, LocalDate fechaLanzamiento, String proveedor,
 			int cantidadComprada) {
 		super();
 		this.pedidoCompra = pedidoCompra;
@@ -42,4 +44,3 @@ public class Compra {
 	
 	
 }
-*/

@@ -1,4 +1,4 @@
-/*
+
 package com.unla.oo2.grupo2.entity;
 
 import java.time.LocalDate;
@@ -20,6 +20,7 @@ public class PedidoCompra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "producto")
 	private Producto producto;
 	@Column(name = "fechaLanzamiento")
@@ -29,13 +30,12 @@ public class PedidoCompra {
 	@Column(name = "cantidadSolicitada")
 	private int cantidadSolicitada;
 
-	public PedidoCompra(Producto producto, LocalDate fechaLanzamiento, boolean comprado, int cantidadSolicitada) {
+	public PedidoCompra(LocalDate fechaLanzamiento, boolean comprado, int cantidadSolicitada) {
 		super();
-		this.producto = producto;
+		//this.producto = producto;
 		this.fechaLanzamiento = fechaLanzamiento;
 		this.comprado = comprado;
 		this.cantidadSolicitada = cantidadSolicitada;
 	}
 
 }
-*/
