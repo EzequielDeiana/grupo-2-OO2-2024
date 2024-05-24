@@ -21,10 +21,18 @@ public class RouteHelper {
     //Routes for compra pages
     public static final String COMPRA_INDEX = "/compra/index";
     
-    //Routes for pedidocompra
+    //Routes for pedidocompra pages
     public static final String PEDIDOCOMPRA_INDEX = "/pedidocompra/index";
     
+    //Routes for producto pages
+    public static final String PRODUCTO_INDEX = "/producto/index";
     
+    //Routes for productovendido pages 
+    public static final String PRODUCTOVENDIDO_INDEX = "/productovendido/index";
+    
+    //Routes for venta pages
+    public static final String VENTA_INDEX = "/venta/index";
+
     //Routes generic 
     public static final String EMPTY = "";
     public static final String SLASH = "/";
