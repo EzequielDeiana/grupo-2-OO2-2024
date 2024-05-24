@@ -21,6 +21,9 @@ public class RouteHelper {
     //Routes for compra pages
     public static final String COMPRA_INDEX = "/compra/index";
     
+    //Routes for pedidocompra
+    public static final String PEDIDOCOMPRA_INDEX = "/pedidocompra/index";
+    
     
     //Routes generic 
     public static final String EMPTY = "";
