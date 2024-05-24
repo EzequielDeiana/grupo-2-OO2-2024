@@ -18,12 +18,17 @@ public class RouteHelper {
     public static final String LOGOUT = "/logout";
     public static final String LOGOUT_SUCCESS = "/logoutsuccess";
 
-
+    //Routes for compra pages
+    public static final String COMPRA_INDEX = "/compra/index";
+    
+    
     //Routes generic 
     public static final String EMPTY = "";
     public static final String SLASH = "/";
 
     //Routes resources
     public static final String STATIC_ALL = "/static/*";
+    
+    
 
 }
