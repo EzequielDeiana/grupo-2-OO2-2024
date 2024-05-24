@@ -1,5 +1,6 @@
 package com.unla.oo2.grupo2.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,15 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name="nombre")
+	private String nombre;
+	@Column(name="apellido")
+	private String apellido;
+	@Column(name="fechaNacimiento")
+	private LocalDate fechaNacimiento;
+	@Column(name="dni")
+	private long dni;
 
 	@Column(name="username", unique=true, nullable=false, length=45)
 	private String username;
@@ -43,10 +53,14 @@ public class User {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
 	private Set<UserRole> userRoles = new HashSet<>();
 
-	public User(String username, String password, boolean enabled) {
+	public User(String username, String password, boolean enabled, String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.dni = dni;
 	}
 
 	public User(String username, String password, boolean enabled, Set<UserRole> userRoles) {
@@ -54,5 +68,6 @@ public class User {
 		this.password = password;
 		this.enabled = enabled;
 		this.userRoles = userRoles;
+		
 	}
 }
