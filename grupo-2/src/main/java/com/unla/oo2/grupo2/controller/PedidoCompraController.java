@@ -15,7 +15,7 @@ public class PedidoCompraController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		
-		return new ModelAndView(RouteHelper.HOME_INDEX);
+		return new ModelAndView(RouteHelper.PEDIDOCOMPRA_INDEX);
 		
 	}
 
