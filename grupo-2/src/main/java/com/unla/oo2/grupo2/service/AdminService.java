@@ -14,7 +14,7 @@ public class AdminService {
 	@Autowired
 	IAdminRepository adminRepo;
 
-	// cRud
+	// Query
 	public Admin getById(int id) {
 		return adminRepo.getReferenceById(id);
 
@@ -24,7 +24,7 @@ public class AdminService {
 		return adminRepo.findAll();
 	}
 
-	// Crud
+	//CUD
 	public int create(Admin admin)
 	{
 		return adminRepo.save(admin).getId();
