@@ -24,16 +24,14 @@ public class AdminService {
 		return adminRepo.findAll();
 	}
 
-	//CUD
-	public int create(Admin admin)
-	{
+	// CUD
+	public int create(Admin admin) {
 		return adminRepo.save(admin).getId();
 	}
-	
-	public void delete(int id)
-	{
-		if(id != 0)
+
+	public void delete(int id) {
+		if (id != 0)
 			adminRepo.deleteById(id);
 	}
-	
+
 }

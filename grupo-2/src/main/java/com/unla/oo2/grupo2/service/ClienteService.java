@@ -12,29 +12,28 @@ import com.unla.oo2.grupo2.repository.IClienteRepository;
 @Service
 public class ClienteService {
 
-@Autowired
-IClienteRepository clienteRepo;
+	@Autowired
+	IClienteRepository clienteRepo;
 
 // Query
-public Cliente getById(int id) {
-	return clienteRepo.getReferenceById(id);
-}
+	public Cliente getById(int id) {
+		return clienteRepo.getReferenceById(id);
+	}
 
-public List<Cliente> getAll()
-{
-	return clienteRepo.findAll();
-}
+	public List<Cliente> getAll() {
+		return clienteRepo.findAll();
+	}
 
 //CUD
-public int agregar(Cliente c) {
-	return clienteRepo.save(c).getId();
-	
-}
+	public int agregar(Cliente c) {
+		return clienteRepo.save(c).getId();
 
-public void delete(int id) {
-	
-	if(id != 0)
-		clienteRepo.deleteById(id);
-}
+	}
+
+	public void delete(int id) {
+
+		if (id != 0)
+			clienteRepo.deleteById(id);
+	}
 
 }
