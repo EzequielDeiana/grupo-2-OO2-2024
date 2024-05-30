@@ -14,18 +14,16 @@ public class ProductoController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		
+
 		return new ModelAndView(RouteHelper.PRODUCTO_INDEX);
-		
+
 	}
 
 	@GetMapping("/")
 	public RedirectView redirectHome() {
-		
+
 		return new RedirectView(RouteHelper.INDEX);
-		
+
 	}
 
 }
-
-	

@@ -34,5 +34,5 @@ public class UserController {
 	public ModelAndView logoutSuccess() {
 		return new ModelAndView(RouteHelper.USER_LOGOUT);
 	}
-	
+
 }

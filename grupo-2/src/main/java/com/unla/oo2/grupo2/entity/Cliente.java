@@ -11,8 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data @NoArgsConstructor
-@Table(name="cliente")
+@Data
+@NoArgsConstructor
+@Table(name = "cliente")
 public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,5 @@ public class Cliente {
 		super();
 		this.clientePremium = clientePremium;
 	}
-	
-	
-}
 
+}

@@ -11,21 +11,19 @@ import com.unla.oo2.grupo2.helper.RouteHelper;
 @Controller
 @RequestMapping("/venta")
 public class VentaController {
-	
+
 	@GetMapping("/index")
 	public ModelAndView index() {
-		
+
 		return new ModelAndView(RouteHelper.VENTA_INDEX);
-		
+
 	}
 
 	@GetMapping("/")
 	public RedirectView redirectHome() {
-		
+
 		return new RedirectView(RouteHelper.INDEX);
-		
+
 	}
 
 }
-
-

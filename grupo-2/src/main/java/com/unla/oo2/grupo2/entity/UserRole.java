@@ -20,8 +20,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
-@Table(name="user_role", uniqueConstraints=@UniqueConstraint(columnNames= {"role", "user_id"}))
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "user_role", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "user_id" }))
 public class UserRole {
 
 	@Id
@@ -29,10 +31,10 @@ public class UserRole {
 	private int id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@Column(name="role", nullable=false, length=100)
+	@Column(name = "role", nullable = false, length = 100)
 	private String role;
 
 	@CreationTimestamp

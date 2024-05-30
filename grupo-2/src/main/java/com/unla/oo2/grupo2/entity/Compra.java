@@ -13,14 +13,17 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
-@Data @NoArgsConstructor
-@Table(name="compra")
+@Data
+@NoArgsConstructor
+@Table(name = "compra")
 public class Compra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@OneToOne(optional=false)@JoinColumn(name = "pedidoCompra")
+	@OneToOne(optional = false)
+	@JoinColumn(name = "pedidoCompra")
 	private PedidoCompra pedidoCompra;
 	@Column(name = "fechaEntrega")
 	private LocalDate fechaEntrega;
@@ -30,7 +33,7 @@ public class Compra {
 	private String proveedor;
 	@Column(name = "cantidadComprada")
 	private int cantidadComprada;
-	
+
 	public Compra(PedidoCompra pedidoCompra, LocalDate fechaEntrega, LocalDate fechaLanzamiento, String proveedor,
 			int cantidadComprada) {
 		super();
@@ -40,7 +43,5 @@ public class Compra {
 		this.proveedor = proveedor;
 		this.cantidadComprada = cantidadComprada;
 	}
-	
-	
-	
+
 }
