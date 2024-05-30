@@ -34,7 +34,7 @@ public int agregar(Cliente c) {
 public void delete(int id) {
 	
 	if(id != 0)
-		clienteRepo.existsById(id);
+		clienteRepo.deleteById(id);
 }
 
 }
