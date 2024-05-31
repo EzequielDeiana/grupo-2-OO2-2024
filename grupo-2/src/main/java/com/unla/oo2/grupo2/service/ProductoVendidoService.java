@@ -38,20 +38,18 @@ public class ProductoVendidoService implements IProductoVendido {
 	}
 
 	@Override
-	public Optional<ProductoVendido> findById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<ProductoVendido> findById(int id) throws Exception {
+		return productoVendidoRepository.findById(id);
 	}
 
 	@Override
 	public ProductoVendido insertOrUpdate(ProductoVendido productovendido) {
-		// TODO Auto-generated method stub
-		return null;
+		return productoVendidoRepository.save(productovendido);
 	}
 
 	@Override
 	public boolean remove(int id) {
-		// TODO Auto-generated method stub
+		productoVendidoRepository.deleteById(id);
 		return false;
 	}
 

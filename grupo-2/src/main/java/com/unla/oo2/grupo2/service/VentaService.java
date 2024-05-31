@@ -30,7 +30,6 @@ public class VentaService implements IVenta {
 	//CUD
 	public int agregar(Venta c) {
 		return ventaRepository.save(c).getId();
-
 	}
 
 	public void delete(int id) {
@@ -39,20 +38,19 @@ public class VentaService implements IVenta {
 	}
 
 	@Override
-	public Optional<Venta> findById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<Venta> findById(int id) throws Exception {
+		return ventaRepository.findById(id);
 	}
 
 	@Override
 	public Venta insertOrUpdate(Venta venta) {
-		// TODO Auto-generated method stub
-		return null;
+		return ventaRepository.save(venta);
 	}
 
 	@Override
 	public boolean remove(int id) {
-		// TODO Auto-generated method stub
+		if (id != 0)
+			ventaRepository.deleteById(id);
 		return false;
 	}
 

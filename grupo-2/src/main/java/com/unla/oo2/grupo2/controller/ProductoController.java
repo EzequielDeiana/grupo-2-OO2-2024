@@ -25,7 +25,9 @@ public class ProductoController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		return new ModelAndView(RouteHelper.PRODUCTO_INDEX);
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
+		modelAndView.addObject("productos", productoService.getAll());
+		return modelAndView;
 	}
 
 	@GetMapping("/")
@@ -47,7 +49,7 @@ public class ProductoController {
 	}
 
 	@GetMapping("/{id}")
-	public ModelAndView get(@PathVariable("id") Long id) throws Exception {
+	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/producto/update");
 		modelAndView.addObject("producto", productoService.findById(id).get());
 		return modelAndView;
@@ -61,7 +63,7 @@ public class ProductoController {
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
-		productoService.remove(id);
+		productoService.delete(id);
 		return new RedirectView("/producto/index");
 	}
 	

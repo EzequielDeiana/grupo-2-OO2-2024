@@ -18,8 +18,9 @@ public class ProductoService implements IProducto {
 	private IProductoRepository productoRepository;
 
 	// Query
+	@SuppressWarnings("deprecation")
 	public Producto getById(int id) {
-		return productoRepository.getReferenceById(id);
+		return productoRepository.getById(id);
 	}
 
 	public List<Producto> getAll() {
@@ -38,9 +39,8 @@ public class ProductoService implements IProducto {
 	}
 
 	@Override
-	public Optional<Producto> findById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<Producto> findById(int id) throws Exception {
+		return productoRepository.findById(id);
 	}
 
 	@Override

@@ -10,7 +10,7 @@ public interface IProductoVendido {
 
 	public List<ProductoVendido> getAll();
 
-	public Optional<ProductoVendido> findById(long id) throws Exception;
+	public Optional<ProductoVendido> findById(int id) throws Exception;
 
 	//public Optional<ProductoVendido> findByName(String name) throws Exception;
 

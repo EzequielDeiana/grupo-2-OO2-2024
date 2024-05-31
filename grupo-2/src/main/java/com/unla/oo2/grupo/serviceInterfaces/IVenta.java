@@ -10,7 +10,7 @@ public interface IVenta {
 
 	public List<Venta> getAll();
 
-	public Optional<Venta> findById(long id) throws Exception;
+	public Optional<Venta> findById(int id) throws Exception;
 
 	//public Optional<Venta> findByName(String name) throws Exception;
 

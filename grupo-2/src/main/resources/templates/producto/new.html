@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>UNLa</title>
-		<!-- Bootstrap core CSS -->
-		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="/css/modern-business.css" rel="stylesheet" />
-	</head>
-	<body>
-		<h1>OK</h1>
-	    <!-- Bootstrap core JavaScript -->
-	    <script src="/vendor/jquery/jquery.min.js"></script>
-	    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear nueva productos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Formulario productos</h1>
+    <form action="#" th:action="@{/producto/create}" th:object="${producto}" method="post">
+        <p>Nombre: <input type="text" th:field="*{nombre}"></p>
+        <p>Descripcion: <input type="text" th:field="*{descripcion}"></p>
+		<p>Tipo: <input type="text" th:field="*{tipo}"></p>
+		<p>Stock restante: <input type="number" th:field="*{stockRestante}"></p>
+		<p>Precio: <input type="number" th:field="*{precio}"></p>
+		<p>Activo: <input type="number" th:field="*{activo}"></p>
+		<button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+    <a href="/producto/index" class="btn btn-secondary">Volver a la lista de productoas</a>
+</body>
 </html>

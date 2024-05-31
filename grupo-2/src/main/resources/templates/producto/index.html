@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>productoas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="horizontal-nav">
+        <div class="container">
+            <a href="/index">Inicio</a>
+            <a href="/producto/index">producto</a>
+            <a href="/product/index">Product</a>
+            <a href="/user/index">User</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Tabla de productoas</h1>
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="th">ID</th>
+                    <th class="th">Nombre</th>
+                    <th class="th">Descripcion</th>
+                    <th class="th">Tipo</th>
+					<th class="th">Stock restante</th>
+					<th class="th">Precio</th>
+					<th class="th">Activo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto, iterStat : ${productos}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+                    <td class="td" th:text="${producto.id}"></td>
+                    <td class="td" th:text="${producto.nombre}"></td>
+                    <td class="td" th:text="${producto.descripcion}"></td>
+					<td class="td" th:text="${producto.tipo}"></td>
+					<td class="td" th:text="${producto.stockRestante}"></td>
+					<td class="td" th:text="${producto.precio}"></td>
+					<td class="td" th:text="${producto.activo}"></td>
+					<td class="td"><a th:href="@{/producto/{id}(id=${producto.id})}" class="btn btn-secondary">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+ 		<!-- 
+			
+			<div class="horizontal-nav">
+			     <div class="container">
+			         <a href="/producto/new" class="btn btn-primary">Crear nueva producto</a>
+			     </div>
+			 </div>
+			
+		-->
+		
+		<div class="horizontal-nav">
+		     <div class="container">
+		         <a href="/producto/new" class="btn btn-primary">Crear nueva producto</a>
+		     </div>
+		 </div>
+    </div>
+</body>
+</html>

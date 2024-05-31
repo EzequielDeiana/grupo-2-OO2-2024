@@ -21,17 +21,23 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table(name = "venta")
-public class Venta {
+public class Venta 
+{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "fechaVenta")
 	private LocalDate fechaVenta;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "venta")
 	private Set<ProductoVendido> productosComprados;
+	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "cliente")
 	private Cliente cliente;
+	
 	@Column(name = "totalVenta")
 	private double totalVenta;
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear nueva ventas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Formulario ventas</h1>
+    <form action="#" th:action="@{/venta/create}" th:object="${venta}" method="post">
+		<label for="clienteId">Cliente:</label>
+		<select id="clienteId" th:field="*{cliente.id}" c>
+		    <option value="" disabled selected>Selecciona un cliente</option>
+		    <option th:each="cliente : ${clientes}" th:value="${cliente.id}"></option>
+		</select>
+        <p>Fecha venta: <input type="text" th:field="*{fechaVenta}"></p>
+		<p>Total venta: <input type="text" th:field="*{totalVenta}"></p>
+		<button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+    <a href="/venta/index" class="btn btn-secondary">Volver a la lista de ventaas</a>
+</body>
+</html>
