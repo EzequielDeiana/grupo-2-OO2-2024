@@ -12,28 +12,26 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping()
-public class CustomErrorController implements ErrorController 
-{
-    
-    @GetMapping("/error")
-    public ModelAndView handleError(HttpServletRequest request, Map<String, Object> model) 
-    {
-        ModelAndView modelAndView = new ModelAndView("/error/error");
+public class CustomErrorController implements ErrorController {
 
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        String errorMessage = (String) request.getAttribute("javax.servlet.error.message");
+	@GetMapping("/error")
+	public ModelAndView handleError(HttpServletRequest request, Map<String, Object> model) {
+		ModelAndView modelAndView = new ModelAndView("/error/error");
 
-        model.put("statusCode", statusCode);
-        model.put("errorMessage", errorMessage);
+		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+		String errorMessage = (String) request.getAttribute("javax.servlet.error.message");
 
-        modelAndView.addObject("statusCode", statusCode);
-        modelAndView.addObject("errorMessage", errorMessage);
+		model.put("statusCode", statusCode);
+		model.put("errorMessage", errorMessage);
 
-        return modelAndView;
-    }
-    
-    public String getErrorPath() {
-        return "/error";
-    }
+		modelAndView.addObject("statusCode", statusCode);
+		modelAndView.addObject("errorMessage", errorMessage);
+
+		return modelAndView;
+	}
+
+	public String getErrorPath() {
+		return "/error";
+	}
 
 }

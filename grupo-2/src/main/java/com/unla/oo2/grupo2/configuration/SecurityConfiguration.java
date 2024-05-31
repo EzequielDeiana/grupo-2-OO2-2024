@@ -16,8 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.unla.oo2.grupo2.service.UserService;
 
-
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -30,37 +28,34 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		return http
-				.csrf(AbstractHttpConfigurer::disable)
-				.cors(AbstractHttpConfigurer::disable)
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		return http.csrf(AbstractHttpConfigurer::disable).cors(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*", "/vendor/bootstrap/js/*").permitAll();
+					auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*",
+							"/vendor/bootstrap/js/*").permitAll();
 					auth.anyRequest().authenticated();
-				})
-				.formLogin(login -> {
+				}).formLogin(login -> {
 					login.loginPage("/login");
 					login.loginProcessingUrl("/loginprocess");
 					login.usernameParameter("username");
 					login.passwordParameter("password");
 					login.defaultSuccessUrl("/loginsuccess");
 					login.permitAll();
-				})
-				.logout(logout -> {
+				}).logout(logout -> {
 					logout.logoutUrl("/logout");
 					logout.logoutSuccessUrl("/logoutsuccess");
 					logout.permitAll();
-				})
-				.build();
+				}).build();
 	}
 
 	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 
 	@Bean
-	AuthenticationProvider authenticationProvider(){
+	AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setPasswordEncoder(passwordEncoder());
 		provider.setUserDetailsService(userService);
@@ -68,10 +63,8 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	PasswordEncoder passwordEncoder(){
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 }
-
-

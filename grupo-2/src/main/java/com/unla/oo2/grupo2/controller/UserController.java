@@ -12,8 +12,7 @@ import com.unla.oo2.grupo2.helper.RouteHelper;
 public class UserController {
 
 	@GetMapping("/login")
-	public ModelAndView login(@RequestParam(name = "error", required = false) String error,
-			@RequestParam(name = "logout", required = false) String logout) {
+	public ModelAndView login(@RequestParam(name = "error", required = false) String error, @RequestParam(name = "logout", required = false) String logout) {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.USER_LOGIN);
 		modelAndView.addObject("error", error);
 		modelAndView.addObject("logout", logout);
@@ -34,5 +33,5 @@ public class UserController {
 	public ModelAndView logoutSuccess() {
 		return new ModelAndView(RouteHelper.USER_LOGOUT);
 	}
-	
+
 }
