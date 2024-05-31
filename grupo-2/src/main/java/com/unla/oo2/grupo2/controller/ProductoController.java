@@ -10,8 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo.serviceInterfaces.IProducto;
-import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.entity.Producto;
+import com.unla.oo2.grupo2.helper.RouteHelper;
 
 @Controller
 @RequestMapping("/producto")
@@ -25,18 +25,18 @@ public class ProductoController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		return new ModelAndView("/producto/index").addObject("producto", productoService.getAll());
+		return new ModelAndView(RouteHelper.PRODUCTO_INDEX);
 	}
 
 	@GetMapping("/")
-	public RedirectView redirectToHomeIndex() {
-		return new RedirectView("/producto/index");
+	public RedirectView redirectHome() {
+		return new RedirectView(RouteHelper.INDEX);
 	}
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/producto/new");
-		model.addObject("pedidocompra", new PedidoCompra());
+		model.addObject("producto", new Producto());
 		return model;
 	}
 
@@ -53,13 +53,6 @@ public class ProductoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/{name}")
-	public ModelAndView get(@PathVariable("name") String name) throws Exception {
-		ModelAndView modelAndView = new ModelAndView("/producto/update");
-		modelAndView.addObject("producto", productoService.findByName(name).get());
-		return modelAndView;
-	}
-
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("producto") Producto producto) {
 		productoService.insertOrUpdate(producto);
@@ -71,5 +64,13 @@ public class ProductoController {
 		productoService.remove(id);
 		return new RedirectView("/producto/index");
 	}
-
+	
+	@GetMapping("/all")
+	public ModelAndView prueba() {
+		ModelAndView model = new ModelAndView("/producto/new");
+		productoService.insertOrUpdate(new Producto("1", "1", "1", 1, 1, true));
+		return model;
+	}
+	
+	
 }

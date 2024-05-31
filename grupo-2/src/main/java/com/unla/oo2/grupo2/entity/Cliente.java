@@ -15,9 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "cliente")
 public class Cliente {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "clientePremium")
 	private boolean clientePremium;
 

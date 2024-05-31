@@ -12,26 +12,26 @@ import com.unla.oo2.grupo2.repository.IAdminRepository;
 public class AdminService {
 
 	@Autowired
-	IAdminRepository adminRepo;
+	private IAdminRepository adminRepository;
 
 	// Query
 	public Admin getById(int id) {
-		return adminRepo.getReferenceById(id);
+		return adminRepository.getReferenceById(id);
 
 	}
 
 	public List<Admin> getAll() {
-		return adminRepo.findAll();
+		return adminRepository.findAll();
 	}
 
 	// CUD
 	public int create(Admin admin) {
-		return adminRepo.save(admin).getId();
+		return adminRepository.save(admin).getId();
 	}
 
 	public void delete(int id) {
 		if (id != 0)
-			adminRepo.deleteById(id);
+			adminRepository.deleteById(id);
 	}
 
 }

@@ -2,38 +2,58 @@
 package com.unla.oo2.grupo2.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.unla.oo2.grupo.serviceInterfaces.IPedidoCompra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.repository.IPedidoCompraRepository;
 
 @Service
-public class PedidoCompraService {
+public class PedidoCompraService implements IPedidoCompra {
 
 	@Autowired
-	IPedidoCompraRepository pedCompraRepo;
+	private IPedidoCompraRepository pedidoCompraRepository;
 
-// Query
+	// Query
 	public PedidoCompra getById(int id) {
-		return pedCompraRepo.getReferenceById(id);
+		return pedidoCompraRepository.getReferenceById(id);
 	}
 
 	public List<PedidoCompra> getAll() {
-		return pedCompraRepo.findAll();
+		return pedidoCompraRepository.findAll();
 	}
 
-//CUD
+	// CUD
 	public int agregar(PedidoCompra c) {
-		return pedCompraRepo.save(c).getId();
+		return pedidoCompraRepository.save(c).getId();
 
 	}
 
 	public void delete(int id) {
 
 		if (id != 0)
-			pedCompraRepo.deleteById(id);
+			pedidoCompraRepository.deleteById(id);
+	}
+
+	@Override
+	public Optional<PedidoCompra> findById(long id) throws Exception {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+	@Override
+	public PedidoCompra insertOrUpdate(PedidoCompra pedidocompra) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean remove(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

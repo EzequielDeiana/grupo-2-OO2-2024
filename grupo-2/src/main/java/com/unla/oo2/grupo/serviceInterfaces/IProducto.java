@@ -17,4 +17,10 @@ public interface IProducto {
 	public Producto insertOrUpdate(Producto producto);
 
 	public boolean remove(int id);
+
+	public Producto getById(int id);
+
+	public int agregar(Producto c);
+
+	public void delete(int id);
 }

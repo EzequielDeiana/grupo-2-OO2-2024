@@ -31,10 +31,13 @@ public class User {
 	
 	@Column(name="nombre")
 	private String nombre;
+	
 	@Column(name="apellido")
 	private String apellido;
+	
 	@Column(name="fechaNacimiento")
 	private LocalDate fechaNacimiento;
+	
 	@Column(name="dni")
 	private long dni;
 

@@ -18,6 +18,7 @@ public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "cuil")
 	private long cuil;
 

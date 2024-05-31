@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.unla.oo2.grupo2.entity.Compra;
+import com.unla.oo2.grupo2.entity.Producto;
 
 public interface ICompraServices {
 	
@@ -17,5 +18,9 @@ public interface ICompraServices {
 
 	public boolean remove(int id);
 
+	public Compra getById(int id);
 
+	public int agregar(Compra c);
+
+	public void delete(int id);
 }

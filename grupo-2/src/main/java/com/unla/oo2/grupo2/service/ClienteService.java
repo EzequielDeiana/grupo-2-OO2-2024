@@ -13,27 +13,27 @@ import com.unla.oo2.grupo2.repository.IClienteRepository;
 public class ClienteService {
 
 	@Autowired
-	IClienteRepository clienteRepo;
+	private IClienteRepository clienteRepository;
 
-// Query
+	// Query
 	public Cliente getById(int id) {
-		return clienteRepo.getReferenceById(id);
+		return clienteRepository.getReferenceById(id);
 	}
 
 	public List<Cliente> getAll() {
-		return clienteRepo.findAll();
+		return clienteRepository.findAll();
 	}
 
-//CUD
+	//CUD
 	public int agregar(Cliente c) {
-		return clienteRepo.save(c).getId();
+		return clienteRepository.save(c).getId();
 
 	}
 
 	public void delete(int id) {
 
 		if (id != 0)
-			clienteRepo.deleteById(id);
+			clienteRepository.deleteById(id);
 	}
 
 }
