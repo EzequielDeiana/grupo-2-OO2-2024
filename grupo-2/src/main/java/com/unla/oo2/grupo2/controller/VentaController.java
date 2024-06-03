@@ -77,7 +77,13 @@ public class VentaController {
 */
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("venta") Venta venta) {
-		venteService.agregar(venta);
+		
+Cliente cliente = clienteService.getById(venta.getCliente().getId());
+        
+        if (cliente != null) {
+        	venteService.agregar(venta);
+        }
+		
 		return new RedirectView("/venta/index");
 	}
 
