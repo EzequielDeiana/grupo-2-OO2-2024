@@ -47,5 +47,7 @@ public class Venta
 		this.cliente = cliente;
 		this.totalVenta = totalVenta;
 	}
+	
+	
 
 }

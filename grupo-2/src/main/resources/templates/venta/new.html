@@ -10,14 +10,13 @@
     <h1>Formulario ventas</h1>
     <form action="#" th:action="@{/venta/create}" th:object="${venta}" method="post">
 		<label for="clienteId">Cliente:</label>
-		<select id="clienteId" th:field="*{cliente.id}" c>
-		    <option value="" disabled selected>Selecciona un cliente</option>
-		    <option th:each="cliente : ${clientes}" th:value="${cliente.id}"></option>
+		<select id="clienteId" th:name="cliente" th:field="*{cliente.id}">
+		    <option th:each="cliente : ${clientes}" th:text="${cliente.id}" th:value="${cliente.id}"></option>
 		</select>
         <p>Fecha venta: <input type="text" th:field="*{fechaVenta}"></p>
 		<p>Total venta: <input type="text" th:field="*{totalVenta}"></p>
 		<button class="btn btn-primary" type="submit">Enviar</button>
     </form>
-    <a href="/venta/index" class="btn btn-secondary">Volver a la lista de ventaas</a>
+    <a href="/venta/index" class="btn btn-secondary">Volver a la lista de ventas</a>
 </body>
 </html>
