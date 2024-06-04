@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear nuevas Compras</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Formulario ventas</h1>
+    <form action="#" th:action="@{/compra/create}" th:object="${compra}" method="post">
+		<p>cantidad Comprada: <input type="text" th:field="*{cantidadComprada}"></p>
+        <p>Fecha entrega: <input type="text" th:field="*{fechaEntrega}"></p>
+		<p>Fecha lanzamiento: <input type="text" th:field="*{fechaLanzamiento}"></p>
+		<p>Proveedor: <input type="text" th:field="*{proveedor}"></p>
+		<label for="pedidoCompraId">PedidoCompra:</label>
+				<select id="pedidoCompraId" th:name="pedidoCompra" th:field="*{pedidoCompra.id}">
+					<option value="0" disabled > Elige un Pedido de Compra</option>
+				    <option th:each="pedidoCompra : ${pedidosDeCompra}" th:text="${pedidoCompra.id}" th:value="${pedidoCompra.id}"></option>
+				</select>
+		<button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+    <a href="/compra/index" class="btn btn-secondary">Volver a la lista de Compras</a>
+</body>
+</html>

@@ -1,29 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta charset="utf-8" />
-		<title>UNLa</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Compras</title>
 		<!-- Bootstrap core CSS -->
 		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/css/modern-business.css" rel="stylesheet" />
 	</head>
 	<body>
-	    <!-- Page Content -->
+	    <nav class="horizontal-nav">
+	        <div class="container">
+	            <a href="/index">Inicio</a>
+	            <a href="/venta/index">venta</a>
+	            <a href="/product/index">Product</a>
+	            <a href="/user/index">User</a>
+	        </div>
+	    </nav>
+
 	    <div class="container">
-	      <div class="jumbotron">
-	        <h1 class="display-5">Login</h1>
-	        <form th:action="@{/loginprocess}" method="post">
-		      	<input type="text" name="username" id="username" placeholder="Username" />
-		      	<input type="password" name="password" id="password" placeholder="Password" />
-		      	<input type="submit" />
-	      	</form>
-	      	<div th:if="${error != null}" class="alert alert-danger">
-		    	Invalid username or password.
-		    </div>
-	      </div>
+	        <h1>Tabla de Compras</h1>
+	        <table class="table table-bordered table-striped table-hover">
+	            <thead class="thead-dark">
+	                <tr>
+	                    <th class="th">ID</th>
+	                    <th class="th">Pedido compra</th>
+	                    <th class="th">Fecha entrega</th>
+	                    <th class="th">Fecha lanzamiento</th>
+						<th class="th">Proveedor</th>
+						<th class="th">Cantidad comprada</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="compra, iterStat : ${compras}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+	                    <td class="td" th:text="${compra.id}"></td>
+	                    <td class="td" th:text="${compra.pedidoCompra.id}"></td>
+						<td class="td" th:text="${compra.fechaEntrega}"></td>
+	                    <td class="td" th:text="${compra.fechaLanzamiento}"></td>
+						<td class="td" th:text="${compra.proveedor}"></td>
+						<td class="td" th:text="${compra.cantidadComprada}"></td>
+						<td class="td"><a th:href="@{/compra/{id}(id=${compra.id})}" class="btn btn-secondary">View</a></td>
+	                </tr>
+	            </tbody>
+	        </table>
+			
+			<div class="horizontal-nav">
+			     <div class="container">
+			         <a href="/compra/new" class="btn btn-primary">Crear nueva venta</a>
+			     </div>
+			 </div>
 	    </div>
-	    <!-- Bootstrap core JavaScript -->
-	    <script src="/vendor/jquery/jquery.min.js"></script>
-	    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
