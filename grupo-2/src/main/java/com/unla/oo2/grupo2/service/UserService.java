@@ -24,6 +24,29 @@ public class UserService implements UserDetailsService {
 	public UserService(IUserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<com.unla.oo2.grupo2.entity.User> findUsers() {
+		List<com.unla.oo2.grupo2.entity.User> users = new ArrayList<com.unla.oo2.grupo2.entity.User>();
+		
+		users = (List<com.unla.oo2.grupo2.entity.User>) userRepository.findUsers();
+		
+		return users;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<com.unla.oo2.grupo2.entity.User> findAdmins() {
+		List<com.unla.oo2.grupo2.entity.User> admins = new ArrayList<com.unla.oo2.grupo2.entity.User>();
+		
+		admins = (List<com.unla.oo2.grupo2.entity.User>) userRepository.findAdmins();
+		
+		return admins;
+	}
+	
+	public com.unla.oo2.grupo2.entity.User findUserByUsername(String username){	
+		com.unla.oo2.grupo2.entity.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+		return user;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,6 +57,7 @@ public class UserService implements UserDetailsService {
 	private User buildUser(com.unla.oo2.grupo2.entity.User user, List<GrantedAuthority> grantedAuthorities) {
 		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, grantedAuthorities);
 	}
+	
 
 	private List<GrantedAuthority> buildGrantedAuthorities(Set<UserRole> userRoles) {
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -42,4 +66,7 @@ public class UserService implements UserDetailsService {
 		}
 		return new ArrayList<>(grantedAuthorities);
 	}
+	
+	
+	
 }

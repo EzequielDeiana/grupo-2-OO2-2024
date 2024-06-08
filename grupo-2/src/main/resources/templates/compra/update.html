@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Modificar Compra</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+	<form action="#" th:action="@{/compra/{id}(id=${compra.id})}" th:object="${compra}" method="post">
+		<input type="hidden" th:name="id" th:value="${compra.id}" />
+		<p>Cantidad Comprada: <input type="text" th:field="*{cantidadComprada}"></p>
+		<p>Fecha Entrega: <input type="text" th:field="*{fechaEntrega}"></p>
+		<p>Fecha Lanzamiento: <input type="text" th:field="*{fechaLanzamiento}"></p>
+		<p>Total venta: <input type="text" th:field="*{proveedor}"></p>
+		<p>PedidoCompra ID: <input type="text" th:field="*{pedidoCompra.id}"></p>
+		<input type="submit" value="Edit" class="btn btn-primary" />
+	</form>
+	<form action="#" th:action="@{/compra/delete/{id}(id=${compra.id})}" method="post">
+		<input type="submit" value="delete compra" />
+	</form>
+
+	<a href="/compra/index" class="btn btn-secondary">Volver a la lista de Compras</a>
+</body>
+
+</html>

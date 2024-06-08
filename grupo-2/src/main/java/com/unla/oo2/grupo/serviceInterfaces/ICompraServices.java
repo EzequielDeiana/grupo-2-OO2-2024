@@ -10,7 +10,7 @@ public interface ICompraServices {
 	
 	public List<Compra> getAll();
 
-	public Optional<Compra> findById(long id) throws Exception;
+	public Optional<Compra> findById(int id) throws Exception;
 
 	public Optional<Compra> findByName(String name) throws Exception;
 

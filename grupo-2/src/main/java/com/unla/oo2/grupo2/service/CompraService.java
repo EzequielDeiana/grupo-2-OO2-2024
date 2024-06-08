@@ -38,9 +38,8 @@ public class CompraService implements ICompraServices {
 	}
 
 	@Override
-	public Optional<Compra> findById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<Compra> findById(int id) throws Exception {
+		return compraRepository.findById(id);
 	}
 
 	@Override
@@ -51,13 +50,13 @@ public class CompraService implements ICompraServices {
 
 	@Override
 	public Compra insertOrUpdate(Compra compra) {
-		// TODO Auto-generated method stub
-		return null;
+		return compraRepository.save(compra);
 	}
 
 	@Override
 	public boolean remove(int id) {
-		// TODO Auto-generated method stub
+		if (id != 0)
+			compraRepository.deleteById(id);
 		return false;
 	}
 
