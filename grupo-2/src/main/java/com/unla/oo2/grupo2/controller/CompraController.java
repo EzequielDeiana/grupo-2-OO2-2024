@@ -21,12 +21,10 @@ public class CompraController {
 
 	private ICompraServices compraService;
 	private PedidoCompraService pedidoCompra;
-	private IProducto productoService;
 
-	public CompraController(ICompraServices compraService, PedidoCompraService pedidoCompra, IProducto productoService) {
+	public CompraController(ICompraServices compraService, PedidoCompraService pedidoCompra) {
 		this.compraService = compraService;
 		this.pedidoCompra = pedidoCompra;
-		this.productoService = productoService;
 	}
 
 	@GetMapping("/index")

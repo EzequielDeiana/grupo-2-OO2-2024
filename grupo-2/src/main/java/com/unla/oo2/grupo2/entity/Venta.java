@@ -36,12 +36,12 @@ public class Venta
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "cliente")
-	private Cliente cliente;
+	private User cliente;
 	
 	@Column(name = "totalVenta")
 	private double totalVenta;
 
-	public Venta(LocalDate fechaVenta, Cliente cliente, double totalVenta) {
+	public Venta(LocalDate fechaVenta, User cliente, double totalVenta) {
 		super();
 		this.fechaVenta = fechaVenta;
 		this.cliente = cliente;

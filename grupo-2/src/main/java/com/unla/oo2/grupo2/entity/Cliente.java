@@ -27,6 +27,5 @@ public class Cliente {
 		this.clientePremium = clientePremium;
 	}
 	
-	
 
 }
