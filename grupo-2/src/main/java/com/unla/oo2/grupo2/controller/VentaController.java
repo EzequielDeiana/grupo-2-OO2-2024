@@ -16,12 +16,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo.serviceInterfaces.IProducto;
 import com.unla.oo2.grupo.serviceInterfaces.IVenta;
-import com.unla.oo2.grupo2.entity.Cliente;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.UserRole;
 import com.unla.oo2.grupo2.entity.Venta;
-import com.unla.oo2.grupo2.service.ClienteService;
 import com.unla.oo2.grupo2.service.UserService;
 
 @Controller
@@ -30,7 +28,6 @@ public class VentaController {
 
 	private IVenta venteService;
 	private IProducto productoService;
-	private ClienteService clienteService;
 	private UserService userService;
 	
 
@@ -57,10 +54,6 @@ public class VentaController {
 			}
 		}
 		
-		//modelAndView.addObject("ventas", venteService.getAll());
-		//modelAndView.addObject("clientes", userService.findUsers());
-		//modelAndView.addObject("admins", userService.findAdmins());
-		
 		return modelAndView;
 	}
 
@@ -79,7 +72,7 @@ public class VentaController {
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/venta/new");
-		model.addObject("clientes", clienteService.getAll());
+		model.addObject("clientes", userService.findUsers());
 		model.addObject("venta", new Venta());
 		return model;
 	}
@@ -104,7 +97,7 @@ public class VentaController {
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("venta") Venta venta) {
 		
-Cliente cliente = clienteService.getById(venta.getCliente().getId());
+		User cliente = userService.findUserByUsername(venta.getCliente().getUsername());
         
         if (cliente != null) {
         	venteService.agregar(venta);
