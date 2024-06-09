@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Compras</title>
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/css/modern-business.css" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
 	<header class="bg-dark text-white py-4">
 		<div class="container">
@@ -29,32 +33,33 @@
 			</nav>
 		</div>
 	</header>
-    <div class="container">
-        <h1>Tabla de Ventas</h1>
-        <table class="table table-bordered table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="th">ID</th>
-                    <th class="th">Cliente ID</th>
-                    <th class="th">Fecha venta</th>
-                    <th class="th">Total venta</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="venta, iterStat : ${ventas}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-                    <td class="td" th:text="${venta.id}"></td>
-                    <td class="td" th:text="${venta.cliente.id}"></td>
+	<div class="container">
+		<h1>Tabla de Ventas</h1>
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th class="th">ID</th>
+					<th class="th">Cliente ID</th>
+					<th class="th">Fecha venta</th>
+					<th class="th">Total venta</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="venta, iterStat : ${ventas}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+					<td class="td" th:text="${venta.id}"></td>
+					<td class="td" th:text="${venta.cliente.id}"></td>
 					<td class="td" th:text="${venta.fechaVenta}"></td>
-                    <td class="td" th:text="${venta.totalVenta}"></td>	
+					<td class="td" th:text="${venta.totalVenta}"></td>
 					<td class="td"><a th:href="@{/venta/{id}(id=${venta.id})}" class="btn btn-secondary">View</a></td>
-                </tr>
-            </tbody>
-        </table>
+				</tr>
+			</tbody>
+		</table>
 		<div class="horizontal-nav">
-		     <div class="container">
-		         <a href="/venta/new" class="btn btn-primary">Crear nueva venta</a>
-		     </div>
-		 </div>
-    </div>
+			<div class="container">
+				<a href="/venta/new" class="btn btn-primary">Crear nueva venta</a>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>
