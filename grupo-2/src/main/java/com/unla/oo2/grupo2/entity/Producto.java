@@ -14,27 +14,27 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table(name = "producto")
-public class Producto 
-{
+public class Producto {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "nombre")
 	private String nombre;
-	
+
 	@Column(name = "descripcion")
 	private String descripcion;
-	
+
 	@Column(name = "tipo")
 	private String tipo;
-	
+
 	@Column(name = "stockRestante")
 	private int stockRestante;
-	
+
 	@Column(name = "precio")
 	private double precio;
-	
+
 	@Column(name = "activo")
 	private boolean activo;
 

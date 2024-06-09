@@ -7,53 +7,32 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unla.oo2.grupo.serviceInterfaces.IPedidoCompra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.repository.IPedidoCompraRepository;
+import com.unla.oo2.grupo2.serviceInterfaces.IPedidoCompraService;
 
 @Service
-public class PedidoCompraService implements IPedidoCompra {
+public class PedidoCompraService implements IPedidoCompraService {
 
 	@Autowired
 	private IPedidoCompraRepository pedidoCompraRepository;
 
-	// Query
-	public PedidoCompra getById(int id) {
-		return pedidoCompraRepository.getReferenceById(id);
+	public Optional<PedidoCompra> findById(int id) {
+		return pedidoCompraRepository.findById(id);
 	}
 
-	public List<PedidoCompra> getAll() {
+	public List<PedidoCompra> findAll() {
 		return pedidoCompraRepository.findAll();
 	}
 
-	// CUD
-	public int agregar(PedidoCompra c) {
-		return pedidoCompraRepository.save(c).getId();
-
+	public void add(PedidoCompra c) {
+		pedidoCompraRepository.save(c);
 	}
 
 	public void delete(int id) {
-
-		if (id != 0)
+		if (id != 0) {
 			pedidoCompraRepository.deleteById(id);
-	}
-
-	@Override
-	public Optional<PedidoCompra> findById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
-
-	@Override
-	public PedidoCompra insertOrUpdate(PedidoCompra pedidocompra) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean remove(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		}
 	}
 
 }

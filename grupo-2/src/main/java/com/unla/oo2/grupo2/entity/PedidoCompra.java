@@ -19,16 +19,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "pedidoCompra")
 public class PedidoCompra {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "producto")
 	private Producto producto;
+
 	@Column(name = "fechaLanzamiento")
 	private LocalDate fechaLanzamiento;
+
 	@Column(name = "comprado")
 	private boolean comprado;
+
 	@Column(name = "cantidadSolicitada")
 	private int cantidadSolicitada;
 

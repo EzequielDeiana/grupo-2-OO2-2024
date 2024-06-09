@@ -2,9 +2,9 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8" />
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Compras</title>
+	<title>Productos</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -12,7 +12,7 @@
 <body>
 	<header class="bg-dark text-white py-4">
 		<div class="container">
-			<h1 class="text-center">Compras</h1>
+			<h1 class="text-center">Pedidos Compra</h1>
 			<nav class="text-center">
 				<ul class="nav justify-content-center">
 					<li class="nav-item">
@@ -33,26 +33,33 @@
 	</header>
 	<div class="container d-flex justify-content-center mt-4">
 		<div class="w-100">
-			<h1 class="text-center">Tabla de Compras</h1>
+			<h1 class="text-center">Tabla de Pedidos Compra</h1>
+			<div th:if="${error}" class="alert alert-danger" role="alert">
+				<p th:text="${error}"></p>
+			</div>
 			<table class="table table-bordered table-striped table-hover text-center">
 				<thead class="thead-dark">
 					<tr>
 						<th class="th">ID</th>
-						<th class="th">Pedido compra</th>
-						<th class="th">Fecha entrega</th>
-						<th class="th">Fecha lanzamiento</th>
-						<th class="th">Proveedor</th>
-						<th class="th">Cantidad comprada</th>
+						<th class="th">Cantidad solicitada</th>
+						<th class="th">Comprado</th>
+						<th class="th">Fecha de lanzamiento</th>
+						<th class="th">Producto</th>
+						<th class="th">Realizar Abastecimiento</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="compra, iterStat : ${compras}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-						<td class="td" th:text="${compra.id}"></td>
-						<td class="td" th:text="${compra.pedidoCompra.id}"></td>
-						<td class="td" th:text="${compra.fechaEntrega}"></td>
-						<td class="td" th:text="${compra.fechaLanzamiento}"></td>
-						<td class="td" th:text="${compra.proveedor}"></td>
-						<td class="td" th:text="${compra.cantidadComprada}"></td>
+					<tr th:each="pedidoCompra, iterStat : ${pedidosCompra}"
+						th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+						<td class="td" th:text="${pedidoCompra.id}"></td>
+						<td class="td" th:text="${pedidoCompra.cantidadSolicitada}"></td>
+						<td class="td" th:text="${pedidoCompra.comprado}"></td>
+						<td class="td" th:text="${pedidoCompra.fechaLanzamiento}"></td>
+						<td class="td" th:text="${pedidoCompra.producto.id}"></td>
+						<td class="td">
+							<a th:href="@{/pedidocompra/newcompra(pedidoCompraId=${pedidoCompra.id})}"
+								class="btn btn-secondary">Realizar Compra</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

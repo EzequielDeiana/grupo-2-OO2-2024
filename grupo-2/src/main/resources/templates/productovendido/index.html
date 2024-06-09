@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Productos Vendidos</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+	<header class="bg-dark text-white py-4">
+		<div class="container">
+			<h1 class="text-center">Productos Vendidos</h1>
+			<nav class="text-center">
+				<ul class="nav justify-content-center">
+					<li class="nav-item">
+						<a class="nav-link" href="/producto/index">Productos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/venta/index">Ventas</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/compra/index">Compras</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/pedidocompra/index">Pedidos compras</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="container">
+		<h1>Tabla de Productos Vendidos</h1>
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th class="th">ID</th>
+					<th class="th">Producto ID</th>
+					<th class="th">Cantidad</th>
+					<th class="th">Total producto</th>
+					<th class="th">Venta ID</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="productovendido, iterStat : ${productovendidos}"
+					th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+					<td class="td" th:text="${productovendido.id}"></td>
+					<td class="td" th:text="${productovendido.producto.id}"></td>
+					<td class="td" th:text="${productovendido.cantidad}"></td>
+					<td class="td" th:text="${productovendido.totalProducto}"></td>
+					<td class="td" th:text="${productovendido.venta.id}"></td>
+					<td class="td"><a th:href="@{/productovendido/{id}(id=${productovendido.id})}"
+							class="btn btn-secondary">View</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="horizontal-nav">
+			<div class="container">
+				<a href="/productovendido/new" class="btn btn-primary">Crear nueva productovendido</a>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -9,23 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProducto;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.helper.RouteHelper;
+import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
 
 @Controller
 @RequestMapping("/producto")
 public class ProductoController {
 
-	private IProducto productoService;
+	private IProductoService productoService;
 
-	public ProductoController(IProducto productoService) {
+	public ProductoController(IProductoService productoService) {
 		this.productoService = productoService;
 	}
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		return new ModelAndView(RouteHelper.PRODUCTO_INDEX);
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
+		modelAndView.addObject("productos", productoService.findProductosDisponibles());
+		return modelAndView;
 	}
 
 	@GetMapping("/")
@@ -42,12 +44,12 @@ public class ProductoController {
 
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("producto") Producto producto) {
-		productoService.insertOrUpdate(producto);
+		productoService.add(producto);
 		return new RedirectView("/producto/index");
 	}
 
 	@GetMapping("/{id}")
-	public ModelAndView get(@PathVariable("id") Long id) throws Exception {
+	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/producto/update");
 		modelAndView.addObject("producto", productoService.findById(id).get());
 		return modelAndView;
@@ -55,22 +57,21 @@ public class ProductoController {
 
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("producto") Producto producto) {
-		productoService.insertOrUpdate(producto);
+		productoService.add(producto);
 		return new RedirectView("/producto/index");
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
-		productoService.remove(id);
+		productoService.delete(id);
 		return new RedirectView("/producto/index");
 	}
-	
+
 	@GetMapping("/all")
 	public ModelAndView prueba() {
 		ModelAndView model = new ModelAndView("/producto/new");
-		productoService.insertOrUpdate(new Producto("1", "1", "1", 1, 1, true));
+		productoService.add(new Producto("1", "1", "1", 1, 1, true));
 		return model;
 	}
-	
-	
+
 }

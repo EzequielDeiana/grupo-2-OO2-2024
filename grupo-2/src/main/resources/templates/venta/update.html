@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar ventaa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <form action="#" th:action="@{/venta/{id}(id=${venta.id})}" th:object="${venta}" method="post">
+        <input type="hidden" th:name="id" th:value="${venta.id}" />
+		<p>Cliente ID: <input type="text" th:field="*{cliente.id}"></p>
+		<p>Fecha venta: <input type="text" th:field="*{fechaVenta}"></p>
+		<p>Total venta: <input type="text" th:field="*{totalVenta}"></p>
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </form>
+	<form action="#" th:action="@{/venta/delete/{id}(id=${venta.id})}" method="post">
+		<input type="submit" value="delete venta" />
+	</form>
+
+    <a href="/venta/index" class="btn btn-secondary">Volver a la lista de ventaas</a>
+</body>
+</html>

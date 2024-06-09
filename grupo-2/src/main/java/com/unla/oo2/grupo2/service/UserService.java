@@ -25,6 +25,23 @@ public class UserService implements UserDetailsService {
 		this.userRepository = userRepository;
 	}
 
+	public List<com.unla.oo2.grupo2.entity.User> findUsers() {
+		List<com.unla.oo2.grupo2.entity.User> users = new ArrayList<com.unla.oo2.grupo2.entity.User>();
+		users = (List<com.unla.oo2.grupo2.entity.User>) userRepository.findUsers();
+		return users;
+	}
+
+	public List<com.unla.oo2.grupo2.entity.User> findAdmins() {
+		List<com.unla.oo2.grupo2.entity.User> admins = new ArrayList<com.unla.oo2.grupo2.entity.User>();
+		admins = (List<com.unla.oo2.grupo2.entity.User>) userRepository.findAdmins();
+		return admins;
+	}
+
+	public com.unla.oo2.grupo2.entity.User findUserByUsername(String username) {
+		com.unla.oo2.grupo2.entity.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+		return user;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		com.unla.oo2.grupo2.entity.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
@@ -42,4 +59,5 @@ public class UserService implements UserDetailsService {
 		}
 		return new ArrayList<>(grantedAuthorities);
 	}
+
 }
