@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.ICompraService;
-import com.unla.oo2.grupo.serviceInterfaces.IPedidoCompraService;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
+import com.unla.oo2.grupo2.serviceInterfaces.ICompraService;
+import com.unla.oo2.grupo2.serviceInterfaces.IPedidoCompraService;
 
 @Controller
 @RequestMapping("/pedidocompra")
@@ -91,10 +91,11 @@ public class PedidoCompraController {
 	}
 
 	@PostMapping("/createcompra")
-	public RedirectView createCompra(@RequestParam("pedidoCompraId") int pedidoCompraId, @ModelAttribute("compra") Compra compra) {
+	public RedirectView createCompra(@RequestParam("pedidoCompraId") int pedidoCompraId,
+			@ModelAttribute("compra") Compra compra) {
 		PedidoCompra pedidoCompra = pedidoCompraService.findById(pedidoCompraId).orElse(null);
 		if (pedidoCompra == null) {
-			return new RedirectView("/error"); 						
+			return new RedirectView("/error");
 		}
 		compra.setFechaLanzamiento(LocalDate.now());
 		compra.setFechaEntrega(LocalDate.now().plusDays(7));

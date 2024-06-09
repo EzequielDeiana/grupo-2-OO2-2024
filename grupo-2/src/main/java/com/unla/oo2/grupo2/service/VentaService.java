@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unla.oo2.grupo.serviceInterfaces.IVentaService;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.repository.IVentaRepository;
+import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
 
 @Service
 public class VentaService implements IVentaService {

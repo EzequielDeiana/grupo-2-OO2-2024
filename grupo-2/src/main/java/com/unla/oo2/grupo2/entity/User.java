@@ -28,17 +28,17 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="nombre")
+
+	@Column(name = "nombre")
 	private String nombre;
-	
-	@Column(name="apellido")
+
+	@Column(name = "apellido")
 	private String apellido;
-	
-	@Column(name="fechaNacimiento")
+
+	@Column(name = "fechaNacimiento")
 	private LocalDate fechaNacimiento;
-	
-	@Column(name="dni")
+
+	@Column(name = "dni")
 	private long dni;
 
 	@Column(name = "username", unique = true, nullable = false, length = 45)
@@ -58,7 +58,8 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<UserRole> userRoles = new HashSet<>();
 
-	public User(String username, String password, boolean enabled, String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
+	public User(String username, String password, boolean enabled, String nombre, String apellido,
+			LocalDate fechaNacimiento, long dni) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -73,6 +74,6 @@ public class User {
 		this.password = password;
 		this.enabled = enabled;
 		this.userRoles = userRoles;
-		
+
 	}
 }

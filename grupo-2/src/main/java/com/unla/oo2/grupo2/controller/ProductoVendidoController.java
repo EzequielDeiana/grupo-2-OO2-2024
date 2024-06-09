@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProductoService;
-import com.unla.oo2.grupo.serviceInterfaces.IProductoVendidoService;
 import com.unla.oo2.grupo2.entity.ProductoVendido;
+import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
+import com.unla.oo2.grupo2.serviceInterfaces.IProductoVendidoService;
 
 @Controller
 @RequestMapping("/productovendido")
@@ -34,7 +34,7 @@ public class ProductoVendidoController {
 	public RedirectView redirectToHomeIndex() {
 		return new RedirectView("/productovendido/index");
 	}
-	
+
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("productovendido") ProductoVendido productovendido) {
 		productovendidoService.add(productovendido);

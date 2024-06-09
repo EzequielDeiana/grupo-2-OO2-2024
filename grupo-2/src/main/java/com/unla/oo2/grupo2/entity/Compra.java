@@ -2,7 +2,6 @@
 package com.unla.oo2.grupo2.entity;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

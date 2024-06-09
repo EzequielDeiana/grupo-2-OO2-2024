@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProductoService;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.repository.IProductoRepository;
+import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
 
 @Service
 public class ProductoService implements IProductoService {

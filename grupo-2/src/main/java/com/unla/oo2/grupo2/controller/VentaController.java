@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProductoService;
-import com.unla.oo2.grupo.serviceInterfaces.IVentaService;
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.UserRole;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.service.UserService;
+import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
+import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
 
 @Controller
 @RequestMapping("/venta")
@@ -60,7 +60,7 @@ public class VentaController {
 		}
 		return new RedirectView("/venta/index");
 	}
-	
+
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/venta/new");
@@ -68,7 +68,7 @@ public class VentaController {
 		model.addObject("venta", new Venta());
 		return model;
 	}
-	
+
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/venta/update");

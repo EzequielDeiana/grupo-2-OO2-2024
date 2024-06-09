@@ -1,4 +1,4 @@
-package com.unla.oo2.grupo.serviceInterfaces;
+package com.unla.oo2.grupo2.serviceInterfaces;
 
 import java.util.List;
 import java.util.Optional;
