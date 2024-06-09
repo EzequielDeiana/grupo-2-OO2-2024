@@ -2,6 +2,7 @@
 package com.unla.oo2.grupo2.entity;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,18 +20,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "compra")
 public class Compra {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	@OneToOne(optional = false)
 	@JoinColumn(name = "pedidoCompra")
 	private PedidoCompra pedidoCompra;
+
 	@Column(name = "fechaEntrega")
 	private LocalDate fechaEntrega;
+
 	@Column(name = "fechaLanzamiento")
 	private LocalDate fechaLanzamiento;
+
 	@Column(name = "proveedor")
 	private String proveedor;
+
 	@Column(name = "cantidadComprada")
 	private int cantidadComprada;
 
@@ -42,6 +49,11 @@ public class Compra {
 		this.fechaLanzamiento = fechaLanzamiento;
 		this.proveedor = proveedor;
 		this.cantidadComprada = cantidadComprada;
+	}
+
+	public Compra(PedidoCompra pedidoCompra) {
+		super();
+		this.pedidoCompra = pedidoCompra;
 	}
 
 }

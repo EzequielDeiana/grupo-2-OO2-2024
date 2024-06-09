@@ -7,12 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unla.oo2.grupo.serviceInterfaces.IVenta;
+import com.unla.oo2.grupo.serviceInterfaces.IVentaService;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.repository.IVentaRepository;
 
 @Service
-public class VentaService implements IVenta {
+public class VentaService implements IVentaService {
 
 	@Autowired
 	IVentaRepository ventaRepository;

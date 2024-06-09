@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProducto;
-import com.unla.oo2.grupo.serviceInterfaces.IProductoVendido;
+import com.unla.oo2.grupo.serviceInterfaces.IProductoService;
+import com.unla.oo2.grupo.serviceInterfaces.IProductoVendidoService;
 import com.unla.oo2.grupo2.entity.ProductoVendido;
 
 @Controller
 @RequestMapping("/productovendido")
 public class ProductoVendidoController {
 
-	private IProductoVendido productovendidoService;
+	private IProductoVendidoService productovendidoService;
 
-	public ProductoVendidoController(IProductoVendido productovendidoService, IProducto productoService) {
+	public ProductoVendidoController(IProductoVendidoService productovendidoService, IProductoService productoService) {
 		this.productovendidoService = productovendidoService;
 	}
 

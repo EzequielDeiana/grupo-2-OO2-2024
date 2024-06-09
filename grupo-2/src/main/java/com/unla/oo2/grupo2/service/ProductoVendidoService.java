@@ -7,12 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProductoVendido;
+import com.unla.oo2.grupo.serviceInterfaces.IProductoVendidoService;
 import com.unla.oo2.grupo2.entity.ProductoVendido;
 import com.unla.oo2.grupo2.repository.IProductoVendidoRepository;
 
 @Service
-public class ProductoVendidoService implements IProductoVendido {
+public class ProductoVendidoService implements IProductoVendidoService {
 	
 	@Autowired
 	private IProductoVendidoRepository productoVendidoRepository;

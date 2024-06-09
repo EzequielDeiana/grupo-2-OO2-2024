@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 
-public interface IPedidoCompra {
+public interface IPedidoCompraService {
 	public List<PedidoCompra> findAll();
 
 	public Optional<PedidoCompra> findById(int id);

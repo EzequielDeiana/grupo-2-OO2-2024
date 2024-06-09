@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.unla.oo2.grupo2.entity.Producto;
 
-public interface IProducto {
+public interface IProductoService {
 	public List<Producto> findAll();
 
 	public Optional<Producto> findById(int id) throws Exception;

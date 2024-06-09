@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProducto;
+import com.unla.oo2.grupo.serviceInterfaces.IProductoService;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.helper.RouteHelper;
 
@@ -17,9 +17,9 @@ import com.unla.oo2.grupo2.helper.RouteHelper;
 @RequestMapping("/producto")
 public class ProductoController {
 
-	private IProducto productoService;
+	private IProductoService productoService;
 
-	public ProductoController(IProducto productoService) {
+	public ProductoController(IProductoService productoService) {
 		this.productoService = productoService;
 	}
 
@@ -34,18 +34,18 @@ public class ProductoController {
 	public RedirectView redirectHome() {
 		return new RedirectView(RouteHelper.INDEX);
 	}
-	
-	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("producto") Producto producto) {
-		productoService.add(producto);
-		return new RedirectView("/producto/index");
-	}
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/producto/new");
 		model.addObject("producto", new Producto());
 		return model;
+	}
+	
+	@PostMapping("/create")
+	public RedirectView create(@ModelAttribute("producto") Producto producto) {
+		productoService.add(producto);
+		return new RedirectView("/producto/index");
 	}
 
 	@GetMapping("/{id}")

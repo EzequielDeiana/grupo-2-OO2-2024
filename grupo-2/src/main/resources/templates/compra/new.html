@@ -14,10 +14,10 @@
 		<p>Fecha lanzamiento: <input type="text" th:field="*{fechaLanzamiento}"></p>
 		<p>Proveedor: <input type="text" th:field="*{proveedor}"></p>
 		<label for="pedidoCompraId">PedidoCompra:</label>
-				<select id="pedidoCompraId" th:name="pedidoCompra" th:field="*{pedidoCompra.id}">
-					<option value="0" disabled > Elige un Pedido de Compra</option>
-				    <option th:each="pedidoCompra : ${pedidosDeCompra}" th:text="${pedidoCompra.id}" th:value="${pedidoCompra.id}"></option>
-				</select>
+		<select id="pedidoCompraId" th:name="pedidoCompra" th:field="*{pedidoCompra.id}">
+			<option value="0" disabled > Elige un Pedido de Compra</option>
+		    <option th:each="pedidoCompra : ${pedidosDeCompra}" th:text="${pedidoCompra.id}" th:value="${pedidoCompra.id}"></option>
+		</select>
 		<button class="btn btn-primary" type="submit">Enviar</button>
     </form>
     <a href="/compra/index" class="btn btn-secondary">Volver a la lista de Compras</a>

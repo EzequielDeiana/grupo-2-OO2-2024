@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.IProducto;
-import com.unla.oo2.grupo.serviceInterfaces.IVenta;
+import com.unla.oo2.grupo.serviceInterfaces.IProductoService;
+import com.unla.oo2.grupo.serviceInterfaces.IVentaService;
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.UserRole;
 import com.unla.oo2.grupo2.entity.Venta;
@@ -23,10 +23,10 @@ import com.unla.oo2.grupo2.service.UserService;
 @RequestMapping("/venta")
 public class VentaController {
 
-	private IVenta ventaService;
+	private IVentaService ventaService;
 	private UserService userService;
 
-	public VentaController(IVenta ventaService, IProducto productoService, UserService userService) {
+	public VentaController(IVentaService ventaService, IProductoService productoService, UserService userService) {
 		this.ventaService = ventaService;
 		this.userService = userService;
 	}

@@ -1,31 +1,39 @@
 package com.unla.oo2.grupo2.controller;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.IPedidoCompra;
+import com.unla.oo2.grupo.serviceInterfaces.ICompraService;
+import com.unla.oo2.grupo.serviceInterfaces.IPedidoCompraService;
+import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 
 @Controller
 @RequestMapping("/pedidocompra")
 public class PedidoCompraController {
 
-	private IPedidoCompra pedidocompraService;
+	private IPedidoCompraService pedidoCompraService;
+	private ICompraService compraService;
 
-	public PedidoCompraController(IPedidoCompra pedidocompraService) {
-		this.pedidocompraService = pedidocompraService;
+	public PedidoCompraController(IPedidoCompraService pedidoCompraService, ICompraService compraService) {
+		this.pedidoCompraService = pedidoCompraService;
+		this.compraService = compraService;
 	}
 
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/index");
-		modelAndView.addObject("pedidos", pedidocompraService.findAll());
+		modelAndView.addObject("pedidosCompra", pedidoCompraService.findAll());
 		return modelAndView;
 	}
 
@@ -43,26 +51,55 @@ public class PedidoCompraController {
 
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("pedidocompra") PedidoCompra pedidocompra) {
-		pedidocompraService.add(pedidocompra);
+		pedidoCompraService.add(pedidocompra);
 		return new RedirectView("/pedidocompra/index");
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/update");
-		modelAndView.addObject("pedidocompra", pedidocompraService.findById(id).get());
+		modelAndView.addObject("pedidocompra", pedidoCompraService.findById(id).get());
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("pedidocompra") PedidoCompra pedidocompra) {
-		pedidocompraService.add(pedidocompra);
+	public RedirectView update(@ModelAttribute("pedidocompra") PedidoCompra pedidoCompra) {
+		pedidoCompraService.add(pedidoCompra);
 		return new RedirectView("/pedidocompra/index");
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
-		pedidocompraService.delete(id);
+		pedidoCompraService.delete(id);
+		return new RedirectView("/pedidocompra/index");
+	}
+
+	@GetMapping("/newcompra")
+	public ModelAndView createCompraForm(@RequestParam("pedidoCompraId") int pedidoCompraId) {
+		ModelAndView modelAndView;
+		Optional<Compra> existingCompra = compraService.findById(pedidoCompraId);
+		if (existingCompra.isPresent()) {
+			modelAndView = new ModelAndView("/pedidocompra/index");
+			modelAndView.addObject("error", "Error: Compra ya realizada para el Pedido ID " + pedidoCompraId);
+			modelAndView.addObject("pedidosCompra", pedidoCompraService.findAll());
+		} else {
+			modelAndView = new ModelAndView("/pedidocompra/new");
+			modelAndView.addObject("pedidoCompraId", pedidoCompraId);
+			modelAndView.addObject("compra", new Compra());
+		}
+		return modelAndView;
+	}
+
+	@PostMapping("/createcompra")
+	public RedirectView createCompra(@RequestParam("pedidoCompraId") int pedidoCompraId, @ModelAttribute("compra") Compra compra) {
+		PedidoCompra pedidoCompra = pedidoCompraService.findById(pedidoCompraId).orElse(null);
+		if (pedidoCompra == null) {
+			return new RedirectView("/error"); 						
+		}
+		compra.setFechaLanzamiento(LocalDate.now());
+		compra.setFechaEntrega(LocalDate.now().plusDays(7));
+		compra.setPedidoCompra(pedidoCompra);
+		compraService.add(compra);
 		return new RedirectView("/pedidocompra/index");
 	}
 

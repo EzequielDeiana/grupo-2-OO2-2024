@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.unla.oo2.grupo2.entity.Compra;
 
-public interface ICompraServices {
+public interface ICompraService {
 	public List<Compra> findAll();
 
 	public Optional<Compra> findById(int id);

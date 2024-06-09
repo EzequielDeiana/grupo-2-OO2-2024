@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.unla.oo2.grupo.serviceInterfaces.ICompraServices;
+import com.unla.oo2.grupo.serviceInterfaces.ICompraService;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.service.PedidoCompraService;
 
@@ -17,10 +17,10 @@ import com.unla.oo2.grupo2.service.PedidoCompraService;
 @RequestMapping("/compra")
 public class CompraController {
 
-	private ICompraServices compraService;
+	private ICompraService compraService;
 	private PedidoCompraService pedidoCompra;
 
-	public CompraController(ICompraServices compraService, PedidoCompraService pedidoCompra) {
+	public CompraController(ICompraService compraService, PedidoCompraService pedidoCompra) {
 		this.compraService = compraService;
 		this.pedidoCompra = pedidoCompra;
 	}

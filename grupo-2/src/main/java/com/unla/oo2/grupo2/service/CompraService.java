@@ -7,12 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.unla.oo2.grupo.serviceInterfaces.ICompraServices;
+import com.unla.oo2.grupo.serviceInterfaces.ICompraService;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.repository.ICompraRepository;
 
 @Service
-public class CompraService implements ICompraServices {
+public class CompraService implements ICompraService {
 	
 	@Autowired
 	private ICompraRepository compraRepository;
