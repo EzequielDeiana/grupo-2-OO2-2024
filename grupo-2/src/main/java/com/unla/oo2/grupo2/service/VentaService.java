@@ -17,41 +17,22 @@ public class VentaService implements IVenta {
 	@Autowired
 	IVentaRepository ventaRepository;
 
-
-	// Query
-	public Venta getById(int id) {
-		return ventaRepository.getReferenceById(id);
-	}
-
-	public List<Venta> getAll() {
-		return ventaRepository.findAll();
-	}
-
-	//CUD
-	public int agregar(Venta c) {
-		return ventaRepository.save(c).getId();
-	}
-
-	public void delete(int id) {
-		if (id != 0)
-			ventaRepository.deleteById(id);
-	}
-
-	@Override
-	public Optional<Venta> findById(int id) throws Exception {
+	public Optional<Venta> findById(int id) {
 		return ventaRepository.findById(id);
 	}
 
-	@Override
-	public Venta insertOrUpdate(Venta venta) {
-		return ventaRepository.save(venta);
+	public List<Venta> findAll() {
+		return ventaRepository.findAll();
 	}
 
-	@Override
-	public boolean remove(int id) {
-		if (id != 0)
+	public void add(Venta venta) {
+		ventaRepository.save(venta);
+	}
+
+	public void delete(int id) {
+		if (id != 0) {
 			ventaRepository.deleteById(id);
-		return false;
+		}
 	}
 
 }

@@ -10,7 +10,7 @@
 <body>
 	<header class="bg-dark text-white py-4">
 		<div class="container">
-			<h1 class="text-center">Productos</h1>
+			<h1 class="text-center">Pedidos Compra</h1>
 			<nav class="text-center">
 				<ul class="nav justify-content-center">
 					<li class="nav-item">
@@ -30,37 +30,27 @@
 		</div>
 	</header>
 	<div class="container">
-		<h1>Tabla de Productos</h1>
+		<h1>Tabla de Pedidos Compra</h1>
 		<table class="table table-bordered table-striped table-hover">
 			<thead class="thead-dark">
 				<tr>
 					<th class="th">ID</th>
-					<th class="th">Nombre</th>
-					<th class="th">Descripcion</th>
-					<th class="th">Tipo</th>
-					<th class="th">Stock Restante</th>
-					<th class="th">Precio</th>
-					<th class="th">Activo</th>
+					<th class="th">Cantidad solicitada</th>
+					<th class="th">Comprado</th>
+					<th class="th">Fecha de lanzamiento</th>
+					<th class="th">Producto</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="producto, iterStat : ${productos}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-					<td class="td" th:text="${producto.id}"></td>
-					<td class="td" th:text="${producto.nombre}"></td>
-					<td class="td" th:text="${producto.descripcion}"></td>
-					<td class="td" th:text="${producto.tipo}"></td>
-					<td class="td" th:text="${producto.stockRestante}"></td>
-					<td class="td" th:text="${producto.precio}"></td>
-					<td class="td" th:text="${producto.activo}"></td>
-					<td class="td"><a th:href="@{/producto/{id}(id=${producto.id})}" class="btn btn-secondary">Comprar</a></td>
+				<tr th:each="pedido, iterStat : ${pedidos}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+					<td class="td" th:text="${pedido.id}"></td>
+					<td class="td" th:text="${pedido.cantidadSolicitada}"></td>
+					<td class="td" th:text="${pedido.comprado}"></td>
+					<td class="td" th:text="${pedido.fechaLanzamiento}"></td>
+					<td class="td" th:text="${pedido.producto.id}"></td>
 				</tr>
 			</tbody>
 		</table>
-		<div class="horizontal-nav">
-			<div class="container">
-				<a href="/producto/new" class="btn btn-primary">Crear nueva producto</a>
-			</div>
-		</div>
 	</div>
 </body>
 </html>

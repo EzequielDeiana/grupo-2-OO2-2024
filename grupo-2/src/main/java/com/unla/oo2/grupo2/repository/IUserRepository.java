@@ -21,7 +21,6 @@ public interface IUserRepository extends JpaRepository<User, Serializable> {
 	
 	@Query("SELECT u FROM User u JOIN FETCH u.userRoles ur WHERE ur.role = ('ROLE_ADMIN')")
 	public abstract List<User> findAdmins();
-	
 
 	public abstract User findByUsername(String username);
 }

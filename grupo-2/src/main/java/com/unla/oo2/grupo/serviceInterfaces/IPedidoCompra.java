@@ -4,21 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.unla.oo2.grupo2.entity.PedidoCompra;
-import com.unla.oo2.grupo2.entity.Producto;
 
 public interface IPedidoCompra {
-	
-	public List<PedidoCompra> getAll();
+	public List<PedidoCompra> findAll();
 
-	public Optional<PedidoCompra> findById(long id) throws Exception;
+	public Optional<PedidoCompra> findById(int id);
 
-	public PedidoCompra insertOrUpdate(PedidoCompra pedidocompra);
-
-	public boolean remove(int id);
-	
-	public PedidoCompra getById(int id);
-
-	public int agregar(PedidoCompra c);
+	public void add(PedidoCompra pedidoCompra);
 
 	public void delete(int id);
 

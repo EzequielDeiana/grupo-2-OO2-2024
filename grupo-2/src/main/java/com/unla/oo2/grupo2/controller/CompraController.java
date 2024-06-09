@@ -10,8 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo.serviceInterfaces.ICompraServices;
-import com.unla.oo2.grupo.serviceInterfaces.IPedidoCompra;
-import com.unla.oo2.grupo.serviceInterfaces.IProducto;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.service.PedidoCompraService;
 
@@ -30,9 +28,9 @@ public class CompraController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("compra/index");
-				modelAndView.addObject("compras", compraService.getAll());
-			
-			return modelAndView;
+		modelAndView.addObject("compras", compraService.findAll());
+
+		return modelAndView;
 	}
 
 	@GetMapping("/")
@@ -43,14 +41,14 @@ public class CompraController {
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/compra/new");
-		model.addObject("pedidosDeCompra", pedidoCompra.getAll());
+		model.addObject("pedidosDeCompra", pedidoCompra.findAll());
 		model.addObject("compra", new Compra());
 		return model;
 	}
 
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("compra") Compra compra) {
-		compraService.insertOrUpdate(compra);
+		compraService.add(compra);
 		return new RedirectView("/compra/index");
 	}
 
@@ -60,24 +58,16 @@ public class CompraController {
 		modelAndView.addObject("compra", compraService.findById(id).get());
 		return modelAndView;
 	}
-/*
-	@GetMapping("/{name}")
-	public ModelAndView get(@PathVariable("name") String name) throws Exception {
-		ModelAndView modelAndView = new ModelAndView("/compra/update");
-		modelAndView.addObject("compra", compraService.findByName(name).get());
-		return modelAndView;
-	}
-	*/
-	
+
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("compra") Compra compra) {
-		compraService.insertOrUpdate(compra);
+		compraService.add(compra);
 		return new RedirectView("/compra/index");
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
-		compraService.remove(id);
+		compraService.delete(id);
 		return new RedirectView("/compra/index");
 	}
 

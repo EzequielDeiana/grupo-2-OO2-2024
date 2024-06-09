@@ -26,7 +26,7 @@ public class ProductoController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
-		modelAndView.addObject("productos", productoService.getAll());
+		modelAndView.addObject("productos", productoService.findProductosDisponibles());
 		return modelAndView;
 	}
 
@@ -34,18 +34,18 @@ public class ProductoController {
 	public RedirectView redirectHome() {
 		return new RedirectView(RouteHelper.INDEX);
 	}
+	
+	@PostMapping("/create")
+	public RedirectView create(@ModelAttribute("producto") Producto producto) {
+		productoService.add(producto);
+		return new RedirectView("/producto/index");
+	}
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/producto/new");
 		model.addObject("producto", new Producto());
 		return model;
-	}
-
-	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("producto") Producto producto) {
-		productoService.insertOrUpdate(producto);
-		return new RedirectView("/producto/index");
 	}
 
 	@GetMapping("/{id}")
@@ -57,7 +57,7 @@ public class ProductoController {
 
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("producto") Producto producto) {
-		productoService.insertOrUpdate(producto);
+		productoService.add(producto);
 		return new RedirectView("/producto/index");
 	}
 
@@ -66,13 +66,12 @@ public class ProductoController {
 		productoService.delete(id);
 		return new RedirectView("/producto/index");
 	}
-	
+
 	@GetMapping("/all")
 	public ModelAndView prueba() {
 		ModelAndView model = new ModelAndView("/producto/new");
-		productoService.insertOrUpdate(new Producto("1", "1", "1", 1, 1, true));
+		productoService.add(new Producto("1", "1", "1", 1, 1, true));
 		return model;
 	}
-	
-	
+
 }

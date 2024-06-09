@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo.serviceInterfaces.IPedidoCompra;
-import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 
 @Controller
@@ -25,7 +24,9 @@ public class PedidoCompraController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		return new ModelAndView("/pedidocompra/index").addObject("pedidocompra", pedidocompraService.getAll());
+		ModelAndView modelAndView = new ModelAndView("/pedidocompra/index");
+		modelAndView.addObject("pedidos", pedidocompraService.findAll());
+		return modelAndView;
 	}
 
 	@GetMapping("/")
@@ -42,12 +43,12 @@ public class PedidoCompraController {
 
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("pedidocompra") PedidoCompra pedidocompra) {
-		pedidocompraService.insertOrUpdate(pedidocompra);
+		pedidocompraService.add(pedidocompra);
 		return new RedirectView("/pedidocompra/index");
 	}
 
 	@GetMapping("/{id}")
-	public ModelAndView get(@PathVariable("id") Long id) throws Exception {
+	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/update");
 		modelAndView.addObject("pedidocompra", pedidocompraService.findById(id).get());
 		return modelAndView;
@@ -55,13 +56,13 @@ public class PedidoCompraController {
 
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("pedidocompra") PedidoCompra pedidocompra) {
-		pedidocompraService.insertOrUpdate(pedidocompra);
+		pedidocompraService.add(pedidocompra);
 		return new RedirectView("/pedidocompra/index");
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
-		pedidocompraService.remove(id);
+		pedidocompraService.delete(id);
 		return new RedirectView("/pedidocompra/index");
 	}
 

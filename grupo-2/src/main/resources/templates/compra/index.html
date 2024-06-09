@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Compras</title>
-		<!-- Bootstrap core CSS -->
-		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="/css/modern-business.css" rel="stylesheet" />
-	</head>
-	<body>
-	    <nav class="horizontal-nav">
-	        <div class="container">
-	            <a href="/index">Inicio</a>
-	            <a href="/venta/index">venta</a>
-	            <a href="/product/index">Product</a>
-	            <a href="/user/index">User</a>
-	        </div>
-	    </nav>
 
-	    <div class="container">
-	        <h1>Tabla de Compras</h1>
-	        <table class="table table-bordered table-striped table-hover">
-	            <thead class="thead-dark">
-	                <tr>
-	                    <th class="th">ID</th>
-	                    <th class="th">Pedido compra</th>
-	                    <th class="th">Fecha entrega</th>
-	                    <th class="th">Fecha lanzamiento</th>
-						<th class="th">Proveedor</th>
-						<th class="th">Cantidad comprada</th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	                <tr th:each="compra, iterStat : ${compras}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-	                    <td class="td" th:text="${compra.id}"></td>
-	                    <td class="td" th:text="${compra.pedidoCompra.id}"></td>
-						<td class="td" th:text="${compra.fechaEntrega}"></td>
-	                    <td class="td" th:text="${compra.fechaLanzamiento}"></td>
-						<td class="td" th:text="${compra.proveedor}"></td>
-						<td class="td" th:text="${compra.cantidadComprada}"></td>
-						<td class="td"><a th:href="@{/compra/{id}(id=${compra.id})}" class="btn btn-secondary">View</a></td>
-	                </tr>
-	            </tbody>
-	        </table>
-			
-			<div class="horizontal-nav">
-			     <div class="container">
-			         <a href="/compra/new" class="btn btn-primary">Crear nueva venta</a>
-			     </div>
-			 </div>
-	    </div>
-	</body>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Compras</title>
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/css/modern-business.css" rel="stylesheet" />
+</head>
+
+<body>
+	<header class="bg-dark text-white py-4">
+		<div class="container">
+			<h1 class="text-center">Compras</h1>
+			<nav class="text-center">
+				<ul class="nav justify-content-center">
+					<li class="nav-item">
+						<a class="nav-link" href="/producto/index">Productos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/venta/index">Ventas</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/compra/index">Compras</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/pedidocompra/index">Pedidos compras</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="container">
+		<h1>Tabla de Compras</h1>
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th class="th">ID</th>
+					<th class="th">Pedido compra</th>
+					<th class="th">Fecha entrega</th>
+					<th class="th">Fecha lanzamiento</th>
+					<th class="th">Proveedor</th>
+					<th class="th">Cantidad comprada</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="compra, iterStat : ${compras}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+					<td class="td" th:text="${compra.id}"></td>
+					<td class="td" th:text="${compra.pedidoCompra.id}"></td>
+					<td class="td" th:text="${compra.fechaEntrega}"></td>
+					<td class="td" th:text="${compra.fechaLanzamiento}"></td>
+					<td class="td" th:text="${compra.proveedor}"></td>
+					<td class="td" th:text="${compra.cantidadComprada}"></td>
+					<td class="td"><a th:href="@{/compra/{id}(id=${compra.id})}" class="btn btn-secondary">View</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="horizontal-nav">
+			<div class="container">
+				<a href="/compra/new" class="btn btn-primary">Crear nueva venta</a>
+			</div>
+		</div>
+	</div>
+</body>
+
 </html>

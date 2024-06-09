@@ -17,47 +17,25 @@ public class ProductoService implements IProducto {
 	@Autowired
 	private IProductoRepository productoRepository;
 
-	// Query
-	@SuppressWarnings("deprecation")
-	public Producto getById(int id) {
-		return productoRepository.getById(id);
-	}
-
-	public List<Producto> getAll() {
-		return productoRepository.findAll();
-	}
-
-	// CUD
-	public int agregar(Producto c) {
-		return productoRepository.save(c).getId();
-
-	}
-
-	public void delete(int id) {
-		if (id != 0)
-			productoRepository.deleteById(id);
-	}
-
-	@Override
-	public Optional<Producto> findById(int id) throws Exception {
+	public Optional<Producto> findById(int id) {
 		return productoRepository.findById(id);
 	}
 
-	@Override
-	public Optional<Producto> findByName(String name) throws Exception {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public List<Producto> findAll() {
+		return productoRepository.findAll();
 	}
 
-	@Override
-	public Producto insertOrUpdate(Producto producto) {
-		return productoRepository.save(producto);
+	public List<Producto> findProductosDisponibles() {
+		return productoRepository.findProductosDisponibles();
 	}
 
-	@Override
-	public boolean remove(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public void add(Producto producto) {
+		productoRepository.save(producto);
 	}
 
+	public void delete(int id) {
+		if (id != 0) {
+			productoRepository.deleteById(id);
+		}
+	}
 }
