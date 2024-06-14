@@ -152,7 +152,7 @@ public class ProductoController {
 		}
 
 		try {
-			Venta nuevaVenta = new Venta(LocalDate.now(), user, 0);
+			Venta nuevaVenta = new Venta(LocalDate.now(), user, 0, producto);
 			ventaService.add(nuevaVenta);
 		} catch (Exception e) {
 			e.printStackTrace();

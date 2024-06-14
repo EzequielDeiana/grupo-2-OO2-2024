@@ -40,7 +40,7 @@
                         <th class="th">ID</th>
                         <th class="th">Cliente ID</th>
                         <th class="th">Fecha venta</th>
-                        <th class="th">Total venta</th>
+						<th class="th">Producto ID</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@
                         <td class="td" th:text="${venta.id}"></td>
                         <td class="td" th:text="${venta.cliente.id}"></td>
                         <td class="td" th:text="${venta.fechaVenta}"></td>
-                        <td class="td" th:text="${venta.totalVenta}"></td>
+                        <td class="td" th:text="${venta.producto.id}"></td>
                     </tr>
                 </tbody>
             </table>
