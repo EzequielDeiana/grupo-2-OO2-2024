@@ -55,7 +55,7 @@
 					<td class="td" th:text="${producto.stockRestante}"></td>
 					<td class="td" th:text="${producto.precio}"></td>
 					<td class="td" th:text="${producto.activo}"></td>
-					<td class="td"><a th:href="@{/producto/{id}(id=${producto.id})}"
+					<td class="td"><a th:href="@{/producto/comprar/{id}(id=${producto.id})}"
 							class="btn btn-secondary">Comprar</a></td>
 				</tr>
 			</tbody>

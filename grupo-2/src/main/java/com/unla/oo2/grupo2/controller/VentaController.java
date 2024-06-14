@@ -39,7 +39,6 @@ public class VentaController {
 		User user = userService.findUserByUsername(userDetails.getUsername());
 		for (UserRole userRole : user.getUserRoles()) {
 			if (userRole.getRole().equals("ROLE_ADMIN")) {
-				System.out.println("Entre al equals");
 				modelAndView.addObject("ventas", ventaService.findAll());
 				modelAndView.addObject("clientes", userService.findAdmins());
 			}
