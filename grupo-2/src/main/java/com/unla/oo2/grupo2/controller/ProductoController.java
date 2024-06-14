@@ -133,7 +133,6 @@ public class ProductoController {
 						existePedidoCompraDiaria = true;
 					}
 				}
-
 				j++;
 			}
 

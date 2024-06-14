@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.Venta;
+import com.unla.oo2.grupo2.helper.UserUtil;
 import com.unla.oo2.grupo2.service.UserService;
 import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
 
@@ -30,6 +31,7 @@ public class VentaController {
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
 		modelAndView.addObject("ventas", ventaService.findAll());
+		modelAndView.addObject("isAdmin", UserUtil.isAdmin());
 		return modelAndView;
 	}
 
