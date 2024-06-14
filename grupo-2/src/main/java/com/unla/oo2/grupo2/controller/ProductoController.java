@@ -3,10 +3,6 @@ package com.unla.oo2.grupo2.controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,10 +15,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.entity.User;
-import com.unla.oo2.grupo2.entity.UserRole;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.helper.RouteHelper;
-import com.unla.oo2.grupo2.service.UserService;
+import com.unla.oo2.grupo2.helper.UserUtil;
 import com.unla.oo2.grupo2.serviceInterfaces.IPedidoCompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
 import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
@@ -34,74 +29,19 @@ public class ProductoController {
 	private IProductoService productoService;
 	private IPedidoCompraService pedidoCompraService;
 	private IVentaService ventaService;
-	private static UserService userService;
 
-	@SuppressWarnings("static-access")
 	public ProductoController(IProductoService productoService, IPedidoCompraService pedidoCompraService,
-			IVentaService ventaService, UserService userService) {
+			IVentaService ventaService) {
 		this.productoService = productoService;
 		this.pedidoCompraService = pedidoCompraService;
 		this.ventaService = ventaService;
-		this.userService = userService;
-	}
-
-	public static User getUser() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		if (authentication == null || !authentication.isAuthenticated()) {
-			return null;
-		}
-
-		String username = null;
-		Object principal = authentication.getPrincipal();
-
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-
-		User user = null;
-		try {
-			user = userService.findUserByUsername(username);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		if (user == null) {
-			return null;
-		}
-
-		return user;
-	}
-
-	public static boolean isAdmin() {
-
-		User user = getUser();
-		UserDetails userDetails = null;
-
-		try {
-			userDetails = userService.loadUserByUsername(user.getUsername());
-		} catch (Exception g) {
-
-		}
-
-		for (GrantedAuthority authority : userDetails.getAuthorities()) {
-			if (authority.getAuthority().equals("ROLE_ADMIN")) {
-				return true;
-			}
-		}
-
-		return false;
-
 	}
 
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
 		modelAndView.addObject("productos", productoService.findProductosDisponibles());
-		modelAndView.addObject("isAdmin", isAdmin());
+		modelAndView.addObject("isAdmin", UserUtil.isAdmin());
 		return modelAndView;
 	}
 
@@ -170,7 +110,7 @@ public class ProductoController {
 
 		User user = null;
 		try {
-			user = getUser();
+			user = UserUtil.getUser();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

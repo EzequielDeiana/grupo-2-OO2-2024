@@ -5,10 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -60,26 +58,5 @@ public class UserService implements UserDetailsService {
 			grantedAuthorities.add(new SimpleGrantedAuthority(userRole.getRole()));
 		}
 		return new ArrayList<>(grantedAuthorities);
-	}
-
-	public static boolean isAdmin() 
-	{
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	    
-	    if (authentication == null || !authentication.isAuthenticated()) 
-	    {
-	        return false;
-	    }
-	    
-	    for (GrantedAuthority authority : userDetails.getAuthorities()) 
-	    {
-	        if (authority.getAuthority().equals("ROLE_ADMIN")) 
-	        {
-	            return true;
-	        }
-	    }
-	    
-	    return false;
 	}
 }

@@ -43,7 +43,9 @@
 					<th class="th">Stock Restante</th>
 					<th class="th">Precio</th>
 					<th class="th">Activo</th>
-					<th class="th">Realizar Compra</th>
+					<div th:if="!${isAdmin}">
+						<th class="th">Realizar Compra</th>
+					</div>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,8 +57,10 @@
 					<td class="td" th:text="${producto.stockRestante}"></td>
 					<td class="td" th:text="${producto.precio}"></td>
 					<td class="td" th:text="${producto.activo}"></td>
-					<td class="td"><a th:href="@{/producto/comprar/{id}(id=${producto.id})}"
-							class="btn btn-secondary">Comprar</a></td>
+					<div th:if="!${isAdmin}">
+						<td class="td"><a th:href="@{/producto/comprar/{id}(id=${producto.id})}"
+													class="btn btn-secondary">Comprar</a></td>
+					</div>
 				</tr>
 			</tbody>
 		</table>

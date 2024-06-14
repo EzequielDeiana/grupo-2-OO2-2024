@@ -12,7 +12,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.service.UserService;
-import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
 import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
 
 @Controller
@@ -20,12 +19,10 @@ import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
 public class VentaController {
 
 	private IVentaService ventaService;
-	private IProductoService productoService;
 	private UserService userService;
 
-	public VentaController(IVentaService ventaService, IProductoService productoService, UserService userService) {
+	public VentaController(IVentaService ventaService, UserService userService) {
 		this.ventaService = ventaService;
-		this.productoService = productoService;
 		this.userService = userService;
 	}
 
