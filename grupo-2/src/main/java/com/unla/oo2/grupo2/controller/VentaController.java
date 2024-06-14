@@ -1,8 +1,5 @@
 package com.unla.oo2.grupo2.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo2.entity.User;
-import com.unla.oo2.grupo2.entity.UserRole;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.service.UserService;
 import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
@@ -24,25 +20,19 @@ import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
 public class VentaController {
 
 	private IVentaService ventaService;
+	private IProductoService productoService;
 	private UserService userService;
 
 	public VentaController(IVentaService ventaService, IProductoService productoService, UserService userService) {
 		this.ventaService = ventaService;
+		this.productoService = productoService;
 		this.userService = userService;
 	}
 
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		User user = userService.findUserByUsername(userDetails.getUsername());
-		for (UserRole userRole : user.getUserRoles()) {
-			if (userRole.getRole().equals("ROLE_ADMIN")) {
-				modelAndView.addObject("ventas", ventaService.findAll());
-				modelAndView.addObject("clientes", userService.findAdmins());
-			}
-		}
+		modelAndView.addObject("ventas", ventaService.findAll());
 		return modelAndView;
 	}
 
