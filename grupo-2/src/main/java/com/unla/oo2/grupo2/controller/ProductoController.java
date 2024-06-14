@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.entity.User;
+import com.unla.oo2.grupo2.entity.UserRole;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.helper.RouteHelper;
 import com.unla.oo2.grupo2.service.UserService;
@@ -74,10 +76,32 @@ public class ProductoController {
 		return user;
 	}
 
+	public static boolean isAdmin() {
+
+		User user = getUser();
+		UserDetails userDetails = null;
+
+		try {
+			userDetails = userService.loadUserByUsername(user.getUsername());
+		} catch (Exception g) {
+
+		}
+
+		for (GrantedAuthority authority : userDetails.getAuthorities()) {
+			if (authority.getAuthority().equals("ROLE_ADMIN")) {
+				return true;
+			}
+		}
+
+		return false;
+
+	}
+
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
 		modelAndView.addObject("productos", productoService.findProductosDisponibles());
+		modelAndView.addObject("isAdmin", isAdmin());
 		return modelAndView;
 	}
 
