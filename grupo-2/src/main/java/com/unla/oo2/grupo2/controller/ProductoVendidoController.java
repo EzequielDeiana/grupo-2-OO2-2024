@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.ProductoVendidoDTO;
 import com.unla.oo2.grupo2.entity.ProductoVendido;
 import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
 import com.unla.oo2.grupo2.serviceInterfaces.IProductoVendidoService;
@@ -44,7 +45,7 @@ public class ProductoVendidoController {
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/productovendido/new");
-		model.addObject("productovendido", new ProductoVendido());
+		model.addObject("productovendido", new ProductoVendidoDTO());
 		return model;
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.PedidoCompraDTO;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.entity.Producto;
@@ -66,7 +67,7 @@ public class PedidoCompraController {
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/pedidocompra/new");
-		model.addObject("pedidocompra", new PedidoCompra());
+		model.addObject("pedidocompra", new PedidoCompraDTO());
 		return model;
 	}
 

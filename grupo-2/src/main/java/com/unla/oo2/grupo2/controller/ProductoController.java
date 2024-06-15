@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.ProductoDTO;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.entity.User;
@@ -38,39 +39,39 @@ public class ProductoController {
 	}
 
 	/*
+	 * @GetMapping("/index") public ModelAndView index() { ModelAndView modelAndView
+	 * = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
+	 * modelAndView.addObject("productos",
+	 * productoService.findProductosDisponibles());
+	 * modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
+	 * return modelAndView; }
+	 */
+
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
-		modelAndView.addObject("productos", productoService.findProductosDisponibles());
+
+		// Verificar si el usuario es administrador
+		boolean isAdmin = UserUtil.isRol(UserUtil.ROLE_ADMIN);
+
+		// Definir la lista de productos a cargar en función del rol del usuario
+		List<Producto> productos;
+		if (isAdmin) {
+			productos = productoService.findProductos();
+
+		} else {
+			productos = productoService.findProductosDisponibles();
+		}
+
+		// Agregar los productos al modelo
+		modelAndView.addObject("productos", productos);
+
+		// Agregar isAdmin al modelo
 		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
+
 		return modelAndView;
 	}
-	 */
-	
-	@GetMapping("/index")
-	public ModelAndView index() {
-	    ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
 
-	    // Verificar si el usuario es administrador
-	    boolean isAdmin = UserUtil.isRol(UserUtil.ROLE_ADMIN);
-
-	    // Definir la lista de productos a cargar en función del rol del usuario
-	    List<Producto> productos;
-	    if (isAdmin) {
-	    	 productos = productoService.findProductos();
-	      
-	    } else {
-	    	  productos = productoService.findProductosDisponibles();
-	    }
-
-	    // Agregar los productos al modelo
-	    modelAndView.addObject("productos", productos);
-
-	    // Agregar isAdmin al modelo
-	    modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
-
-	    return modelAndView;
-	}
 	@GetMapping("/")
 	public RedirectView redirectHome() {
 		return new RedirectView(RouteHelper.INDEX);
@@ -79,7 +80,7 @@ public class ProductoController {
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/producto/new");
-		model.addObject("producto", new Producto());
+		model.addObject("producto", new ProductoDTO());
 		return model;
 	}
 

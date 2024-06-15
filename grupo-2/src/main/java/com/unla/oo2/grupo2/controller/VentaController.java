@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.VentaDTO;
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.helper.UserUtil;
@@ -75,7 +76,7 @@ public class VentaController {
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/venta/new");
 		model.addObject("clientes", userService.findUsers());
-		model.addObject("venta", new Venta());
+		model.addObject("venta", new VentaDTO());
 		return model;
 	}
 
