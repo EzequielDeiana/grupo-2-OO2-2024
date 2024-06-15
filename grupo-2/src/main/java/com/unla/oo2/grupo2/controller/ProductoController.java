@@ -98,7 +98,7 @@ public class ProductoController {
 		try {
 			producto = productoService.findById(id).orElseThrow(() -> new Exception("Producto no encontrado"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		if (producto.getStockRestante() > 0) {
@@ -112,14 +112,14 @@ public class ProductoController {
 		try {
 			user = UserUtil.getUser();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		try {
 			Venta nuevaVenta = new Venta(LocalDate.now(), user, 0, producto);
 			ventaService.add(nuevaVenta);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return new RedirectView("/error");
 		}
 

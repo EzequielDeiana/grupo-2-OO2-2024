@@ -40,7 +40,7 @@ public class Venta {
 	@Column(name = "totalVenta")
 	private double totalVenta;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "producto")
 	private Producto producto;
 
