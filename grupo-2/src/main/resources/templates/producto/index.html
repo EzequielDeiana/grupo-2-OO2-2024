@@ -22,7 +22,7 @@
 						<a class="nav-link" href="/producto/index">Productos</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/venta/index">Ventas</a>
+						  <a th:text="${isAdmin} ? 'Ventas' : 'Historial'" class="nav-link" th:href="${isAdmin} ? '/venta/index' : '/venta/historial'"></a>
 					</li>
 					<li th:if="${isAdmin}" class="nav-item">
 						<a class="nav-link" href="/compra/index">Compras</a>
@@ -39,13 +39,13 @@
 		<table class="table table-bordered table-striped table-hover text-center w-90">
 			<thead class="thead-dark">
 				<tr>
-					<th class="th">ID</th>
+					<th th:if="${isAdmin}" class="th">ID</th>
 					<th class="th">Nombre</th>
 					<th class="th">Descripcion</th>
 					<th class="th">Tipo</th>
 					<th class="th">Stock Restante</th>
 					<th class="th">Precio</th>
-					<th class="th">Activo</th>
+					<th th:if="${isAdmin}" class="th">Activo</th>
 					<div th:if="!${isAdmin}">
 						<th class="th">Realizar Compra</th>
 					</div>
@@ -53,13 +53,13 @@
 			</thead>
 			<tbody>
 				<tr th:each="producto, iterStat : ${productos}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-					<td class="td" th:text="${producto.id}"></td>
+					<td th:if="${isAdmin}" class="td" th:text="${producto.id}"></td>
 					<td class="td" th:text="${producto.nombre}"></td>
 					<td class="td" th:text="${producto.descripcion}"></td>
 					<td class="td" th:text="${producto.tipo}"></td>
 					<td class="td" th:text="${producto.stockRestante}"></td>
 					<td class="td" th:text="${'$' + producto.precio}"></td>
-					<td class="td" th:text="${producto.activo}"></td>
+					<td th:if="${isAdmin}" class="td" th:text="${producto.activo}"></td>
 					<div th:if="!${isAdmin}">
 						<td class="td"><a th:href="@{/producto/comprar/{id}(id=${producto.id})}"
 													class="btn btn-secondary">Comprar</a></td>

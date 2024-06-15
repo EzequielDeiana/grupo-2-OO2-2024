@@ -37,6 +37,7 @@ public class ProductoController {
 		this.ventaService = ventaService;
 	}
 
+	/*
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
@@ -44,7 +45,32 @@ public class ProductoController {
 		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
 		return modelAndView;
 	}
+	 */
+	
+	@GetMapping("/index")
+	public ModelAndView index() {
+	    ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
 
+	    // Verificar si el usuario es administrador
+	    boolean isAdmin = UserUtil.isRol(UserUtil.ROLE_ADMIN);
+
+	    // Definir la lista de productos a cargar en función del rol del usuario
+	    List<Producto> productos;
+	    if (isAdmin) {
+	    	 productos = productoService.findProductos();
+	      
+	    } else {
+	    	  productos = productoService.findProductosDisponibles();
+	    }
+
+	    // Agregar los productos al modelo
+	    modelAndView.addObject("productos", productos);
+
+	    // Agregar isAdmin al modelo
+	    modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
+
+	    return modelAndView;
+	}
 	@GetMapping("/")
 	public RedirectView redirectHome() {
 		return new RedirectView(RouteHelper.INDEX);
@@ -78,7 +104,7 @@ public class ProductoController {
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
-		productoService.delete(id);
+		productoService.disable(id);
 		return new RedirectView("/producto/index");
 	}
 

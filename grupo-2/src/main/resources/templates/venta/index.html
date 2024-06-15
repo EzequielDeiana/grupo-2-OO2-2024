@@ -22,7 +22,7 @@
                         <a class="nav-link" href="/producto/index">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/venta/index">Ventas</a>
+                      <a th:text="${isAdmin} ? 'Ventas' : 'Historial'" class="nav-link" href="/venta/index"></a>
                     </li>
 					<li th:if="${isAdmin}" class="nav-item">
 						<a class="nav-link" href="/compra/index">Compras</a>
@@ -36,7 +36,8 @@
     </header>
     <div class="container d-flex justify-content-center mt-4">
         <div class="w-100">
-            <h1 class="text-center">Tabla de Ventas</h1>
+			<h1 th:if="${not isAdmin}" class="text-center">Historial de Compras</h1>
+            <h1 th:if="${isAdmin}" class="text-center">Tabla de Ventas</h1>
             <table class="table table-bordered table-striped table-hover text-center">
                 <thead class="thead-dark">
                     <tr>
