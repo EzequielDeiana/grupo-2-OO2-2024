@@ -55,6 +55,10 @@
 			</div>
 		</header>
 		
+		<div th:if="${error} != null" class="text-center alert alert-danger">
+		    <p th:text="${error}"></p>
+		</div>
+		
 		<div class="container d-flex flex-column align-items-center mt-4">
 			
 			<h1 class="text-center">Tabla de Productos</h1>
@@ -90,8 +94,12 @@
 						</td>
 						
 						<div th:if="!${isAdmin}">
-							<td class="td text-center"><a th:href="@{/producto/comprar/{id}(id=${producto.id})}"
-									class="btn btn-secondary">Comprar</a></td>
+						    <td class="td text-center">
+						        <form th:action="@{/producto/comprar/{id}(id=${producto.id})}" method="post">
+						            <input type="number" name="cantidadSolicitada" min="1" value="1">
+						            <input type="submit" value="Comprar" class="btn btn-secondary">
+						        </form>
+						    </td>
 						</div>
 						
 						<div th:if="${isAdmin}">

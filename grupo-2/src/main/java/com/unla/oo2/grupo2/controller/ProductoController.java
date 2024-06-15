@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -113,59 +114,58 @@ public class ProductoController {
 		return model;
 	}
 
-	@GetMapping("/comprar/{id}")
-	public RedirectView comprar(@PathVariable("id") int id) {
+	@PostMapping("/comprar/{id}")
+	public ModelAndView comprar(@PathVariable("id") int id, @Param("cantidadSolicitada") int cantidadSolicitada) {
+		ModelAndView modelAndView = index();;
+		User user = null;
 		Producto producto = null;
 		List<PedidoCompra> pedidoCompra = null;
 		boolean existePedidoCompraDiaria = false;
 
 		try {
 			producto = productoService.findById(id).orElseThrow(() -> new Exception("Producto no encontrado"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		if (producto.getStockRestante() > 0) {
-			producto.setStockRestante(producto.getStockRestante() - 1);
-			productoService.add(producto);
-		} else {
-			return new RedirectView("/producto/index");
-		}
-
-		User user = null;
-		try {
 			user = UserUtil.getUser();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		try {
-			Venta nuevaVenta = new Venta(LocalDate.now(), user, 0, producto);
-			ventaService.add(nuevaVenta);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return new RedirectView("/error");
-		}
+		if (producto.getStockRestante() > 0 && producto.getStockRestante() > cantidadSolicitada) {
+			
+			for(int i = 0 ; i < cantidadSolicitada ; i++) {
+				producto.setStockRestante(producto.getStockRestante() - 1);
+				productoService.add(producto);
+				
+				Venta nuevaVenta = new Venta(LocalDate.now(), user, 0, producto);
+				ventaService.add(nuevaVenta);
+			}
+			
+			if (producto.getStockRestante() < 5) {
+				pedidoCompra = pedidoCompraService.findAll();
+				int j = 0;
 
-		if (producto.getStockRestante() < 5) {
-			pedidoCompra = pedidoCompraService.findAll();
-			int j = 0;
-
-			while (j < pedidoCompra.size() && !existePedidoCompraDiaria) {
-				if (pedidoCompra.get(j).getProducto().getId() == id) {
-					if (pedidoCompra.get(j).getFechaLanzamiento().isEqual(LocalDate.now())) {
-						existePedidoCompraDiaria = true;
+				while (j < pedidoCompra.size() && !existePedidoCompraDiaria) {
+					if (pedidoCompra.get(j).getProducto().getId() == id) {
+						if (pedidoCompra.get(j).getFechaLanzamiento().isEqual(LocalDate.now())) {
+							existePedidoCompraDiaria = true;
+						}
 					}
+					j++;
 				}
-				j++;
-			}
 
-			if (!existePedidoCompraDiaria) {
-				pedidoCompraService.add(new PedidoCompra(producto, LocalDate.now(), false, 0));
+				if (!existePedidoCompraDiaria) {
+					pedidoCompraService.add(new PedidoCompra(producto, LocalDate.now(), false, 0));
+				}
+				
 			}
+			
+			modelAndView = index();
+
+		} else {
+			modelAndView = index();
+			modelAndView.addObject("error", "Error: Cantidad solicitada es superior al Stock Restante");
 		}
 
-		return new RedirectView("/producto/index");
+		return modelAndView;
 	}
 
 }
