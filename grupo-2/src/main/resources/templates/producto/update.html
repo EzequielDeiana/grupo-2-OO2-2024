@@ -15,6 +15,7 @@
 		<p> Stock restante: <input type="text" th:field="*{stockRestante}" /></p>
 		<p> Precio: <input type="text" th:field="*{precio}" /></p>
 		<p> Activo: <input type="text" th:field="*{activo}" /></p>
+		<p> URL: <input type="text" th:field="*{url}" /></p>
         <input type="submit" value="Edit" class="btn btn-primary" />
     </form>
 	<form action="#" th:action="@{/producto/delete/{id}(id=${producto.id})}" method="post">

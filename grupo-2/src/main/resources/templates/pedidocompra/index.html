@@ -48,7 +48,8 @@
 						<th class="th">Comprado</th>
 						<th class="th">Fecha de lanzamiento</th>
 						<th class="th">Producto</th>
-						<th class="th">Realizar Abastecimiento</th>
+						<th class="th">Producto IMG</th>
+						<th class="h">Realizar Abastecimiento</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -59,6 +60,9 @@
 						<td class="td" th:text="${pedidoCompra.comprado}"></td>
 						<td class="td" th:text="${pedidoCompra.fechaLanzamiento}"></td>
 						<td class="td" th:text="${pedidoCompra.producto.nombre}"></td>
+						<td class="td text-center">
+						            <img th:src="@{${pedidoCompra.producto.url}}" alt="Imagen de producto" style="max-height: 50px;">
+						        </td>
 						<td class="td">
 							<a th:href="@{/pedidocompra/newcompra(pedidoCompraId=${pedidoCompra.id})}"
 								class="btn btn-secondary">Realizar Compra</a>

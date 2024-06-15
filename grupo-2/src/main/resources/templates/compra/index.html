@@ -45,6 +45,8 @@
 						<th class="th">Fecha lanzamiento</th>
 						<th class="th">Proveedor</th>
 						<th class="th">Cantidad comprada</th>
+						<th class="th">Producto</th>
+						<th class="th">Producto IMG</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,6 +56,10 @@
 						<td class="td" th:text="${compra.fechaLanzamiento}"></td>
 						<td class="td" th:text="${compra.proveedor}"></td>
 						<td class="td" th:text="${compra.cantidadComprada}"></td>
+						<td class="td" th:text="${compra.pedidoCompra.producto.nombre}"></td>
+						<td class="td text-center">
+						 	<img th:src="@{${compra.pedidoCompra.producto.url}}" alt="Imagen de producto" style="max-height: 50px;">
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -102,7 +102,7 @@ public class ProductoController {
 	@GetMapping("/all")
 	public ModelAndView prueba() {
 		ModelAndView model = new ModelAndView("/producto/new");
-		productoService.add(new Producto("1", "1", "1", 1, 1, true));
+		productoService.add(new Producto("1", "1", "1", 1, 1, true, "1"));
 		return model;
 	}
 
