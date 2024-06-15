@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.CompraDTO;
 import com.unla.oo2.grupo2.dtos.PedidoCompraDTO;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
@@ -31,6 +33,7 @@ public class PedidoCompraController {
 	private IPedidoCompraService pedidoCompraService;
 	private ICompraService compraService;
 	private IProductoService productoService;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	public PedidoCompraController(IPedidoCompraService pedidoCompraService, ICompraService compraService, IProductoService productoService) {
 		this.pedidoCompraService = pedidoCompraService;
@@ -72,22 +75,23 @@ public class PedidoCompraController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("pedidocompra") PedidoCompra pedidocompra) {
-		pedidoCompraService.add(pedidocompra);
+	public RedirectView create(@ModelAttribute("pedidocompra") PedidoCompraDTO pedidoCompraDTO) {
+		pedidoCompraService.add(modelMapper.map(pedidoCompraDTO, PedidoCompra.class));
 		return new RedirectView("/pedidocompra/index");
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/update");
-		modelAndView.addObject("pedidocompra", pedidoCompraService.findById(id).get());
+		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(), PedidoCompraDTO.class);
+		modelAndView.addObject("pedidocompra",pedidoCompraDTO);
 		
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("pedidocompra") PedidoCompra pedidoCompra) {
-		pedidoCompraService.add(pedidoCompra);
+	public RedirectView update(@ModelAttribute("pedidocompra") PedidoCompraDTO pedidoCompraDTO) {
+		pedidoCompraService.add(modelMapper.map(pedidoCompraDTO, PedidoCompra.class));
 		return new RedirectView("/pedidocompra/index");
 	}
 
@@ -118,12 +122,12 @@ public class PedidoCompraController {
 	}
 
 	@PostMapping("/createcompra")
-	public RedirectView createCompra(@ModelAttribute("compra") Compra compra) {
-		compra.setFechaLanzamiento(LocalDate.now());
-		compra.setFechaEntrega(LocalDate.now().plusDays(7));
-		compraService.add(compra);
-		PedidoCompra pedidoCompra = pedidoCompraService.findById(compra.getId()).get();
-		pedidoCompra.getProducto().setStockRestante(compra.getCantidadComprada() + pedidoCompra.getProducto().getStockRestante());
+	public RedirectView createCompra(@ModelAttribute("compra") CompraDTO compraDTO) {
+		compraDTO.setFechaLanzamiento(LocalDate.now());
+		compraDTO.setFechaEntrega(LocalDate.now().plusDays(7));
+		compraService.add(modelMapper.map(compraDTO, Compra.class));
+		PedidoCompra pedidoCompra = pedidoCompraService.findById(compraDTO.getId()).get();
+		pedidoCompra.getProducto().setStockRestante(compraDTO.getCantidadComprada() + pedidoCompra.getProducto().getStockRestante());
 		productoService.add(pedidoCompra.getProducto());
 		return new RedirectView("/pedidocompra/index");
 	}

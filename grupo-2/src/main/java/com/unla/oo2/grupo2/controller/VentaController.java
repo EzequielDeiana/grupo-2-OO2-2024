@@ -1,5 +1,6 @@
 package com.unla.oo2.grupo2.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,7 @@ public class VentaController {
 
 	private IVentaService ventaService;
 	private UserService userService;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	public VentaController(IVentaService ventaService, UserService userService) {
 		this.ventaService = ventaService;
@@ -64,10 +66,10 @@ public class VentaController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("venta") Venta venta) {
-		User cliente = userService.findUserByUsername(venta.getCliente().getUsername());
+	public RedirectView create(@ModelAttribute("venta") VentaDTO ventaDTO) {
+		User cliente = userService.findUserByUsername(ventaDTO.getCliente().getUsername());
 		if (cliente != null) {
-			ventaService.add(venta);
+			ventaService.add(modelMapper.map(ventaDTO, Venta.class));
 		}
 		return new RedirectView("/venta/index");
 	}
@@ -83,13 +85,14 @@ public class VentaController {
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/venta/update");
-		modelAndView.addObject("venta", ventaService.findById(id).get());
+		VentaDTO ventaDTO = modelMapper.map(ventaService.findById(id).get(), VentaDTO.class);
+		modelAndView.addObject("venta", ventaDTO);
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("venta") Venta venta) {
-		ventaService.add(venta);
+	public RedirectView update(@ModelAttribute("venta") VentaDTO ventaDTO) {
+		ventaService.add(modelMapper.map(ventaDTO, Venta.class));
 		return new RedirectView("/venta/index");
 	}
 

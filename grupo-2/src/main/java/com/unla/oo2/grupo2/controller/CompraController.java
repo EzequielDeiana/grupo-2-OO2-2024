@@ -1,5 +1,6 @@
 package com.unla.oo2.grupo2.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,7 @@ public class CompraController {
 
 	private ICompraService compraService;
 	private PedidoCompraService pedidoCompra;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	public CompraController(ICompraService compraService, PedidoCompraService pedidoCompra) {
 		this.compraService = compraService;
@@ -48,21 +50,22 @@ public class CompraController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("compra") Compra compra) {
-		compraService.add(compra);
+	public RedirectView create(@ModelAttribute("compra") CompraDTO compraDTO) {
+		compraService.add(modelMapper.map(compraDTO, Compra.class));
 		return new RedirectView("/compra/index");
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/compra/update");
-		modelAndView.addObject("compra", compraService.findById(id).get());
+		CompraDTO compraDTO = modelMapper.map(compraService.findById(id).get(), CompraDTO.class);
+		modelAndView.addObject("compra", compraDTO);
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("compra") Compra compra) {
-		compraService.add(compra);
+	public RedirectView update(@ModelAttribute("compra") CompraDTO compraDTO) {
+		compraService.add(modelMapper.map(compraDTO, Compra.class));
 		return new RedirectView("/compra/index");
 	}
 

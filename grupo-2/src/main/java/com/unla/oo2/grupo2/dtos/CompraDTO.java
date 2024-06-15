@@ -2,6 +2,8 @@ package com.unla.oo2.grupo2.dtos;
 
 import java.time.LocalDate;
 
+import com.unla.oo2.grupo2.entity.PedidoCompra;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +12,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CompraDTO {
+	private PedidoCompra pedidoCompra;
 	private int id;
-    private int pedidoCompraId;
     private LocalDate fechaEntrega;
     private LocalDate fechaLanzamiento;
     private String proveedor;
@@ -19,13 +21,18 @@ public class CompraDTO {
 
    
 
-    public CompraDTO(int id, int pedidoCompraId, LocalDate fechaEntrega, LocalDate fechaLanzamiento, String proveedor,
-            int cantidadComprada) {
-        this.id = id;
-        this.pedidoCompraId = pedidoCompraId;
-        this.fechaEntrega = fechaEntrega;
-        this.fechaLanzamiento = fechaLanzamiento;
-        this.proveedor = proveedor;
-        this.cantidadComprada = cantidadComprada;
-    }
+	public CompraDTO(PedidoCompra pedidoCompra, LocalDate fechaEntrega, LocalDate fechaLanzamiento, String proveedor,
+			int cantidadComprada) {
+		super();
+		this.pedidoCompra = pedidoCompra;
+		this.fechaEntrega = fechaEntrega;
+		this.fechaLanzamiento = fechaLanzamiento;
+		this.proveedor = proveedor;
+		this.cantidadComprada = cantidadComprada;
+	}
+	
+	public CompraDTO(PedidoCompra pedidoCompra) {
+		super();
+		this.pedidoCompra = pedidoCompra;
+	}
 }

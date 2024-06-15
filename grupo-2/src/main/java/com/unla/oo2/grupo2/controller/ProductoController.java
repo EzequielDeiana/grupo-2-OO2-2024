@@ -3,6 +3,7 @@ package com.unla.oo2.grupo2.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,7 @@ public class ProductoController {
 	private IProductoService productoService;
 	private IPedidoCompraService pedidoCompraService;
 	private IVentaService ventaService;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	public ProductoController(IProductoService productoService, IPedidoCompraService pedidoCompraService,
 			IVentaService ventaService) {
@@ -85,21 +87,22 @@ public class ProductoController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("producto") Producto producto) {
-		productoService.add(producto);
+	public RedirectView create(@ModelAttribute("producto") ProductoDTO productoDTO) {
+		productoService.add(modelMapper.map(productoDTO, Producto.class));
 		return new RedirectView("/producto/index");
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/producto/update");
-		modelAndView.addObject("producto", productoService.findById(id).get());
+		ProductoDTO productoDTO = modelMapper.map(productoService.findById(id).get(), ProductoDTO.class);
+		modelAndView.addObject("producto",productoDTO);
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("producto") Producto producto) {
-		productoService.add(producto);
+	public RedirectView update(@ModelAttribute("producto") ProductoDTO productoDTO) {
+		productoService.add(modelMapper.map(productoDTO, Producto.class));
 		return new RedirectView("/producto/index");
 	}
 
