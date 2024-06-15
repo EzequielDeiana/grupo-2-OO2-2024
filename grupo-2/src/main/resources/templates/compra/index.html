@@ -40,7 +40,6 @@
 			<table class="table table-bordered table-striped table-hover text-center">
 				<thead class="thead-dark">
 					<tr>
-						<th class="th">ID</th>
 						<th class="th">Pedido compra</th>
 						<th class="th">Fecha entrega</th>
 						<th class="th">Fecha lanzamiento</th>
@@ -50,7 +49,6 @@
 				</thead>
 				<tbody>
 					<tr th:each="compra, iterStat : ${compras}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-						<td class="td" th:text="${compra.id}"></td>
 						<td class="td" th:text="${compra.pedidoCompra.id}"></td>
 						<td class="td" th:text="${compra.fechaEntrega}"></td>
 						<td class="td" th:text="${compra.fechaLanzamiento}"></td>

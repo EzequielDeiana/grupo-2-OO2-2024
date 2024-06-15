@@ -58,7 +58,7 @@
 						<td class="td" th:text="${pedidoCompra.cantidadSolicitada}"></td>
 						<td class="td" th:text="${pedidoCompra.comprado}"></td>
 						<td class="td" th:text="${pedidoCompra.fechaLanzamiento}"></td>
-						<td class="td" th:text="${pedidoCompra.producto.id}"></td>
+						<td class="td" th:text="${pedidoCompra.producto.nombre}"></td>
 						<td class="td">
 							<a th:href="@{/pedidocompra/newcompra(pedidoCompraId=${pedidoCompra.id})}"
 								class="btn btn-secondary">Realizar Compra</a>
