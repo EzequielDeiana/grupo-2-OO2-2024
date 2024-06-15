@@ -57,6 +57,13 @@ public class ProductoController {
 		modelAndView.addObject("productos", productos);
 
 		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
+		
+        try {
+            modelAndView.addObject("productosMasVendidos", ventaService.productoMasVendido());
+            modelAndView.addObject("productosMenosVendidos", ventaService.productoMenosVendido());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 		return modelAndView;
 	}
