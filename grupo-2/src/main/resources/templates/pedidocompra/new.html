@@ -2,21 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Crear nuevas Compras</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<meta charset="UTF-8">
+	<title>Crear nuevas Compras</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script>
+		function updateRangeValue(val) {
+			document.getElementById('rangeValue').textContent = val;
+		}
+	</script>
 </head>
 
 <body>
-    <h1>Formulario Compra</h1>
-    <form th:action="@{/pedidocompra/createcompra}" th:object="${compra}" method="post">
-		<p>ID Pedido Compra: <input type="text" th:value="${pedidoCompraId}" name="pedidoCompraId"/> </p>
-		<p>Cantidad Comprada: <input type="text" th:field="*{cantidadComprada}"></p>
-        <p>Proveedor: <input type="text" th:field="*{proveedor}"></p>
-        <button class="btn btn-primary" type="submit">Enviar</button>
-    </form>
-    <a href="/pedidocompra/index" class="btn btn-secondary">Volver a la lista de Pedidos Compra</a>
+	<h1>Formulario Compra</h1>
+	<form th:action="@{/pedidocompra/createcompra}" th:object="${compra}" method="post">
+	    <p>Cantidad Comprada:
+	        <input type="number" th:field="*{cantidadComprada}" placeholder="Ingrese cantidad comprada" />
+	    </p>
+	    <p>Proveedor: 
+	        <select th:field="*{proveedor}">
+	            <option value="" disabled>Selecciona un proveedor</option>
+	            <option value="Inca SA">Inca SA</option>
+	            <option value="Producciones Rolling Stone">Producciones Rolling Stone</option>
+	            <option value="Saturno Industry">Saturno Industry</option>
+	        </select>
+	    </p>
+	    <button class="btn btn-primary" type="submit">Enviar</button>
+	</form>
+	<a href="/pedidocompra/index" class="btn btn-secondary">Volver a la lista de Pedidos Compra</a>
 </body>
 
 </html>

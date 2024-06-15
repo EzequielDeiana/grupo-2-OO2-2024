@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +26,7 @@ public class Compra {
 	private int id;
 
 	@OneToOne(optional = false)
-	@JoinColumn(name = "pedidoCompra")
+	@JoinColumn(name = "id")
 	private PedidoCompra pedidoCompra;
 
 	@Column(name = "fechaEntrega")

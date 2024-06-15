@@ -15,9 +15,9 @@
 		<p>Proveedor: 
 		    <select th:field="*{proveedor}">
 		        <option value="" disabled>Selecciona un proveedor</option>
-		        <option value="1" th:selected="${producto.proveedor}">Inca SA</option>
-		        <option value="2" th:selected="${producto.proveedor}">Producciones Rolling Stone</option>
-		        <option value="3" th:selected="${producto.proveedor}">Saturno Industry</option>
+		        <option value="1" th:selected="*{proveedor}">Inca SA</option>
+		        <option value="2" th:selected="*{proveedor}">Producciones Rolling Stone</option>
+		        <option value="3" th:selected="*{proveedor}">Saturno Industry</option>
 		    </select>
 		</p>
 		<label for="pedidoCompraId">PedidoCompra:</label>

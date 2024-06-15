@@ -10,9 +10,6 @@
     <h1>Formulario productovendidos</h1>
     <form action="#" th:action="@{/productovendido/create}" th:object="${productovendido}" method="post">
         <p>Producto ID: <input type="text" th:field="*{producto.id}"></p>
-		<div th:if="${isLoggedIn}">
-		    <p>Welcome back, user!</p>
-		</div>
         <p>Cantidad: <input type="text" th:field="*{cantidad}"></p>
 		<p>Precio total: <input type="text" th:field="*{precioTotal}"></p>
 		<p>Venta ID: <input type="text" th:field="*{venta.id}"></p>
