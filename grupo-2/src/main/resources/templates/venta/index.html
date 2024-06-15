@@ -12,7 +12,7 @@
 <body>
     <header class="bg-dark text-white py-4">
         <div class="container">
-            <h1 class="text-center">Ventas</h1>
+            <h1 class="text-center">Sistema de Stock</h1>
             <nav class="text-center">
                 <ul class="nav justify-content-center">
 					<li class="nav-item">
@@ -41,17 +41,17 @@
                 <thead class="thead-dark">
                     <tr>
                         <th class="th">ID</th>
-                        <th class="th">Cliente ID</th>
+                        <th class="th">Cliente</th>
                         <th class="th">Fecha venta</th>
-						<th class="th">Producto ID</th>
+						<th class="th">Producto</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="venta, iterStat : ${ventas}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
                         <td class="td" th:text="${venta.id}"></td>
-                        <td class="td" th:text="${venta.cliente.id}"></td>
+                        <td class="td" th:text="${venta.cliente.username}"></td>
                         <td class="td" th:text="${venta.fechaVenta}"></td>
-                        <td class="td" th:text="${venta.producto.id}"></td>
+                        <td class="td" th:text="${venta.producto.nombre}"></td>
                     </tr>
                 </tbody>
             </table>
