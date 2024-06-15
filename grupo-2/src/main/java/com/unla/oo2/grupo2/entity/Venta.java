@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "venta")
 public class Venta {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -39,12 +39,17 @@ public class Venta {
 
 	@Column(name = "totalVenta")
 	private double totalVenta;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "producto")
+	private Producto producto;
 
-	public Venta(LocalDate fechaVenta, User cliente, double totalVenta) {
+	public Venta(LocalDate fechaVenta, User cliente, double totalVenta, Producto producto) {
 		super();
 		this.fechaVenta = fechaVenta;
 		this.cliente = cliente;
 		this.totalVenta = totalVenta;
+		this.producto = producto;
 	}
 
 }

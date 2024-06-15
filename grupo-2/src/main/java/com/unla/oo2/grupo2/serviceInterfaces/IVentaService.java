@@ -13,4 +13,6 @@ public interface IVentaService {
 	public void add(Venta venta);
 
 	public void delete(int id);
+
+	public List<Venta> findAllClient(int id);
 }

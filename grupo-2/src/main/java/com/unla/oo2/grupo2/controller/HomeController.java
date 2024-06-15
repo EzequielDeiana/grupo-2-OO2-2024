@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo2.helper.RouteHelper;
+import com.unla.oo2.grupo2.helper.UserUtil;
 
 @Controller
 @RequestMapping("/")
@@ -14,7 +15,9 @@ public class HomeController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		return new ModelAndView(RouteHelper.HOME_INDEX);
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.HOME_INDEX);
+		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
+		return modelAndView;
 	}
 
 	@GetMapping("/")

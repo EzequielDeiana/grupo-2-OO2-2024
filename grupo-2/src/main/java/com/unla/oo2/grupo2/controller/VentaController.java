@@ -1,8 +1,5 @@
 package com.unla.oo2.grupo2.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,10 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo2.entity.User;
-import com.unla.oo2.grupo2.entity.UserRole;
 import com.unla.oo2.grupo2.entity.Venta;
+import com.unla.oo2.grupo2.helper.UserUtil;
 import com.unla.oo2.grupo2.service.UserService;
-import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
 import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
 
 @Controller
@@ -26,7 +22,7 @@ public class VentaController {
 	private IVentaService ventaService;
 	private UserService userService;
 
-	public VentaController(IVentaService ventaService, IProductoService productoService, UserService userService) {
+	public VentaController(IVentaService ventaService, UserService userService) {
 		this.ventaService = ventaService;
 		this.userService = userService;
 	}
@@ -34,16 +30,15 @@ public class VentaController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		User user = userService.findUserByUsername(userDetails.getUsername());
-		for (UserRole userRole : user.getUserRoles()) {
-			if (userRole.getRole().equals("ROLE_ADMIN")) {
-				System.out.println("Entre al equals");
-				modelAndView.addObject("ventas", ventaService.findAll());
-				modelAndView.addObject("clientes", userService.findAdmins());
-			}
+		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
+		
+		if(!hasRole) {
+			modelAndView.addObject("ventas", ventaService.findAllClient(UserUtil.getUser().getId()));
+		} else {
+			modelAndView.addObject("ventas", ventaService.findAll());
 		}
+		
+		modelAndView.addObject("isAdmin", hasRole); 
 		return modelAndView;
 	}
 

@@ -15,18 +15,21 @@
             <h1 class="text-center">Ventas</h1>
             <nav class="text-center">
                 <ul class="nav justify-content-center">
+					<li class="nav-item">
+						<a class="nav-link" href="/index">Home</a>
+					</li>
                     <li class="nav-item">
                         <a class="nav-link" href="/producto/index">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/venta/index">Ventas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/compra/index">Compras</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pedidocompra/index">Pedidos compras</a>
-                    </li>
+					<li th:if="${isAdmin}" class="nav-item">
+						<a class="nav-link" href="/compra/index">Compras</a>
+					</li>
+					<li th:if="${isAdmin}" class="nav-item">
+						<a class="nav-link" href="/pedidocompra/index">Pedidos compras</a>
+					</li>
                 </ul>
             </nav>
         </div>
@@ -40,7 +43,7 @@
                         <th class="th">ID</th>
                         <th class="th">Cliente ID</th>
                         <th class="th">Fecha venta</th>
-                        <th class="th">Total venta</th>
+						<th class="th">Producto ID</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +51,7 @@
                         <td class="td" th:text="${venta.id}"></td>
                         <td class="td" th:text="${venta.cliente.id}"></td>
                         <td class="td" th:text="${venta.fechaVenta}"></td>
-                        <td class="td" th:text="${venta.totalVenta}"></td>
+                        <td class="td" th:text="${venta.producto.id}"></td>
                     </tr>
                 </tbody>
             </table>
