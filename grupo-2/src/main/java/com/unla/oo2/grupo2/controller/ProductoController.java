@@ -41,7 +41,7 @@ public class ProductoController {
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
 		modelAndView.addObject("productos", productoService.findProductosDisponibles());
-		modelAndView.addObject("isAdmin", UserUtil.isAdmin());
+		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
 		return modelAndView;
 	}
 

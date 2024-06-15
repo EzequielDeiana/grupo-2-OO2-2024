@@ -16,7 +16,7 @@ public class HomeController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.HOME_INDEX);
-		modelAndView.addObject("isAdmin", UserUtil.isAdmin());
+		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
 		return modelAndView;
 	}
 

@@ -31,7 +31,7 @@ public class VentaController {
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
 		modelAndView.addObject("ventas", ventaService.findAll());
-		modelAndView.addObject("isAdmin", UserUtil.isAdmin());
+		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN)); 
 		return modelAndView;
 	}
 

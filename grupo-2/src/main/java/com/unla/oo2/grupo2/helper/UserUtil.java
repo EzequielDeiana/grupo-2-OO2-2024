@@ -1,6 +1,5 @@
 package com.unla.oo2.grupo2.helper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +11,13 @@ import com.unla.oo2.grupo2.service.UserService;
 
 @Component
 public class UserUtil {
+	
+	public static String ROLE_ADMIN = "ROLE_ADMIN";
+	public static String ROLE_USER = "ROLE_USER";
 
 	private static UserService userService = null;
 
 	@SuppressWarnings("static-access")
-	@Autowired
 	public UserUtil(UserService userService) {
 		this.userService = userService;
 	}
@@ -58,12 +59,19 @@ public class UserUtil {
 			return false;
 		}
 
-		for (UserRole userRole : user.getUserRoles()) {
-			if (userRole.getRole().equals("ROLE_ADMIN")) {
-				return true;
+		boolean isAdmin = false;
+		
+		for(UserRole rol : user.getUserRoles()) {
+			if(rol.toString().equalsIgnoreCase("ROLE_ADMIN")) {
+				isAdmin = true;
 			}
 		}
 
-		return false;
+		return isAdmin;
+	}
+	
+	public static boolean isRol(String rol) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(rol));
 	}
 }
