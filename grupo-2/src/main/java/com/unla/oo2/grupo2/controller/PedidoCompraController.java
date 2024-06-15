@@ -1,6 +1,7 @@
 package com.unla.oo2.grupo2.controller;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.data.repository.query.Param;
@@ -35,6 +36,16 @@ public class PedidoCompraController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/index");
+		for (PedidoCompra pedidoCompra : pedidoCompraService.findAll()) {
+			Compra compra = compraService.findById(pedidoCompra.getId()).get();
+			System.out.println("Compra: "+compra.getCantidadComprada());
+			pedidoCompra.setCantidadSolicitada(compra.getCantidadComprada());
+			System.out.println("Pedido: " + pedidoCompra.getCantidadSolicitada());
+			if(pedidoCompra.getCantidadSolicitada() > 0) {
+				pedidoCompra.setComprado(true);
+			}
+			pedidoCompraService.add(pedidoCompra);
+		}
 		modelAndView.addObject("pedidosCompra", pedidoCompraService.findAll());
 		return modelAndView;
 	}

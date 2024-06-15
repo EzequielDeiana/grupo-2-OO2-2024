@@ -137,7 +137,7 @@ public class ProductoController {
 			}
 
 			if (!existePedidoCompraDiaria) {
-				pedidoCompraService.add(new PedidoCompra(producto, LocalDate.now(), false, 10));
+				pedidoCompraService.add(new PedidoCompra(producto, LocalDate.now(), false, 0));
 			}
 		}
 

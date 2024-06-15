@@ -58,12 +58,16 @@
 					<td class="td" th:text="${producto.descripcion}"></td>
 					<td class="td" th:text="${producto.tipo}"></td>
 					<td class="td" th:text="${producto.stockRestante}"></td>
-					<td class="td" th:text="${producto.precio}"></td>
+					<td class="td" th:text="${'$' + producto.precio}"></td>
 					<td class="td" th:text="${producto.activo}"></td>
 					<div th:if="!${isAdmin}">
 						<td class="td"><a th:href="@{/producto/comprar/{id}(id=${producto.id})}"
 													class="btn btn-secondary">Comprar</a></td>
 					</div>
+					<div th:if="${isAdmin}">
+											<td class="td"><a th:href="@{/producto/{id}(id=${producto.id})}"
+																		class="btn btn-secondary">Modificar</a></td>
+										</div>
 				</tr>
 			</tbody>
 		</table>
