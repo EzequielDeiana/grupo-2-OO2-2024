@@ -12,8 +12,8 @@ import com.unla.oo2.grupo2.service.UserService;
 @Component
 public class UserUtil {
 	
-	public static String ROLE_ADMIN = "ROLE_ADMIN";
-	public static String ROLE_USER = "ROLE_USER";
+	public final static String ROLE_ADMIN = "ROLE_ADMIN";
+	public final static String ROLE_USER = "ROLE_USER";
 
 	private static UserService userService = null;
 
