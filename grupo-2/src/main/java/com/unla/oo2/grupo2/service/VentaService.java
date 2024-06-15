@@ -24,6 +24,10 @@ public class VentaService implements IVentaService {
 	public List<Venta> findAll() {
 		return ventaRepository.findAll();
 	}
+	
+	public List<Venta> findAllClient(int id) {
+		return ventaRepository.findAllClient(id);
+	}
 
 	public void add(Venta venta) {
 		ventaRepository.save(venta);

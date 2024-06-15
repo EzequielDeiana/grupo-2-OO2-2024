@@ -30,8 +30,15 @@ public class VentaController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
-		modelAndView.addObject("ventas", ventaService.findAll());
-		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN)); 
+		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
+		
+		if(!hasRole) {
+			modelAndView.addObject("ventas", ventaService.findAllClient(UserUtil.getUser().getId()));
+		} else {
+			modelAndView.addObject("ventas", ventaService.findAll());
+		}
+		
+		modelAndView.addObject("isAdmin", hasRole); 
 		return modelAndView;
 	}
 

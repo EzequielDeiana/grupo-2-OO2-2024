@@ -12,7 +12,14 @@
 		<p>cantidad Comprada: <input type="text" th:field="*{cantidadComprada}"></p>
         <p>Fecha entrega: <input type="text" th:field="*{fechaEntrega}"></p>
 		<p>Fecha lanzamiento: <input type="text" th:field="*{fechaLanzamiento}"></p>
-		<p>Proveedor: <input type="text" th:field="*{proveedor}"></p>
+		<p>Proveedor: 
+		    <select th:field="*{proveedor}">
+		        <option value="" disabled>Selecciona un proveedor</option>
+		        <option value="1" th:selected="${producto.proveedor}">Inca SA</option>
+		        <option value="2" th:selected="${producto.proveedor}">Producciones Rolling Stone</option>
+		        <option value="3" th:selected="${producto.proveedor}">Saturno Industry</option>
+		    </select>
+		</p>
 		<label for="pedidoCompraId">PedidoCompra:</label>
 		<select id="pedidoCompraId" th:name="pedidoCompra" th:field="*{pedidoCompra.id}">
 			<option value="0" disabled > Elige un Pedido de Compra</option>
