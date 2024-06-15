@@ -40,23 +40,12 @@ public class ProductoController {
 		this.ventaService = ventaService;
 	}
 
-	/*
-	 * @GetMapping("/index") public ModelAndView index() { ModelAndView modelAndView
-	 * = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
-	 * modelAndView.addObject("productos",
-	 * productoService.findProductosDisponibles());
-	 * modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
-	 * return modelAndView; }
-	 */
-
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_INDEX);
 
-		// Verificar si el usuario es administrador
 		boolean isAdmin = UserUtil.isRol(UserUtil.ROLE_ADMIN);
 
-		// Definir la lista de productos a cargar en función del rol del usuario
 		List<Producto> productos;
 		if (isAdmin) {
 			productos = productoService.findProductos();
@@ -65,10 +54,8 @@ public class ProductoController {
 			productos = productoService.findProductosDisponibles();
 		}
 
-		// Agregar los productos al modelo
 		modelAndView.addObject("productos", productos);
 
-		// Agregar isAdmin al modelo
 		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
 
 		return modelAndView;
@@ -96,7 +83,7 @@ public class ProductoController {
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/producto/update");
 		ProductoDTO productoDTO = modelMapper.map(productoService.findById(id).get(), ProductoDTO.class);
-		modelAndView.addObject("producto",productoDTO);
+		modelAndView.addObject("producto", productoDTO);
 		return modelAndView;
 	}
 
