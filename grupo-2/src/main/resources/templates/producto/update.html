@@ -1,27 +1,79 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Modificar productoa</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<meta charset="UTF-8">
+	<title>Modificar productoa</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		textarea {
+			resize: none;
+		}
+
+		.btn-secondary {
+			margin-top: 1rem;
+		}
+
+		.btn-primary {
+			margin-top: 1rem;
+		}
+
+		.tiny-form-options {
+			margin-top: 2rem;
+		}
+	</style>
 </head>
+
 <body>
-    <form action="#" th:action="@{/producto/{id}(id=${producto.id})}" th:object="${producto}" method="post">
-        <input type="hidden" th:name="id" th:value="${producto.id}" />
-        <p> Name: <input type="text" th:field="*{nombre}"/></p>
-        <p> Descripcion: <input type="text" th:field="*{descripcion}" /></p>
-		<p> Tipo: <input type="text" th:field="*{tipo}" /></p>
-		<p> Stock restante: <input type="text" th:field="*{stockRestante}" /></p>
-		<p> Precio: <input type="text" th:field="*{precio}" /></p>
-		<p> Activo: <input type="text" th:field="*{activo}" /></p>
-		<p> URL: <input type="text" th:field="*{url}" /></p>
-        <input type="submit" value="Edit" class="btn btn-primary" />
-    </form>
-	<form action="#" th:action="@{/producto/delete/{id}(id=${producto.id})}" method="post">
-		<input type="submit" value="delete producto" />
+	<h1 style="text-align: center; margin-bottom: 1rem;">Formulario Modificación de producto</h1>
+	<div class="container-lg" style=" background-color: aliceblue; border-radius: 10px; padding-top: 1px;">
+		<form action="#" th:action="@{/producto/{id}(id=${producto.id})}" th:object="${producto}" method="post">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="tipo">Nombre: </label>
+					<input type="text" th:field="*{nombre}" class="form-control">
+				</div>
+				<div class="from group col-md-6">
+					<label for="tipo">Tipo: </label>
+					<input type="text" th:field="*{tipo}" class="form-control">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="descripcion">Descripcion:</label>
+					<textarea rows="10" cols="20" type="text" th:field="*{descripcion}" class="form-control"></textarea>
+				</div>
+				<div class="form-col tiny-form-options">
+					<div class="form-group col-md-12">
+						<label for="stockRestante">Stock restante: </label>
+						<input type="number" th:field="*{stockRestante}" class="form-control">
+					</div>
+					<div class="form-group col-md-12">
+						<label for="stockRestante">Precio: </label>
+						<input type="number" th:field="*{precio}" class="form-control">
+					</div>
+					<div class="form-group col-md-12">
+						<label for="activo">Activo: </label>
+						<input type="number" th:field="*{activo}" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="url">URL de Imagen: </label>
+					<input type="text" th:field="*{url}" class="form-control">
+				</div>
+			</div>
+			<div class="btn-container" style="padding-bottom: 3rem;">
+				<button class="btn btn-primary" type="submit">Edit</button>
+				<a href="/producto/index" class="btn btn-secondary">Volver a la lista de productos</a>
+			</div>
+	</div>
+
 	</form>
 
-    <a href="/producto/index" class="btn btn-secondary">Volver a la lista de productoas</a>
+
 </body>
+
 </html>
