@@ -22,4 +22,6 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
     @Transactional
     @Query("UPDATE Producto p SET p.activo = false WHERE p.id = :id")
     void DisableProductosById(int id);
+
+	
 }

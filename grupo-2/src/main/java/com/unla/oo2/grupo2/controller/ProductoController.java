@@ -129,15 +129,11 @@ public class ProductoController {
 			System.out.println(e.getMessage());
 		}
 
-		if (producto.getStockRestante() > 0 && producto.getStockRestante() > cantidadSolicitada) {
-			
-			for(int i = 0 ; i < cantidadSolicitada ; i++) {
-				producto.setStockRestante(producto.getStockRestante() - 1);
-				productoService.add(producto);
-				
+		if (producto.getStockRestante() > 0 && producto.getStockRestante() >= cantidadSolicitada) {
+			producto.setStockRestante(producto.getStockRestante() - cantidadSolicitada);
+			 productoService.add(producto);
 				Venta nuevaVenta = new Venta(LocalDate.now(), user, 0, producto);
 				ventaService.add(nuevaVenta);
-			}
 			
 			if (producto.getStockRestante() < 5) {
 				pedidoCompra = pedidoCompraService.findAll();
