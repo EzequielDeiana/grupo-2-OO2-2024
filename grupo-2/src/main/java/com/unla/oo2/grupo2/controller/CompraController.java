@@ -1,6 +1,7 @@
 package com.unla.oo2.grupo2.controller;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import com.unla.oo2.grupo2.service.PedidoCompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.ICompraService;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/compra")
 public class CompraController {
 
