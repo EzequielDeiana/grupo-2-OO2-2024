@@ -1,14 +1,21 @@
 package com.unla.oo2.grupo2.helper;
 
-public class CantidadProductos {
-    public int idProducto;
-    public int cantidad;
-    public String nombre;
-    public double precio;
+import java.time.LocalDate;
 
-    public CantidadProductos() {
-        super();
-    }
+import com.unla.oo2.grupo2.entity.Compra;
+import com.unla.oo2.grupo2.entity.PedidoCompra;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class CantidadProductos {
+    private int idProducto;
+    private int cantidad;
+    private String nombre;
+    private double precio;
+
 
     public CantidadProductos(int idProducto, int cantidad, String nombre, double precio) {
         super();

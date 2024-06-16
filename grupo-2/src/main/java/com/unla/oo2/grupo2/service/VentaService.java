@@ -48,8 +48,8 @@ public class VentaService implements IVentaService {
 	
 	private void sumarPosicionEntero(List<CantidadProductos> cantidadProductos, int idProducto) {
         for (CantidadProductos i : cantidadProductos) {
-            if (i.idProducto == idProducto) {
-                i.cantidad++;
+            if (i.getIdProducto() == idProducto) {
+                i.setCantidad(i.getCantidad()+1);
             }
         }
     }
@@ -59,7 +59,7 @@ public class VentaService implements IVentaService {
         for (int i = 0; i < n - 1; i++) {
             int maxIndex = i;
             for (int j = i + 1; j < n; j++) {
-                if (lista.get(j).cantidad > lista.get(maxIndex).cantidad) {
+                if (lista.get(j).getCantidad() > lista.get(maxIndex).getCantidad()) {
                     maxIndex = j;
                 }
             }
@@ -74,7 +74,7 @@ public class VentaService implements IVentaService {
         for (int i = 0; i < n - 1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < n; j++) {
-                if (lista.get(j).cantidad < lista.get(minIndex).cantidad) {
+                if (lista.get(j).getCantidad() < lista.get(minIndex).getCantidad()) {
                     minIndex = j;
                 }
             }
@@ -99,9 +99,9 @@ public class VentaService implements IVentaService {
         ordenarPorSeleccionDescendente(cantidadProductos);
         
         for(CantidadProductos i : cantidadProductos) {
-            Producto producto = productoRepository.findById(i.idProducto).get();
-            i.nombre = producto.getNombre();
-            i.precio = producto.getPrecio();
+            Producto producto = productoRepository.findById(i.getIdProducto()).get();
+            i.setNombre(producto.getNombre());
+            i.setPrecio(producto.getPrecio());
         }
 
         return cantidadProductos;
@@ -122,9 +122,9 @@ public class VentaService implements IVentaService {
         ordenarPorSeleccionAscendente(cantidadProductos);
         
         for(CantidadProductos i : cantidadProductos) {
-            Producto producto = productoRepository.findById(i.idProducto).get();
-            i.nombre = producto.getNombre();
-            i.precio = producto.getPrecio();
+            Producto producto = productoRepository.findById(i.getIdProducto()).get();
+            i.setNombre(producto.getNombre());
+            i.setPrecio(producto.getPrecio());
         }
 
         return cantidadProductos;
