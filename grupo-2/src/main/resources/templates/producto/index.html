@@ -35,7 +35,7 @@
 
 	<header class="bg-dark text-white py-4">
 		<div class="container">
-			<h1 class="text-center">Sistema de Stock</h1>
+			<h1 class="text-center">Mega Red</h1>
 			<nav class="text-center">
 				<ul class="nav justify-content-center">
 					<li class="nav-item">
@@ -86,35 +86,34 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="producto, iterStat : ${productos}"
-							th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}" class="product-table">
-							<td th:if="${isAdmin}" class="td text-center" th:text="${producto.id}"></td>
-							<td class="td text-center" th:text="${producto.nombre}"></td>
-							<td class="td text-center" th:text="${producto.descripcion}"></td>
-							<td class="td text-center" th:text="${producto.tipo}"></td>
-							<td class="td text-center" th:text="${producto.stockRestante}"></td>
-							<td class="td text-center" th:text="${'$' + producto.precio}"></td>
-							<td th:if="${isAdmin}" class="td text-center" th:text="${producto.activo}"></td>
-							<td class="td text-center image-container">
-								<img th:src="@{${producto.url}}" alt="Imagen de producto"
-									style="width:100px;height:72px">
+							<tr th:each="producto, iterStat : ${productos}"
+								th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}" class="product-table">
+								<td th:if="${isAdmin}" class="td text-center" th:text="${producto.id}"></td>
+								<td class="td text-center" th:text="${producto.nombre}"></td>
+								<td class="td text-center" th:text="${producto.descripcion}"></td>
+								<td class="td text-center" th:text="${producto.tipo}"></td>
+								<td class="td text-center" th:text="${producto.stockRestante}"></td>
+								<td class="td text-center" th:text="${'$' + producto.precio}"></td>
+								<td th:if="${isAdmin}" class="td text-center" th:text="${producto.activo}"></td>
+								<td class="td text-center image-container">
+									<img th:src="@{${producto.url}}" alt="Imagen de producto"
+										style="width:100px;height:72px">
+								</td>
+						<div th:if="!${isAdmin}">
+							<td class="td text-center">
+								<form th:action="@{/producto/comprar/{id}(id=${producto.id})}" method="post">
+									<input type="number" name="cantidadSolicitada" min="1" value="1">
+									<input type="submit" value="Comprar" class="btn btn-secondary" style="margin-top: 1rem;">
+								</form>
 							</td>
+						</div>
 
-							<div th:if="!${isAdmin}">
-								<td class="td text-center">
-									<form th:action="@{/producto/comprar/{id}(id=${producto.id})}" method="post">
-										<input type="number" name="cantidadSolicitada" min="1" value="1">
-										<input type="submit" value="Comprar" class="btn btn-secondary">
-									</form>
-								</td>
-							</div>
-
-							<div th:if="${isAdmin}">
-								<td class="td text-center">
-									<a th:href="@{/producto/{id}(id=${producto.id})}"
-										class="btn btn-secondary">Modificar</a>
-								</td>
-							</div>
+						<div th:if="${isAdmin}">
+							<td class="td text-center">
+								<a th:href="@{/producto/{id}(id=${producto.id})}"
+									class="btn btn-secondary">Modificar</a>
+							</td>
+						</div>
 
 						</tr>
 					</tbody>
@@ -129,36 +128,38 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			
-				<div th:if="${isAdmin}" class="col-sm">
-					<h2 class="text-center mt-4">Productos más vendidos</h2>
-					<div class="text-center container mt-5">
-						<div th:each="producto : ${productosMasVendidos}" class="producto-mas-vendido">
-							<h3> <span th:text="${producto.nombre}"></span></h3>
-							<p>Precio: <span th:text="${'$' + #numbers.formatDecimal(producto.precio, 1, 2)}"></span></p>
-							<p>Cantidad Vendida: <b><span style="font-size: large; color: rgb(162, 155, 72);" th:text="${producto.cantidad}"></span></b></p>
-							<p>Precio total:
-								<span
-									th:text="${'$' +  #numbers.formatDecimal(producto.precio * producto.cantidad, 1, 2)}"></span>
-							</p>
-						</div>
-					</div>
-				</div>
 
-				<div th:if="${isAdmin}" class="col-sm">
-					<h2 class="text-center mt-4">Productos menos vendidos</h2>
-					<div class="text-center container mt-5">
-						<div th:each="producto : ${productosMenosVendidos}" class="producto-mas-vendido">
-							<h3> <span th:text="${producto.nombre}"></span></h3>
-							<p>Precio: <span th:text="${'$' + #numbers.formatDecimal(producto.precio, 1, 2)}"></span></p>
-							<p>Cantidad Vendida: <b><span style="font-size: large; color: darkred;" th:text="${producto.cantidad}"></span></b></p>
-							<p>Precio total:
-								<span
-									th:text="${'$' + #numbers.formatDecimal(producto.precio * producto.cantidad, 1, 2)}"></span>
-							</p>
-						</div>
+			<div th:if="${isAdmin}" class="col-sm">
+				<h2 class="text-center mt-4">Productos más vendidos</h2>
+				<div class="text-center container mt-5">
+					<div th:each="producto : ${productosMasVendidos}" class="producto-mas-vendido">
+						<h3> <span th:text="${producto.nombre}"></span></h3>
+						<p>Precio: <span th:text="${'$' + #numbers.formatDecimal(producto.precio, 1, 2)}"></span></p>
+						<p>Cantidad Vendida: <b><span style="font-size: large; color: rgb(162, 155, 72);"
+									th:text="${producto.cantidad}"></span></b></p>
+						<p>Precio total:
+							<span
+								th:text="${'$' +  #numbers.formatDecimal(producto.precio * producto.cantidad, 1, 2)}"></span>
+						</p>
 					</div>
 				</div>
+			</div>
+
+			<div th:if="${isAdmin}" class="col-sm">
+				<h2 class="text-center mt-4">Productos menos vendidos</h2>
+				<div class="text-center container mt-5">
+					<div th:each="producto : ${productosMenosVendidos}" class="producto-mas-vendido">
+						<h3> <span th:text="${producto.nombre}"></span></h3>
+						<p>Precio: <span th:text="${'$' + #numbers.formatDecimal(producto.precio, 1, 2)}"></span></p>
+						<p>Cantidad Vendida: <b><span style="font-size: large; color: darkred;"
+									th:text="${producto.cantidad}"></span></b></p>
+						<p>Precio total:
+							<span
+								th:text="${'$' + #numbers.formatDecimal(producto.precio * producto.cantidad, 1, 2)}"></span>
+						</p>
+					</div>
+				</div>
+			</div>
 
 </body>
 
