@@ -7,6 +7,11 @@
 	<title>Compras</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		.image-container img {
+			object-fit: fill;
+		}
+	</style>
 </head>
 
 <body>
@@ -57,8 +62,9 @@
 						<td class="td" th:text="${compra.proveedor}"></td>
 						<td class="td" th:text="${compra.cantidadComprada}"></td>
 						<td class="td" th:text="${compra.pedidoCompra.producto.nombre}"></td>
-						<td class="td text-center">
-						 	<img th:src="@{${compra.pedidoCompra.producto.url}}" alt="Imagen de producto" style="max-height: 50px;">
+						<td class="td text-center img-container">
+							<img th:src="@{${compra.pedidoCompra.producto.url}}" alt="Imagen de producto"
+								style="width:100px;height:72px">
 						</td>
 					</tr>
 				</tbody>

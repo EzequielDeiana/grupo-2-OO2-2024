@@ -2,69 +2,75 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ventas</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		.image-container img {
+			object-fit: fill;
+		}
+	</style>
 </head>
 
 <body>
-    <header class="bg-dark text-white py-4">
-        <div class="container">
-            <h1 class="text-center">Sistema de Stock</h1>
-            <nav class="text-center">
-                <ul class="nav justify-content-center">
+	<header class="bg-dark text-white py-4">
+		<div class="container">
+			<h1 class="text-center">Sistema de Stock</h1>
+			<nav class="text-center">
+				<ul class="nav justify-content-center">
 					<li class="nav-item">
 						<a class="nav-link" href="/index">Home</a>
 					</li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/producto/index">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                      <a th:text="${isAdmin} ? 'Ventas' : 'Historial'" class="nav-link" href="/venta/index"></a>
-                    </li>
+					<li class="nav-item">
+						<a class="nav-link" href="/producto/index">Productos</a>
+					</li>
+					<li class="nav-item">
+						<a th:text="${isAdmin} ? 'Ventas' : 'Historial'" class="nav-link" href="/venta/index"></a>
+					</li>
 					<li th:if="${isAdmin}" class="nav-item">
 						<a class="nav-link" href="/compra/index">Compras</a>
 					</li>
 					<li th:if="${isAdmin}" class="nav-item">
 						<a class="nav-link" href="/pedidocompra/index">Pedidos compras</a>
 					</li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <div class="container d-flex justify-content-center mt-4">
-        <div class="w-100">
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="container d-flex justify-content-center mt-4">
+		<div class="w-100">
 			<h1 th:if="${not isAdmin}" class="text-center">Historial de Compras</h1>
-            <h1 th:if="${isAdmin}" class="text-center">Tabla de Ventas</h1>
-            <table class="table table-bordered table-striped table-hover text-center">
-                <thead class="thead-dark">
-                    <tr>
-                        <th class="th">ID</th>
-                        <th class="th">Cliente</th>
-                        <th class="th">Fecha venta</th>
+			<h1 th:if="${isAdmin}" class="text-center">Tabla de Ventas</h1>
+			<table class="table table-bordered table-striped table-hover text-center">
+				<thead class="thead-dark">
+					<tr>
+						<th class="th">ID</th>
+						<th class="th">Cliente</th>
+						<th class="th">Fecha venta</th>
 						<th class="th">Producto</th>
 						<th class="th">Producto IMG</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="venta, iterStat : ${ventas}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-                        <td class="td" th:text="${venta.id}"></td>
-                        <td class="td" th:text="${venta.cliente.username}"></td>
-                        <td class="td" th:text="${venta.fechaVenta}"></td>
-                        <td class="td" th:text="${venta.producto.nombre}"></td>
-						<td class="td text-center">
-						    <img th:src="@{${venta.producto.url}}" alt="Imagen de producto" style="max-height: 50px;">
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="venta, iterStat : ${ventas}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+						<td class="td" th:text="${venta.id}"></td>
+						<td class="td" th:text="${venta.cliente.username}"></td>
+						<td class="td" th:text="${venta.fechaVenta}"></td>
+						<td class="td" th:text="${venta.producto.nombre}"></td>
+						<td class="td text-center img-container">
+							<img th:src="@{${venta.producto.url}}" alt="Imagen de producto"
+								style="width:100px; height:72px">
 						</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- Bootstrap core JavaScript -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript -->
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
