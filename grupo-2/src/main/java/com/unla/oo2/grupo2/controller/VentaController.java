@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.oo2.grupo2.dtos.VentaDTO;
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.Venta;
+import com.unla.oo2.grupo2.helper.RouteHelper;
 import com.unla.oo2.grupo2.helper.UserUtil;
 import com.unla.oo2.grupo2.service.UserService;
 import com.unla.oo2.grupo2.serviceInterfaces.IVentaService;
@@ -32,7 +33,7 @@ public class VentaController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		ModelAndView modelAndView = new ModelAndView("/venta/index");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.VENTA_INDEX);
 		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
 
 		if (!hasRole) {
@@ -47,7 +48,7 @@ public class VentaController {
 
 	@GetMapping("/historial")
 	public ModelAndView historial() {
-		ModelAndView modelAndView = new ModelAndView("/venta/index");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.VENTA_INDEX);
 		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
 
 		if (!hasRole) {
@@ -62,7 +63,7 @@ public class VentaController {
 
 	@GetMapping("/")
 	public RedirectView redirectToHomeIndex() {
-		return new RedirectView("/venta/index");
+		return new RedirectView(RouteHelper.VENTA_INDEX);
 	}
 
 	@PostMapping("/create")
@@ -71,12 +72,12 @@ public class VentaController {
 		if (cliente != null) {
 			ventaService.add(modelMapper.map(ventaDTO, Venta.class));
 		}
-		return new RedirectView("/venta/index");
+		return new RedirectView(RouteHelper.VENTA_INDEX);
 	}
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
-		ModelAndView model = new ModelAndView("/venta/new");
+		ModelAndView model = new ModelAndView(RouteHelper.VENTA_NEW);
 		model.addObject("clientes", userService.findUsers());
 		model.addObject("venta", new VentaDTO());
 		return model;
@@ -84,7 +85,7 @@ public class VentaController {
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
-		ModelAndView modelAndView = new ModelAndView("/venta/update");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.VENTA_UPDATE);
 		VentaDTO ventaDTO = modelMapper.map(ventaService.findById(id).get(), VentaDTO.class);
 		modelAndView.addObject("venta", ventaDTO);
 		return modelAndView;
@@ -93,13 +94,13 @@ public class VentaController {
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("venta") VentaDTO ventaDTO) {
 		ventaService.add(modelMapper.map(ventaDTO, Venta.class));
-		return new RedirectView("/venta/index");
+		return new RedirectView(RouteHelper.VENTA_INDEX);
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		ventaService.delete(id);
-		return new RedirectView("/venta/index");
+		return new RedirectView(RouteHelper.VENTA_INDEX);
 	}
 
 }

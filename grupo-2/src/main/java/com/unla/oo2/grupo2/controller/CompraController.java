@@ -41,12 +41,12 @@ public class CompraController {
 
 	@GetMapping("/")
 	public RedirectView redirectToHomeIndex() {
-		return new RedirectView("/index");
+		return new RedirectView(RouteHelper.INDEX);
 	}
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
-		ModelAndView model = new ModelAndView("/compra/new");
+		ModelAndView model = new ModelAndView(RouteHelper.COMPRA_NEW);
 		model.addObject("pedidosDeCompra", pedidoCompra.findAll());
 		model.addObject("compra", new CompraDTO());
 		return model;
@@ -55,12 +55,12 @@ public class CompraController {
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("compra") CompraDTO compraDTO) {
 		compraService.add(modelMapper.map(compraDTO, Compra.class));
-		return new RedirectView("/compra/index");
+		return new RedirectView(RouteHelper.COMPRA_INDEX);
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
-		ModelAndView modelAndView = new ModelAndView("/compra/update");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.COMPRA_UPDATE);
 		CompraDTO compraDTO = modelMapper.map(compraService.findById(id).get(), CompraDTO.class);
 		modelAndView.addObject("compra", compraDTO);
 		return modelAndView;
@@ -69,13 +69,13 @@ public class CompraController {
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("compra") CompraDTO compraDTO) {
 		compraService.add(modelMapper.map(compraDTO, Compra.class));
-		return new RedirectView("/compra/index");
+		return new RedirectView(RouteHelper.COMPRA_INDEX);
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		compraService.delete(id);
-		return new RedirectView("/compra/index");
+		return new RedirectView(RouteHelper.COMPRA_INDEX);
 	}
 
 }
