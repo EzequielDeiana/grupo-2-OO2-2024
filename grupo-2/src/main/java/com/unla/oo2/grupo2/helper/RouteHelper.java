@@ -42,4 +42,6 @@ public class RouteHelper {
 	// Routes resources
 	public static final String STATIC_ALL = "/static/*";
 
+	// Routes custom
+	public static final String CUSTOM_ERROR = "/error/error";
 }
