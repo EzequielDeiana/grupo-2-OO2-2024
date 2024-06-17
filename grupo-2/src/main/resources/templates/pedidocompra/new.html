@@ -6,34 +6,39 @@
 	<title>Crear nuevas Compras</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script>
+	    function updateRangeValue(val) {
+	        document.getElementById('rangeValue').textContent = val;
+	    }
+	</script>
 </head>
 
 <body>
-	<h1 style="text-align: center; margin-bottom: 1rem;">Formulario pedido de Compra</h1>
-	<div class="container-lg" style=" background-color: aliceblue; border-radius: 10px; padding-top: 1px;">
-		<p th:text="${compra.pedidoCompra.id}">A</p>
-		<p th:text="${compra.pedidoCompra.producto.id}">A</p>
-		<p th:text="${compra.pedidoCompra.id}">A</p>
-		<p th:text="${compra.pedidoCompra.id}">A</p>
+    <h1 class="text-center mb-4">Formulario pedido de Compra</h1>
+    <div class="container-lg bg-light p-4 rounded">
 
-		<form th:action="@{/pedidocompra/createcompra/{id}(id=${compra.pedidoCompra.id})}" th:object="${compra}" method="post" style="margin-top: 4rem;">
-			
-			<div class="form-row">
-				<label for="cantidadComprada">Cantidad a Comprar: </label>
-				<input required type="number" th:field="*{cantidadComprada}" min="1" max="1000">
-			</div>
-			
-			<div class="form-row">
-				<label for="proveedor">Proveedor: </label>
-				<input required type="text" th:field="*{proveedor}">
-			</div>
-
-			<div class="btn-container" style="padding-bottom: 2rem; margin-top: 2rem;">
-				<button class="btn btn-primary" type="submit">Enviar</button>
-				<a href="/pedidocompra/index" class="btn btn-secondary">Volver a la lista de Pedidos Compra</a>
-			</div>
-		</form>
-	</div>
+        <form th:action="@{/pedidocompra/createcompra/{id}(id=${compra.pedidoCompra.id})}" th:object="${compra}" method="post">
+            
+            <div class="form-group">
+                <label for="cantidadComprada">Cantidad Comprada:</label>
+                <input required type="range" class="form-control-range" th:field="*{cantidadComprada}" min="1" max="1000" step="1" oninput="updateRangeValue(this.value)">
+                <small class="form-text text-muted">Cantidad seleccionada: <span id="rangeValue" th:text="*{cantidadComprada}">0</span></small>
+            </div>
+            
+            <div class="form-group">
+                <label for="proveedor">Proveedor:</label>
+                <select class="form-control" th:field="*{proveedor}">
+                    <option value="" disabled selected>Selecciona un proveedor</option>
+                    <option th:each="prov : ${proveedores}" th:value="${prov}" th:text="${prov}" th:selected="${compra.proveedor == prov}"></option>
+                </select>
+            </div>
+            
+            <div class="btn-container d-flex justify-content-between mt-4">
+                <button class="btn btn-primary" type="submit">Enviar</button>
+                <a href="/pedidocompra/index" class="btn btn-secondary">Volver a la lista de Pedidos Compra</a>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

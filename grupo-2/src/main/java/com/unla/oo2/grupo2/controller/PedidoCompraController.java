@@ -69,8 +69,7 @@ public class PedidoCompraController {
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/update");
-		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(),
-				PedidoCompraDTO.class);
+		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(), PedidoCompraDTO.class);
 		modelAndView.addObject("pedidocompra", pedidoCompraDTO);
 
 		return modelAndView;
@@ -95,6 +94,7 @@ public class PedidoCompraController {
         Compra compra = new Compra();
         compra.setPedidoCompra(pedidoCompraService.findById(id).get());
         modelAndView.addObject("compra", compra);
+        modelAndView.addObject("proveedores", DatosPruebaUtil.proveedores);
         return modelAndView;
     }
 
