@@ -58,13 +58,13 @@ public class ProductoController {
 		modelAndView.addObject("productos", productos);
 
 		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
-		
-        try {
-            modelAndView.addObject("productosMasVendidos", ventaService.productoMasVendido());
-            modelAndView.addObject("productosMenosVendidos", ventaService.productoMenosVendido());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+		try {
+			modelAndView.addObject("productosMasVendidos", ventaService.productoMasVendido());
+			modelAndView.addObject("productosMenosVendidos", ventaService.productoMenosVendido());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return modelAndView;
 	}
@@ -116,7 +116,8 @@ public class ProductoController {
 
 	@PostMapping("/comprar/{id}")
 	public ModelAndView comprar(@PathVariable("id") int id, @Param("cantidadSolicitada") int cantidadSolicitada) {
-		ModelAndView modelAndView = index();;
+		ModelAndView modelAndView = index();
+		;
 		User user = null;
 		Producto producto = null;
 		List<PedidoCompra> pedidoCompra = null;
@@ -131,10 +132,11 @@ public class ProductoController {
 
 		if (producto.getStockRestante() > 0 && producto.getStockRestante() >= cantidadSolicitada) {
 			producto.setStockRestante(producto.getStockRestante() - cantidadSolicitada);
-			 productoService.add(producto);
-				Venta nuevaVenta = new Venta(LocalDate.now(), user, 0, producto);
-				ventaService.add(nuevaVenta);
-			
+			productoService.add(producto);
+			Venta nuevaVenta = new Venta(LocalDate.now(), user, cantidadSolicitada * producto.getPrecio(), producto,
+					cantidadSolicitada);
+			ventaService.add(nuevaVenta);
+
 			if (producto.getStockRestante() < 5) {
 				pedidoCompra = pedidoCompraService.findAll();
 				int j = 0;
@@ -151,9 +153,9 @@ public class ProductoController {
 				if (!existePedidoCompraDiaria) {
 					pedidoCompraService.add(new PedidoCompra(producto, LocalDate.now(), false, 0));
 				}
-				
+
 			}
-			
+
 			modelAndView = index();
 
 		} else {

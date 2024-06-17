@@ -16,7 +16,7 @@ public class ProductoDTO {
 	private double precio;
 	private boolean activo;
 	private String url;
-	
+
 	public ProductoDTO(int id, String nombre, String descripcion, String tipo, int stockRestante, double precio,
 			boolean activo, String url) {
 		this.id = id;

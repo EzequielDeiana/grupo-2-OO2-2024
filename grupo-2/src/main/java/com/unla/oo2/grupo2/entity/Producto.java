@@ -37,11 +37,12 @@ public class Producto {
 
 	@Column(name = "activo")
 	private boolean activo;
-	
+
 	@Column(name = "url")
 	private String url;
 
-	public Producto(String nombre, String descripcion, String tipo, int stockRestante, double precio, boolean activo, String url) {
+	public Producto(String nombre, String descripcion, String tipo, int stockRestante, double precio, boolean activo,
+			String url) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;

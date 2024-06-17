@@ -16,8 +16,8 @@ public interface IVentaService {
 	public void delete(int id);
 
 	public List<Venta> findAllClient(int id);
-	
+
 	public List<CantidadProductos> productoMasVendido();
-	
+
 	public List<CantidadProductos> productoMenosVendido();
 }

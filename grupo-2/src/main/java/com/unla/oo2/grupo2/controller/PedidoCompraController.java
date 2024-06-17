@@ -1,11 +1,9 @@
 package com.unla.oo2.grupo2.controller;
 
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,6 @@ import com.unla.oo2.grupo2.dtos.CompraDTO;
 import com.unla.oo2.grupo2.dtos.PedidoCompraDTO;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
-import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.helper.DatosPruebaUtil;
 import com.unla.oo2.grupo2.serviceInterfaces.ICompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.IPedidoCompraService;
@@ -37,7 +34,8 @@ public class PedidoCompraController {
 	private IProductoService productoService;
 	private ModelMapper modelMapper = new ModelMapper();
 
-	public PedidoCompraController(IPedidoCompraService pedidoCompraService, ICompraService compraService, IProductoService productoService) {
+	public PedidoCompraController(IPedidoCompraService pedidoCompraService, ICompraService compraService,
+			IProductoService productoService) {
 		this.pedidoCompraService = pedidoCompraService;
 		this.compraService = compraService;
 		this.productoService = productoService;
@@ -46,12 +44,12 @@ public class PedidoCompraController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/index");
-		
+
 		for (PedidoCompra pedidoCompra : pedidoCompraService.findAll()) {
 			try {
 				Compra compra = compraService.findById(pedidoCompra.getId()).get();
 				pedidoCompra.setCantidadSolicitada(compra.getCantidadComprada());
-				if(pedidoCompra.getCantidadSolicitada() > 0) {
+				if (pedidoCompra.getCantidadSolicitada() > 0) {
 					pedidoCompra.setComprado(true);
 				}
 				pedidoCompraService.add(pedidoCompra);
@@ -59,7 +57,7 @@ public class PedidoCompraController {
 				// TODO: handle exception
 			}
 		}
-		
+
 		modelAndView.addObject("pedidosCompra", pedidoCompraService.findAll());
 		return modelAndView;
 	}
@@ -85,9 +83,10 @@ public class PedidoCompraController {
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/update");
-		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(), PedidoCompraDTO.class);
-		modelAndView.addObject("pedidocompra",pedidoCompraDTO);
-		
+		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(),
+				PedidoCompraDTO.class);
+		modelAndView.addObject("pedidocompra", pedidoCompraDTO);
+
 		return modelAndView;
 	}
 
@@ -129,7 +128,8 @@ public class PedidoCompraController {
 		compraDTO.setFechaEntrega(LocalDate.now().plusDays(7));
 		compraService.add(modelMapper.map(compraDTO, Compra.class));
 		PedidoCompra pedidoCompra = pedidoCompraService.findById(compraDTO.getId()).get();
-		pedidoCompra.getProducto().setStockRestante(compraDTO.getCantidadComprada() + pedidoCompra.getProducto().getStockRestante());
+		pedidoCompra.getProducto()
+				.setStockRestante(compraDTO.getCantidadComprada() + pedidoCompra.getProducto().getStockRestante());
 		productoService.add(pedidoCompra.getProducto());
 		return new RedirectView("/pedidocompra/index");
 	}

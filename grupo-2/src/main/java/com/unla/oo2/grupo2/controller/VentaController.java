@@ -34,32 +34,32 @@ public class VentaController {
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
 		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
-		
-		if(!hasRole) {
+
+		if (!hasRole) {
 			modelAndView.addObject("ventas", ventaService.findAllClient(UserUtil.getUser().getId()));
 		} else {
 			modelAndView.addObject("ventas", ventaService.findAll());
 		}
-		
-		modelAndView.addObject("isAdmin", hasRole); 
+
+		modelAndView.addObject("isAdmin", hasRole);
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/historial")
 	public ModelAndView historial() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
 		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
-		
-		if(!hasRole) {
+
+		if (!hasRole) {
 			modelAndView.addObject("ventas", ventaService.findAllClient(UserUtil.getUser().getId()));
 		} else {
 			modelAndView.addObject("ventas", ventaService.findAll());
 		}
-		
-		modelAndView.addObject("isAdmin", hasRole); 
+
+		modelAndView.addObject("isAdmin", hasRole);
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/")
 	public RedirectView redirectToHomeIndex() {
 		return new RedirectView("/venta/index");

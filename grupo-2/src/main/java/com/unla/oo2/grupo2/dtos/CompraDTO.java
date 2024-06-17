@@ -14,12 +14,10 @@ import lombok.Setter;
 public class CompraDTO {
 	private PedidoCompra pedidoCompra;
 	private int id;
-    private LocalDate fechaEntrega;
-    private LocalDate fechaLanzamiento;
-    private String proveedor;
-    private int cantidadComprada;
-
-   
+	private LocalDate fechaEntrega;
+	private LocalDate fechaLanzamiento;
+	private String proveedor;
+	private int cantidadComprada;
 
 	public CompraDTO(PedidoCompra pedidoCompra, LocalDate fechaEntrega, LocalDate fechaLanzamiento, String proveedor,
 			int cantidadComprada) {
@@ -30,7 +28,7 @@ public class CompraDTO {
 		this.proveedor = proveedor;
 		this.cantidadComprada = cantidadComprada;
 	}
-	
+
 	public CompraDTO(PedidoCompra pedidoCompra) {
 		super();
 		this.pedidoCompra = pedidoCompra;

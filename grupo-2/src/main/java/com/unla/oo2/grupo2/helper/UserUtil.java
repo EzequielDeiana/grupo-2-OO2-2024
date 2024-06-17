@@ -11,7 +11,7 @@ import com.unla.oo2.grupo2.service.UserService;
 
 @Component
 public class UserUtil {
-	
+
 	public final static String ROLE_ADMIN = "ROLE_ADMIN";
 	public final static String ROLE_USER = "ROLE_USER";
 
@@ -60,16 +60,16 @@ public class UserUtil {
 		}
 
 		boolean isAdmin = false;
-		
-		for(UserRole rol : user.getUserRoles()) {
-			if(rol.toString().equalsIgnoreCase("ROLE_ADMIN")) {
+
+		for (UserRole rol : user.getUserRoles()) {
+			if (rol.toString().equalsIgnoreCase("ROLE_ADMIN")) {
 				isAdmin = true;
 			}
 		}
 
 		return isAdmin;
 	}
-	
+
 	public static boolean isRol(String rol) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals(rol));

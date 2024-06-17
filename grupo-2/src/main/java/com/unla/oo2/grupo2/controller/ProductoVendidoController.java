@@ -54,8 +54,9 @@ public class ProductoVendidoController {
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/productovendido/update");
-		ProductoVendidoDTO productoVendidoDTO = modelMapper.map(productovendidoService.findById(id).get(), ProductoVendidoDTO.class);
-		modelAndView.addObject("productovendido",productoVendidoDTO);
+		ProductoVendidoDTO productoVendidoDTO = modelMapper.map(productovendidoService.findById(id).get(),
+				ProductoVendidoDTO.class);
+		modelAndView.addObject("productovendido", productoVendidoDTO);
 		return modelAndView;
 	}
 

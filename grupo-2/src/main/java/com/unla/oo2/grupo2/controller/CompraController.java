@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.oo2.grupo2.dtos.CompraDTO;
 import com.unla.oo2.grupo2.entity.Compra;
+import com.unla.oo2.grupo2.helper.RouteHelper;
 import com.unla.oo2.grupo2.service.PedidoCompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.ICompraService;
 
@@ -32,7 +33,7 @@ public class CompraController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		ModelAndView modelAndView = new ModelAndView("compra/index");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.COMPRA_INDEX);
 		modelAndView.addObject("compras", compraService.findAll());
 
 		return modelAndView;
