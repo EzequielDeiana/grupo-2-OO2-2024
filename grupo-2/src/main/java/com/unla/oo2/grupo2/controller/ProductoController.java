@@ -76,7 +76,7 @@ public class ProductoController {
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
-		ModelAndView model = new ModelAndView("/producto/new");
+		ModelAndView model = new ModelAndView(RouteHelper.PRODUCTO_NEW);
 		model.addObject("producto", new ProductoDTO());
 		return model;
 	}
@@ -84,12 +84,12 @@ public class ProductoController {
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("producto") ProductoDTO productoDTO) {
 		productoService.add(modelMapper.map(productoDTO, Producto.class));
-		return new RedirectView("/producto/index");
+		return new RedirectView(RouteHelper.PRODUCTO_INDEX);
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
-		ModelAndView modelAndView = new ModelAndView("/producto/update");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.PRODUCTO_UPDATE);
 		ProductoDTO productoDTO = modelMapper.map(productoService.findById(id).get(), ProductoDTO.class);
 		modelAndView.addObject("producto", productoDTO);
 		return modelAndView;
@@ -98,18 +98,18 @@ public class ProductoController {
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("producto") ProductoDTO productoDTO) {
 		productoService.add(modelMapper.map(productoDTO, Producto.class));
-		return new RedirectView("/producto/index");
+		return new RedirectView(RouteHelper.PRODUCTO_INDEX);
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		productoService.delete(id);
-		return new RedirectView("/producto/index");
+		return new RedirectView(RouteHelper.PRODUCTO_INDEX);
 	}
 
 	@GetMapping("/all")
 	public ModelAndView prueba() {
-		ModelAndView model = new ModelAndView("/producto/new");
+		ModelAndView model = new ModelAndView(RouteHelper.PRODUCTO_NEW);
 		productoService.add(new Producto("1", "1", "1", 1, 1, true, "1"));
 		return model;
 	}
@@ -151,17 +151,15 @@ public class ProductoController {
 				if (!existePedidoCompraDiaria) {
 					pedidoCompraService.add(new PedidoCompra(producto, LocalDate.now(), false, 0));
 				}
-
 			}
-
+			
 			modelAndView = index();
-
 		} else {
 			modelAndView = index();
 			modelAndView.addObject("error", "Error: Cantidad solicitada es superior al Stock Restante");
 		}
-
+		
 		return modelAndView;
 	}
-
+	
 }

@@ -25,11 +25,13 @@ public class RouteHelper {
 
 	// Routes for pedidocompra pages
 	public static final String PEDIDOCOMPRA_INDEX = "/pedidocompra/index";
-	public static final String PEDIDOCOMPRA_NEW = "/pedidocompra/new";	
+	public static final String PEDIDOCOMPRA_NEW = "/pedidocompra/new";
 	public static final String PEDIDOCOMPRA_UPDATE = "/pedidocompra/update";
-	
+
 	// Routes for producto pages
 	public static final String PRODUCTO_INDEX = "/producto/index";
+	public static final String PRODUCTO_NEW = "/producto/new";
+	public static final String PRODUCTO_UPDATE = "/producto/update";
 
 	// Routes for productovendido pages
 	public static final String PRODUCTOVENDIDO_INDEX = "/productovendido/index";
@@ -46,6 +48,5 @@ public class RouteHelper {
 
 	// Routes custom
 	public static final String CUSTOM_ERROR = "/error/error";
-
 
 }
