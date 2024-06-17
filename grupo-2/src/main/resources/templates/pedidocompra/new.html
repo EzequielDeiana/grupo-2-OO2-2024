@@ -6,11 +6,7 @@
 	<title>Crear nuevas Compras</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<script>
-		function updateRangeValue(val) {
-			document.getElementById('rangeValue').textContent = val;
-		}
-	</script>
+	
 </head>
 
 <body>
@@ -18,11 +14,10 @@
 	<div class="container-lg" style=" background-color: aliceblue; border-radius: 10px; padding-top: 1px;">
 		<form th:action="@{/pedidocompra/createcompra}" th:object="${compra}" method="post" style="margin-top: 4rem;">
 			<div class="form-row">
-				<label for="cantidadComprada">Cantidad a Comprar: <span id="rangeValue" th:text="*{cantidadComprada}">0</span></label> 
-				<input required type="range" th:field="*{cantidadComprada}" min="1" max="1000" step="1"
-					oninput="updateRangeValue(this.value)" class="form-control">
+				<label for="cantidadComprada">Cantidad a Comprar: </label> 
+				<input type="number" th:field="*{cantidadComprada}" min="1" max="1000"/>
 			</div>
-			<label for="cantidadComprada">Proveedor: </label>
+			<label for="Proveedor">Proveedor: </label>
 				<select th:field="*{proveedor}">
 					<option value="" disabled selected>Selecciona un proveedor</option>
 					<option th:each="prov : ${proveedores}" th:value="${prov}" th:text="${prov}"

@@ -26,7 +26,7 @@ public class CompraService implements ICompraService {
 	}
 
 	public void add(Compra c) {
-		compraRepository.save(c).getId();
+		compraRepository.save(c);
 	}
 
 	public void delete(int id) {

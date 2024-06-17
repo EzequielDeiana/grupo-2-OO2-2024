@@ -48,7 +48,9 @@
 					<tr>
 						<th class="th">ID</th>
 						<th class="th">Cliente</th>
-						<th class="th">Fecha venta</th>
+						<th class="th">Fecha Venta</th>
+						<th class="th">Cantidad</th>
+						<th class="th">Total Venta</th>
 						<th class="th">Producto</th>
 						<th class="th">Producto IMG</th>
 					</tr>
@@ -58,6 +60,8 @@
 						<td class="td" th:text="${venta.id}"></td>
 						<td class="td" th:text="${venta.cliente.username}"></td>
 						<td class="td" th:text="${venta.fechaVenta}"></td>
+						<td class="td" th:text="${venta.cantidad}"></td>
+						<td class="td" th:text="${'$' + venta.totalVenta}"></td>
 						<td class="td" th:text="${venta.producto.nombre}"></td>
 						<td class="td text-center img-container">
 							<img th:src="@{${venta.producto.url}}" alt="Imagen de producto"
