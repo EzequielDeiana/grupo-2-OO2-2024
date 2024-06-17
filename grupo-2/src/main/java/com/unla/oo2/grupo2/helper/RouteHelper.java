@@ -38,7 +38,9 @@ public class RouteHelper {
 
 	// Routes for venta pages
 	public static final String VENTA_INDEX = "/venta/index";
-
+	public static final String VENTA_NEW = "/venta/new";
+	public static final String VENTA_UPDATE =  "/venta/update";
+	
 	// Routes generic
 	public static final String EMPTY = "";
 	public static final String SLASH = "/";
@@ -48,5 +50,7 @@ public class RouteHelper {
 
 	// Routes custom
 	public static final String CUSTOM_ERROR = "/error/error";
+
+
 
 }
