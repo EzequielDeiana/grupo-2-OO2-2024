@@ -10,9 +10,13 @@ public interface IProductoService {
 
 	public Optional<Producto> findById(int id) throws Exception;
 
+	public List<Producto> findProductos();
+
 	public List<Producto> findProductosDisponibles();
 
 	public void add(Producto producto);
 
 	public void delete(int id);
+
+	public void disable(int id);
 }

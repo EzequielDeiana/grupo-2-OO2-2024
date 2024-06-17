@@ -1,5 +1,6 @@
 package com.unla.oo2.grupo2.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.ProductoVendidoDTO;
 import com.unla.oo2.grupo2.entity.ProductoVendido;
 import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
 import com.unla.oo2.grupo2.serviceInterfaces.IProductoVendidoService;
@@ -18,6 +20,7 @@ import com.unla.oo2.grupo2.serviceInterfaces.IProductoVendidoService;
 public class ProductoVendidoController {
 
 	private IProductoVendidoService productovendidoService;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	public ProductoVendidoController(IProductoVendidoService productovendidoService, IProductoService productoService) {
 		this.productovendidoService = productovendidoService;
@@ -36,28 +39,30 @@ public class ProductoVendidoController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("productovendido") ProductoVendido productovendido) {
-		productovendidoService.add(productovendido);
+	public RedirectView create(@ModelAttribute("productovendido") ProductoVendidoDTO productoVendidoDTO) {
+		productovendidoService.add(modelMapper.map(productoVendidoDTO, ProductoVendido.class));
 		return new RedirectView("/productovendido/index");
 	}
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/productovendido/new");
-		model.addObject("productovendido", new ProductoVendido());
+		model.addObject("productovendido", new ProductoVendidoDTO());
 		return model;
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/productovendido/update");
-		modelAndView.addObject("productovendido", productovendidoService.findById(id));
+		ProductoVendidoDTO productoVendidoDTO = modelMapper.map(productovendidoService.findById(id).get(),
+				ProductoVendidoDTO.class);
+		modelAndView.addObject("productovendido", productoVendidoDTO);
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("productovendido") ProductoVendido productovendido) {
-		productovendidoService.add(productovendido);
+	public RedirectView update(@ModelAttribute("productovendido") ProductoVendidoDTO productoVendidoDTO) {
+		productovendidoService.add(modelMapper.map(productoVendidoDTO, ProductoVendido.class));
 		return new RedirectView("/productovendido/index");
 	}
 

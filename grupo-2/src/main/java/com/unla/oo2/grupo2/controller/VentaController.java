@@ -1,5 +1,6 @@
 package com.unla.oo2.grupo2.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.VentaDTO;
 import com.unla.oo2.grupo2.entity.User;
 import com.unla.oo2.grupo2.entity.Venta;
 import com.unla.oo2.grupo2.helper.UserUtil;
@@ -21,6 +23,7 @@ public class VentaController {
 
 	private IVentaService ventaService;
 	private UserService userService;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	public VentaController(IVentaService ventaService, UserService userService) {
 		this.ventaService = ventaService;
@@ -31,14 +34,29 @@ public class VentaController {
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/venta/index");
 		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
-		
-		if(!hasRole) {
+
+		if (!hasRole) {
 			modelAndView.addObject("ventas", ventaService.findAllClient(UserUtil.getUser().getId()));
 		} else {
 			modelAndView.addObject("ventas", ventaService.findAll());
 		}
-		
-		modelAndView.addObject("isAdmin", hasRole); 
+
+		modelAndView.addObject("isAdmin", hasRole);
+		return modelAndView;
+	}
+
+	@GetMapping("/historial")
+	public ModelAndView historial() {
+		ModelAndView modelAndView = new ModelAndView("/venta/index");
+		boolean hasRole = UserUtil.isRol(UserUtil.ROLE_ADMIN);
+
+		if (!hasRole) {
+			modelAndView.addObject("ventas", ventaService.findAllClient(UserUtil.getUser().getId()));
+		} else {
+			modelAndView.addObject("ventas", ventaService.findAll());
+		}
+
+		modelAndView.addObject("isAdmin", hasRole);
 		return modelAndView;
 	}
 
@@ -48,10 +66,10 @@ public class VentaController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("venta") Venta venta) {
-		User cliente = userService.findUserByUsername(venta.getCliente().getUsername());
+	public RedirectView create(@ModelAttribute("venta") VentaDTO ventaDTO) {
+		User cliente = userService.findUserByUsername(ventaDTO.getCliente().getUsername());
 		if (cliente != null) {
-			ventaService.add(venta);
+			ventaService.add(modelMapper.map(ventaDTO, Venta.class));
 		}
 		return new RedirectView("/venta/index");
 	}
@@ -60,20 +78,21 @@ public class VentaController {
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/venta/new");
 		model.addObject("clientes", userService.findUsers());
-		model.addObject("venta", new Venta());
+		model.addObject("venta", new VentaDTO());
 		return model;
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/venta/update");
-		modelAndView.addObject("venta", ventaService.findById(id).get());
+		VentaDTO ventaDTO = modelMapper.map(ventaService.findById(id).get(), VentaDTO.class);
+		modelAndView.addObject("venta", ventaDTO);
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("venta") Venta venta) {
-		ventaService.add(venta);
+	public RedirectView update(@ModelAttribute("venta") VentaDTO ventaDTO) {
+		ventaService.add(modelMapper.map(ventaDTO, Venta.class));
 		return new RedirectView("/venta/index");
 	}
 

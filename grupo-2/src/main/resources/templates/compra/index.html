@@ -7,12 +7,17 @@
 	<title>Compras</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		.image-container img {
+			object-fit: fill;
+		}
+	</style>
 </head>
 
 <body>
 	<header class="bg-dark text-white py-4">
 		<div class="container">
-			<h1 class="text-center">Compras</h1>
+			<h1 class="text-center">Mega Red</h1>
 			<nav class="text-center">
 				<ul class="nav justify-content-center">
 					<li class="nav-item">
@@ -40,22 +45,27 @@
 			<table class="table table-bordered table-striped table-hover text-center">
 				<thead class="thead-dark">
 					<tr>
-						<th class="th">ID</th>
 						<th class="th">Pedido compra</th>
 						<th class="th">Fecha entrega</th>
 						<th class="th">Fecha lanzamiento</th>
 						<th class="th">Proveedor</th>
 						<th class="th">Cantidad comprada</th>
+						<th class="th">Producto</th>
+						<th class="th">Producto IMG</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="compra, iterStat : ${compras}" th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
-						<td class="td" th:text="${compra.id}"></td>
 						<td class="td" th:text="${compra.pedidoCompra.id}"></td>
 						<td class="td" th:text="${compra.fechaEntrega}"></td>
 						<td class="td" th:text="${compra.fechaLanzamiento}"></td>
 						<td class="td" th:text="${compra.proveedor}"></td>
 						<td class="td" th:text="${compra.cantidadComprada}"></td>
+						<td class="td" th:text="${compra.pedidoCompra.producto.nombre}"></td>
+						<td class="td text-center img-container">
+							<img th:src="@{${compra.pedidoCompra.producto.url}}" alt="Imagen de producto"
+								style="width:100px;height:72px">
+						</td>
 					</tr>
 				</tbody>
 			</table>

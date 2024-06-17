@@ -7,12 +7,17 @@
 	<title>Productos</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+			.image-container img {
+				object-fit: fill;
+			}
+		</style>
 </head>
 
 <body>
 	<header class="bg-dark text-white py-4">
 		<div class="container">
-			<h1 class="text-center">Pedidos Compra</h1>
+			<h1 class="text-center">Mega Red</h1>
 			<nav class="text-center">
 				<ul class="nav justify-content-center">
 					<li class="nav-item">
@@ -48,7 +53,8 @@
 						<th class="th">Comprado</th>
 						<th class="th">Fecha de lanzamiento</th>
 						<th class="th">Producto</th>
-						<th class="th">Realizar Abastecimiento</th>
+						<th class="th">Producto IMG</th>
+						<th class="h">Realizar Abastecimiento</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -58,7 +64,10 @@
 						<td class="td" th:text="${pedidoCompra.cantidadSolicitada}"></td>
 						<td class="td" th:text="${pedidoCompra.comprado}"></td>
 						<td class="td" th:text="${pedidoCompra.fechaLanzamiento}"></td>
-						<td class="td" th:text="${pedidoCompra.producto.id}"></td>
+						<td class="td" th:text="${pedidoCompra.producto.nombre}"></td>
+						<td class="td text-center img-container">
+						 	<img th:src="@{${pedidoCompra.producto.url}}" alt="Imagen de producto" style="width:100px; height:72px">
+						</td>
 						<td class="td">
 							<a th:href="@{/pedidocompra/newcompra(pedidoCompraId=${pedidoCompra.id})}"
 								class="btn btn-secondary">Realizar Compra</a>

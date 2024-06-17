@@ -1,5 +1,7 @@
 package com.unla.oo2.grupo2.controller;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,16 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.oo2.grupo2.dtos.CompraDTO;
 import com.unla.oo2.grupo2.entity.Compra;
+import com.unla.oo2.grupo2.helper.RouteHelper;
 import com.unla.oo2.grupo2.service.PedidoCompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.ICompraService;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/compra")
 public class CompraController {
 
 	private ICompraService compraService;
 	private PedidoCompraService pedidoCompra;
+	private ModelMapper modelMapper = new ModelMapper();
 
 	public CompraController(ICompraService compraService, PedidoCompraService pedidoCompra) {
 		this.compraService = compraService;
@@ -27,7 +33,7 @@ public class CompraController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		ModelAndView modelAndView = new ModelAndView("compra/index");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.COMPRA_INDEX);
 		modelAndView.addObject("compras", compraService.findAll());
 
 		return modelAndView;
@@ -42,26 +48,27 @@ public class CompraController {
 	public ModelAndView createForm() {
 		ModelAndView model = new ModelAndView("/compra/new");
 		model.addObject("pedidosDeCompra", pedidoCompra.findAll());
-		model.addObject("compra", new Compra());
+		model.addObject("compra", new CompraDTO());
 		return model;
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("compra") Compra compra) {
-		compraService.add(compra);
+	public RedirectView create(@ModelAttribute("compra") CompraDTO compraDTO) {
+		compraService.add(modelMapper.map(compraDTO, Compra.class));
 		return new RedirectView("/compra/index");
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/compra/update");
-		modelAndView.addObject("compra", compraService.findById(id).get());
+		CompraDTO compraDTO = modelMapper.map(compraService.findById(id).get(), CompraDTO.class);
+		modelAndView.addObject("compra", compraDTO);
 		return modelAndView;
 	}
 
 	@PostMapping("/{id}")
-	public RedirectView update(@ModelAttribute("compra") Compra compra) {
-		compraService.add(compra);
+	public RedirectView update(@ModelAttribute("compra") CompraDTO compraDTO) {
+		compraService.add(modelMapper.map(compraDTO, Compra.class));
 		return new RedirectView("/compra/index");
 	}
 

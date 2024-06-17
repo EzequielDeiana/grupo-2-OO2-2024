@@ -12,7 +12,7 @@
 <body>
 	<header class="bg-dark text-white py-4">
 		<div class="container">
-			<h1 class="text-center">Productos Vendidos</h1>
+			<h1 class="text-center">Mega Red</h1>
 			<nav class="text-center">
 				<ul class="nav justify-content-center">
 					<li class="nav-item">
@@ -48,7 +48,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="productovendido, iterStat : ${productovendidos}"
-					th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
+					th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}" style="text-align: center; vertical-align: middle;">
 					<td class="td" th:text="${productovendido.id}"></td>
 					<td class="td" th:text="${productovendido.producto.id}"></td>
 					<td class="td" th:text="${productovendido.cantidad}"></td>
@@ -61,7 +61,7 @@
 		</table>
 		<div class="horizontal-nav">
 			<div class="container">
-				<a href="/productovendido/new" class="btn btn-primary">Crear nueva productovendido</a>
+				<a href="/productovendido/new" class="btn btn-primary">Crear nuevo producto vendido</a>
 			</div>
 		</div>
 	</div>

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.repository.IProductoRepository;
@@ -25,6 +26,11 @@ public class ProductoService implements IProductoService {
 		return productoRepository.findAll();
 	}
 
+	public List<Producto> findProductos() {
+
+		return productoRepository.findProductos();
+	}
+
 	public List<Producto> findProductosDisponibles() {
 		return productoRepository.findProductosDisponibles();
 	}
@@ -38,4 +44,12 @@ public class ProductoService implements IProductoService {
 			productoRepository.deleteById(id);
 		}
 	}
+
+	@Transactional
+	public void disable(int id) {
+		if (id != 0) {
+			productoRepository.DisableProductosById(id);
+		}
+	}
+
 }

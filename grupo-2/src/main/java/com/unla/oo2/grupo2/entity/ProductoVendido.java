@@ -16,23 +16,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table(name = "productoVendido")
-public class ProductoVendido 
-{
+public class ProductoVendido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "producto")
 	private Producto producto;
-	
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "venta")
 	private Venta venta;
-	
+
 	@Column(name = "cantidad")
 	private int cantidad;
-	
+
 	@Column(name = "precioTotal")
 	private double precioTotal;
 
