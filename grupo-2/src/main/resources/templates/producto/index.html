@@ -89,35 +89,31 @@
 					</thead>
 
 					<tbody>
-							<tr th:each="producto, iterStat : ${productos}"
-								th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}" class="product-table">
-								<td th:if="${isAdmin}" class="td text-center" th:text="${producto.id}"></td>
-								<td class="td text-center" th:text="${producto.nombre}"></td>
-								<td class="td text-center" th:text="${producto.descripcion}"></td>
-								<td class="td text-center" th:text="${producto.tipo}"></td>
-								<td class="td text-center" th:text="${producto.stockRestante}"></td>
-								<td class="td text-center" th:text="${'$' + producto.precio}"></td>
-								<td th:if="${isAdmin}" class="td text-center" th:text="${producto.activo}"></td>
-								<td class="td text-center image-container">
-									<img th:src="@{${producto.url}}" alt="Imagen de producto"
-										style="width:100px;height:72px">
+						<tr th:each="producto, iterStat : ${productos}"
+							th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}" class="product-table">
+							<td th:if="${isAdmin}" class="td text-center" th:text="${producto.id}"></td>
+							<td class="td text-center" th:text="${producto.nombre}"></td>
+							<td class="td text-center" th:text="${producto.descripcion}"></td>
+							<td class="td text-center" th:text="${producto.tipo}"></td>
+							<td class="td text-center" th:text="${producto.stockRestante}"></td>
+							<td class="td text-center" th:text="${'$' + producto.precio}"></td>
+							<td th:if="${isAdmin}" class="td text-center" th:text="${producto.activo}"></td>
+							<td class="td text-center image-container">
+								<img th:src="@{${producto.url}}" alt="Imagen de producto" style="width:100px;height:72px">
+							</td>
+							<div th:if="!${isAdmin}">
+								<td class="td text-center">
+									<form th:action="@{/producto/comprar/{id}(id=${producto.id})}" method="post">
+										<input type="number" name="cantidadSolicitada" min="1" value="1">
+										<input type="submit" value="Comprar" class="btn btn-secondary" style="margin-top: 1rem;">
+									</form>
 								</td>
-						<div th:if="!${isAdmin}">
-							<td class="td text-center">
-								<form th:action="@{/producto/comprar/{id}(id=${producto.id})}" method="post">
-									<input type="number" name="cantidadSolicitada" min="1" value="1">
-									<input type="submit" value="Comprar" class="btn btn-secondary" style="margin-top: 1rem;">
-								</form>
-							</td>
-						</div>
-
-						<div th:if="${isAdmin}">
-							<td class="td text-center">
-								<a th:href="@{/producto/{id}(id=${producto.id})}"
-									class="btn btn-secondary">Modificar</a>
-							</td>
-						</div>
-
+							</div>
+							<div th:if="${isAdmin}">
+								<td class="td text-center">
+									<a th:href="@{/producto/{id}(id=${producto.id})}" class="btn btn-secondary">Modificar</a>
+								</td>
+							</div>
 						</tr>
 					</tbody>
 				</div>

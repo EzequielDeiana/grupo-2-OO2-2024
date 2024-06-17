@@ -103,7 +103,7 @@ public class ProductoController {
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
-		productoService.disable(id);
+		productoService.delete(id);
 		return new RedirectView("/producto/index");
 	}
 

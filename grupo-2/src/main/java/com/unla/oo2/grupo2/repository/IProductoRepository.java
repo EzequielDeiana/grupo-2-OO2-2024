@@ -15,12 +15,7 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
 	@Query("SELECT p FROM Producto p where p.stockRestante > 0 and p.activo= true")
 	public abstract List<Producto> findProductosDisponibles();
 
-	@Query("SELECT p FROM Producto p where p.stockRestante > 0 ")
+	@Query("SELECT p FROM Producto p ")
 	public abstract List<Producto> findProductos();
-
-	@Modifying
-	@Transactional
-	@Query("UPDATE Producto p SET p.activo = false WHERE p.id = :id")
-	void DisableProductosById(int id);
 
 }

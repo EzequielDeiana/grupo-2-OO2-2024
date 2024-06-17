@@ -16,33 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user_role`
+-- Table structure for table `compra`
 --
 
-DROP TABLE IF EXISTS `user_role`;
+DROP TABLE IF EXISTS `compra`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user_role` (
+CREATE TABLE `compra` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `created_at` datetime(6) DEFAULT NULL,
-  `role` varchar(100) NOT NULL,
-  `updated_at` datetime(6) DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `cantidad_comprada` int DEFAULT NULL,
+  `fecha_entrega` date DEFAULT NULL,
+  `fecha_lanzamiento` date DEFAULT NULL,
+  `proveedor` varchar(255) DEFAULT NULL,
+  `pedido_compra` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UKscfpive7aa0o9savdwmxmnaij` (`role`,`user_id`),
-  KEY `FK859n2jvi8ivhui0rl0esws6o` (`user_id`),
-  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK82vrlmik2i0ue1hgjgcgjdm20` (`pedido_compra`),
+  CONSTRAINT `FK82vrlmik2i0ue1hgjgcgjdm20` FOREIGN KEY (`pedido_compra`) REFERENCES `pedido_compra` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user_role`
+-- Dumping data for table `compra`
 --
 
-LOCK TABLES `user_role` WRITE;
-/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,'2024-05-14 19:22:00.000000','ROLE_ADMIN','2024-05-14 19:22:00.000000',1),(2,'2024-05-14 19:22:00.000000','ROLE_ADMIN','2024-05-14 19:22:00.000000',2),(3,'2024-05-14 19:22:00.000000','ROLE_ADMIN','2024-05-14 19:22:00.000000',3),(4,'2024-05-14 19:22:00.000000','ROLE_ADMIN','2024-05-14 19:22:00.000000',4),(5,'2024-05-14 19:22:00.000000','ROLE_USER','2024-05-14 19:22:00.000000',5),(6,'2024-05-14 19:22:00.000000','ROLE_USER','2024-05-14 19:22:00.000000',6),(7,'2024-05-14 19:22:00.000000','ROLE_USER','2024-05-14 19:22:00.000000',7),(8,'2024-05-14 19:22:00.000000','ROLE_USER','2024-05-14 19:22:00.000000',8);
-/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+LOCK TABLES `compra` WRITE;
+/*!40000 ALTER TABLE `compra` DISABLE KEYS */;
+INSERT INTO `compra` VALUES (1,80,'2024-06-24','2024-06-17','NVIDIA',45),(2,114,'2024-06-24','2024-06-17','AMD',53),(3,246,'2024-06-24','2024-06-17','COMPUMUNDO',49),(4,59,'2024-06-24','2024-06-17','GARBARINO',51);
+/*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-17  1:34:27
+-- Dump completed on 2024-06-17  1:34:26
