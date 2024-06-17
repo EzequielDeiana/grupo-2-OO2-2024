@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -19,6 +18,7 @@ import com.unla.oo2.grupo2.dtos.CompraDTO;
 import com.unla.oo2.grupo2.dtos.PedidoCompraDTO;
 import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
+import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.helper.DatosPruebaUtil;
 import com.unla.oo2.grupo2.serviceInterfaces.ICompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.IPedidoCompraService;
@@ -44,21 +44,7 @@ public class PedidoCompraController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/index");
-
-		for (PedidoCompra pedidoCompra : pedidoCompraService.findAll()) {
-			try {
-				Compra compra = compraService.findById(pedidoCompra.getId()).get();
-				pedidoCompra.setCantidadSolicitada(compra.getCantidadComprada());
-				if (pedidoCompra.getCantidadSolicitada() > 0) {
-					pedidoCompra.setComprado(true);
-				}
-				pedidoCompraService.add(pedidoCompra);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-
-		modelAndView.addObject("pedidosCompra", pedidoCompraService.findAll());
+		modelAndView.addObject("pedidosCompra", pedidoCompraService.findPedidoCompraNoComprado());
 		return modelAndView;
 	}
 
@@ -102,36 +88,34 @@ public class PedidoCompraController {
 		return new RedirectView("/pedidocompra/index");
 	}
 
-	@GetMapping("/newcompra")
-	public ModelAndView createCompraForm(@RequestParam("pedidoCompraId") int pedidoCompraId) {
-		ModelAndView modelAndView = new ModelAndView();
-		Optional<Compra> existingCompra = compraService.findById(pedidoCompraId);
-		modelAndView.addObject("proveedores", DatosPruebaUtil.proveedores);
-		if (existingCompra.isPresent()) {
-			modelAndView.setViewName("/pedidocompra/index");
-			modelAndView.addObject("error", "Error: Compra ya realizada para el Pedido ID " + pedidoCompraId);
-			modelAndView.addObject("pedidosCompra", pedidoCompraService.findAll());
-		} else {
-			modelAndView.setViewName("/pedidocompra/new");
-			modelAndView.addObject("pedidoCompraId", pedidoCompraId);
-			Compra compra = new Compra();
-			compra.setPedidoCompra(pedidoCompraService.findById(pedidoCompraId).get());
-			modelAndView.addObject("compra", compra);
-		}
+    @GetMapping("/newcompra/{id}")
+    public ModelAndView createCompraForm(@PathVariable("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/pedidocompra/new");
+        Compra compra = new Compra();
+        compra.setPedidoCompra(pedidoCompraService.findById(id).get());
+        modelAndView.addObject("compra", compra);
+        return modelAndView;
+    }
 
-		return modelAndView;
-	}
-
-	@PostMapping("/createcompra")
-	public RedirectView createCompra(@ModelAttribute("compra") CompraDTO compraDTO) {
-		compraDTO.setFechaLanzamiento(LocalDate.now());
-		compraDTO.setFechaEntrega(LocalDate.now().plusDays(7));
-		compraService.add(modelMapper.map(compraDTO, Compra.class));
-		PedidoCompra pedidoCompra = pedidoCompraService.findById(compraDTO.getId()).get();
-		pedidoCompra.getProducto()
-				.setStockRestante(compraDTO.getCantidadComprada() + pedidoCompra.getProducto().getStockRestante());
-		productoService.add(pedidoCompra.getProducto());
-		return new RedirectView("/pedidocompra/index");
-	}
+    @PostMapping("/createcompra/{id}")
+    public RedirectView createCompra(@PathVariable("id") int id, @ModelAttribute("compra") CompraDTO compraDTO) {
+    	Compra compra = modelMapper.map(compraDTO, Compra.class);
+    	compra.setPedidoCompra(pedidoCompraService.findById(id).get());
+        System.out.println(compra.getPedidoCompra());
+        compra.setFechaLanzamiento(LocalDate.now());
+        compra.setFechaEntrega(LocalDate.now().plusDays(7));
+        
+        PedidoCompra pedidoCompra = compra.getPedidoCompra();
+        Producto producto = pedidoCompra.getProducto();
+        producto.setStockRestante(producto.getStockRestante() + compra.getCantidadComprada());
+        productoService.add(producto);
+        
+        pedidoCompra.setComprado(true);
+        pedidoCompraService.add(pedidoCompra);
+        
+        compraService.add(compra);
+        return new RedirectView("/pedidocompra/index");
+    }
 
 }

@@ -133,19 +133,16 @@ public class ProductoController {
 		if (producto.getStockRestante() > 0 && producto.getStockRestante() >= cantidadSolicitada) {
 			producto.setStockRestante(producto.getStockRestante() - cantidadSolicitada);
 			productoService.add(producto);
-			Venta nuevaVenta = new Venta(LocalDate.now(), user, cantidadSolicitada * producto.getPrecio(), producto,
-					cantidadSolicitada);
+			Venta nuevaVenta = new Venta(LocalDate.now(), user, cantidadSolicitada * producto.getPrecio(), producto, cantidadSolicitada);
 			ventaService.add(nuevaVenta);
 
 			if (producto.getStockRestante() < 5) {
-				pedidoCompra = pedidoCompraService.findAll();
+				pedidoCompra = pedidoCompraService.findPedidoCompraNoComprado();
 				int j = 0;
 
 				while (j < pedidoCompra.size() && !existePedidoCompraDiaria) {
 					if (pedidoCompra.get(j).getProducto().getId() == id) {
-						if (pedidoCompra.get(j).getFechaLanzamiento().isEqual(LocalDate.now())) {
-							existePedidoCompraDiaria = true;
-						}
+						existePedidoCompraDiaria = true;
 					}
 					j++;
 				}

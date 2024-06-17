@@ -69,8 +69,7 @@
 						 	<img th:src="@{${pedidoCompra.producto.url}}" alt="Imagen de producto" style="width:100px; height:72px">
 						</td>
 						<td class="td">
-							<a th:href="@{/pedidocompra/newcompra(pedidoCompraId=${pedidoCompra.id})}"
-								class="btn btn-secondary">Realizar Compra</a>
+							<a th:href="@{/pedidocompra/newcompra/{id}(id=${pedidoCompra.id})}" class="btn btn-secondary">Realizar Compra</a>
 						</td>
 					</tr>
 				</tbody>

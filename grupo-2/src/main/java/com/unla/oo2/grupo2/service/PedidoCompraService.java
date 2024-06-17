@@ -24,6 +24,10 @@ public class PedidoCompraService implements IPedidoCompraService {
 	public List<PedidoCompra> findAll() {
 		return pedidoCompraRepository.findAll();
 	}
+	
+	public List<PedidoCompra> findPedidoCompraNoComprado() {
+		return pedidoCompraRepository.findPedidoCompraNoComprado();
+	}
 
 	public void add(PedidoCompra c) {
 		pedidoCompraRepository.save(c);
