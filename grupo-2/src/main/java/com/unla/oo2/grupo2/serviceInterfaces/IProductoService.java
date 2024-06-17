@@ -17,6 +17,4 @@ public interface IProductoService {
 	public void add(Producto producto);
 
 	public void delete(int id);
-
-	public void disable(int id);
 }
