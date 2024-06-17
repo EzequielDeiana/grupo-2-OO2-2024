@@ -13,5 +13,7 @@ public interface IPedidoCompraService {
 	public void add(PedidoCompra pedidoCompra);
 
 	public void delete(int id);
+	
+	public List<PedidoCompra> findPedidoCompraNoComprado();
 
 }

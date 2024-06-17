@@ -35,6 +35,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/pedidocompra/index">Pedidos compras</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/logout">Logout</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -49,8 +52,6 @@
 				<thead class="thead-dark">
 					<tr>
 						<th class="th">ID</th>
-						<th class="th">Cantidad solicitada</th>
-						<th class="th">Comprado</th>
 						<th class="th">Fecha de lanzamiento</th>
 						<th class="th">Producto</th>
 						<th class="th">Producto IMG</th>
@@ -61,16 +62,13 @@
 					<tr th:each="pedidoCompra, iterStat : ${pedidosCompra}"
 						th:class="${iterStat.index % 2 == 0 ? 'even' : 'odd'}">
 						<td class="td" th:text="${pedidoCompra.id}"></td>
-						<td class="td" th:text="${pedidoCompra.cantidadSolicitada}"></td>
-						<td class="td" th:text="${pedidoCompra.comprado}"></td>
 						<td class="td" th:text="${pedidoCompra.fechaLanzamiento}"></td>
 						<td class="td" th:text="${pedidoCompra.producto.nombre}"></td>
 						<td class="td text-center img-container">
 						 	<img th:src="@{${pedidoCompra.producto.url}}" alt="Imagen de producto" style="width:100px; height:72px">
 						</td>
 						<td class="td">
-							<a th:href="@{/pedidocompra/newcompra(pedidoCompraId=${pedidoCompra.id})}"
-								class="btn btn-secondary">Realizar Compra</a>
+							<a th:href="@{/pedidocompra/newcompra/{id}(id=${pedidoCompra.id})}" class="btn btn-secondary">Realizar Compra</a>
 						</td>
 					</tr>
 				</tbody>

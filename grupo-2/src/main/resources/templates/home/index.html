@@ -29,13 +29,16 @@
 						<a class="nav-link" href="/producto/index">Productos</a>
 					</li>
 					<li class="nav-item">
-				<a th:text="${isAdmin} ? 'Ventas' : 'Historial'" class="nav-link" th:href="${isAdmin} ? '/venta/index' : '/venta/historial'"></a>
+						<a th:text="${isAdmin} ? 'Ventas' : 'Historial'" class="nav-link" th:href="${isAdmin} ? '/venta/index' : '/venta/historial'"></a>
 					</li>
 					<li th:if="${isAdmin}" class="nav-item">
 						<a class="nav-link" href="/compra/index">Compras</a>
 					</li>
 					<li th:if="${isAdmin}" class="nav-item">
 						<a class="nav-link" href="/pedidocompra/index">Pedidos compras</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/logout">Logout</a>
 					</li>
 				</ul>
 			</nav>
@@ -48,13 +51,6 @@
 				<p class="text-center" style="color: #fff;">Los mejores articulos de computación a un click de distancia</p>
 			</div>
 		</div>
-	<div class="container" style="margin-top: 27rem;">
-		<div class="row justify-content-center">
-			<div class="col-md-4">
-				<button class="btn btn-danger btn-block"><a href="/logout" class="text-white">Logout</a></button>
-			</div>
-		</div>
-	</div>
 	</main>
 	<footer class="bg-dark text-white py-3 mt-5 footer">
 		<div class="container text-center">
