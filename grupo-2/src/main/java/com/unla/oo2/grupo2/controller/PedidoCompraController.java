@@ -19,6 +19,7 @@ import com.unla.oo2.grupo2.entity.Compra;
 import com.unla.oo2.grupo2.entity.PedidoCompra;
 import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.helper.DatosPruebaUtil;
+import com.unla.oo2.grupo2.helper.RouteHelper;
 import com.unla.oo2.grupo2.serviceInterfaces.ICompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.IPedidoCompraService;
 import com.unla.oo2.grupo2.serviceInterfaces.IProductoService;
@@ -42,19 +43,19 @@ public class PedidoCompraController {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		ModelAndView modelAndView = new ModelAndView("/pedidocompra/index");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.PEDIDOCOMPRA_INDEX);
 		modelAndView.addObject("pedidosCompra", pedidoCompraService.findPedidoCompraNoComprado());
 		return modelAndView;
 	}
 
 	@GetMapping("/")
 	public RedirectView redirectToHomeIndex() {
-		return new RedirectView("/pedidocompra/index");
+		return new RedirectView(RouteHelper.PEDIDOCOMPRA_INDEX);
 	}
 
 	@GetMapping("/new")
 	public ModelAndView createForm() {
-		ModelAndView model = new ModelAndView("/pedidocompra/new");
+		ModelAndView model = new ModelAndView(RouteHelper.PEDIDOCOMPRA_NEW);
 		model.addObject("pedidocompra", new PedidoCompraDTO());
 		return model;
 	}
@@ -62,12 +63,12 @@ public class PedidoCompraController {
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("pedidocompra") PedidoCompraDTO pedidoCompraDTO) {
 		pedidoCompraService.add(modelMapper.map(pedidoCompraDTO, PedidoCompra.class));
-		return new RedirectView("/pedidocompra/index");
+		return new RedirectView(RouteHelper.PEDIDOCOMPRA_INDEX);
 	}
 
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
-		ModelAndView modelAndView = new ModelAndView("/pedidocompra/update");
+		ModelAndView modelAndView = new ModelAndView(RouteHelper.PEDIDOCOMPRA_UPDATE);
 		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(),
 				PedidoCompraDTO.class);
 		modelAndView.addObject("pedidocompra", pedidoCompraDTO);
@@ -78,19 +79,19 @@ public class PedidoCompraController {
 	@PostMapping("/{id}")
 	public RedirectView update(@ModelAttribute("pedidocompra") PedidoCompraDTO pedidoCompraDTO) {
 		pedidoCompraService.add(modelMapper.map(pedidoCompraDTO, PedidoCompra.class));
-		return new RedirectView("/pedidocompra/index");
+		return new RedirectView(RouteHelper.PEDIDOCOMPRA_INDEX);
 	}
 
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		pedidoCompraService.delete(id);
-		return new RedirectView("/pedidocompra/index");
+		return new RedirectView(RouteHelper.PEDIDOCOMPRA_INDEX);
 	}
 
 	@GetMapping("/newcompra/{id}")
 	public ModelAndView createCompraForm(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/pedidocompra/new");
+		modelAndView.setViewName(RouteHelper.PEDIDOCOMPRA_NEW);
 		Compra compra = new Compra();
 		compra.setPedidoCompra(pedidoCompraService.findById(id).get());
 		modelAndView.addObject("compra", compra);
@@ -115,7 +116,7 @@ public class PedidoCompraController {
 		pedidoCompraService.add(pedidoCompra);
 
 		compraService.add(compra);
-		return new RedirectView("/pedidocompra/index");
+		return new RedirectView(RouteHelper.PEDIDOCOMPRA_INDEX);
 	}
 
 }
