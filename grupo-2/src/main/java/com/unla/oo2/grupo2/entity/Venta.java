@@ -29,9 +29,6 @@ public class Venta {
 	@Column(name = "fechaVenta")
 	private LocalDate fechaVenta;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "venta")
-	private Set<ProductoVendido> productosComprados;
-
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "cliente")
 	private User cliente;

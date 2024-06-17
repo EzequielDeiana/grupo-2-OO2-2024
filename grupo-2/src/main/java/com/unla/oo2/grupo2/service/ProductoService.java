@@ -27,7 +27,6 @@ public class ProductoService implements IProductoService {
 	}
 
 	public List<Producto> findProductos() {
-
 		return productoRepository.findProductos();
 	}
 
@@ -44,12 +43,4 @@ public class ProductoService implements IProductoService {
 			productoRepository.deleteById(id);
 		}
 	}
-
-	@Transactional
-	public void disable(int id) {
-		if (id != 0) {
-			productoRepository.DisableProductosById(id);
-		}
-	}
-
 }
