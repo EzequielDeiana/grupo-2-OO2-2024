@@ -133,7 +133,8 @@ public class ProductoController {
 		if (producto.getStockRestante() > 0 && producto.getStockRestante() >= cantidadSolicitada) {
 			producto.setStockRestante(producto.getStockRestante() - cantidadSolicitada);
 			productoService.add(producto);
-			Venta nuevaVenta = new Venta(LocalDate.now(), user, cantidadSolicitada * producto.getPrecio(), producto, cantidadSolicitada);
+			Venta nuevaVenta = new Venta(LocalDate.now(), user, cantidadSolicitada * producto.getPrecio(), producto,
+					cantidadSolicitada);
 			ventaService.add(nuevaVenta);
 
 			if (producto.getStockRestante() < 5) {

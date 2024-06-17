@@ -1,7 +1,6 @@
 package com.unla.oo2.grupo2.controller;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -69,7 +68,8 @@ public class PedidoCompraController {
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) throws Exception {
 		ModelAndView modelAndView = new ModelAndView("/pedidocompra/update");
-		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(), PedidoCompraDTO.class);
+		PedidoCompraDTO pedidoCompraDTO = modelMapper.map(pedidoCompraService.findById(id).get(),
+				PedidoCompraDTO.class);
 		modelAndView.addObject("pedidocompra", pedidoCompraDTO);
 
 		return modelAndView;
@@ -87,35 +87,35 @@ public class PedidoCompraController {
 		return new RedirectView("/pedidocompra/index");
 	}
 
-    @GetMapping("/newcompra/{id}")
-    public ModelAndView createCompraForm(@PathVariable("id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/pedidocompra/new");
-        Compra compra = new Compra();
-        compra.setPedidoCompra(pedidoCompraService.findById(id).get());
-        modelAndView.addObject("compra", compra);
-        modelAndView.addObject("proveedores", DatosPruebaUtil.proveedores);
-        return modelAndView;
-    }
+	@GetMapping("/newcompra/{id}")
+	public ModelAndView createCompraForm(@PathVariable("id") int id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/pedidocompra/new");
+		Compra compra = new Compra();
+		compra.setPedidoCompra(pedidoCompraService.findById(id).get());
+		modelAndView.addObject("compra", compra);
+		modelAndView.addObject("proveedores", DatosPruebaUtil.proveedores);
+		return modelAndView;
+	}
 
-    @PostMapping("/createcompra/{id}")
-    public RedirectView createCompra(@PathVariable("id") int id, @ModelAttribute("compra") CompraDTO compraDTO) {
-    	Compra compra = modelMapper.map(compraDTO, Compra.class);
-    	compra.setPedidoCompra(pedidoCompraService.findById(id).get());
-        System.out.println(compra.getPedidoCompra());
-        compra.setFechaLanzamiento(LocalDate.now());
-        compra.setFechaEntrega(LocalDate.now().plusDays(7));
-        
-        PedidoCompra pedidoCompra = compra.getPedidoCompra();
-        Producto producto = pedidoCompra.getProducto();
-        producto.setStockRestante(producto.getStockRestante() + compra.getCantidadComprada());
-        productoService.add(producto);
-        
-        pedidoCompra.setComprado(true);
-        pedidoCompraService.add(pedidoCompra);
-        
-        compraService.add(compra);
-        return new RedirectView("/pedidocompra/index");
-    }
+	@PostMapping("/createcompra/{id}")
+	public RedirectView createCompra(@PathVariable("id") int id, @ModelAttribute("compra") CompraDTO compraDTO) {
+		Compra compra = modelMapper.map(compraDTO, Compra.class);
+		compra.setPedidoCompra(pedidoCompraService.findById(id).get());
+		System.out.println(compra.getPedidoCompra());
+		compra.setFechaLanzamiento(LocalDate.now());
+		compra.setFechaEntrega(LocalDate.now().plusDays(7));
+
+		PedidoCompra pedidoCompra = compra.getPedidoCompra();
+		Producto producto = pedidoCompra.getProducto();
+		producto.setStockRestante(producto.getStockRestante() + compra.getCantidadComprada());
+		productoService.add(producto);
+
+		pedidoCompra.setComprado(true);
+		pedidoCompraService.add(pedidoCompra);
+
+		compraService.add(compra);
+		return new RedirectView("/pedidocompra/index");
+	}
 
 }
