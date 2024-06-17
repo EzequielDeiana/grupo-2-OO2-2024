@@ -97,7 +97,7 @@
 							<td class="td text-center" th:text="${producto.tipo}"></td>
 							<td class="td text-center" th:text="${producto.stockRestante}"></td>
 							<td class="td text-center" th:text="${'$' + producto.precio}"></td>
-							<td th:if="${isAdmin}" class="td text-center" th:text="${producto.activo}"></td>
+							<td th:if="${isAdmin}" class="td text-center" th:text="${producto.activo}" th:style="${producto.activo == true ? 'color:green' : 'color:red'}" ></td>
 							<td class="td text-center image-container">
 								<img th:src="@{${producto.url}}" alt="Imagen de producto" style="width:100px;height:72px">
 							</td>
