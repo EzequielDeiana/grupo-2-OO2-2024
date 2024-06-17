@@ -47,11 +47,11 @@
 				<div class="form-col tiny-form-options">
 					<div class="form-group col-md-12">
 						<label for="stockRestante">Stock restante: </label>
-						<input type="number" th:field="*{stockRestante}" class="form-control">
+						<input type="number" th:field="*{stockRestante}" class="form-control"  min="0">
 					</div>
 					<div class="form-group col-md-12">
 						<label for="stockRestante">Precio: </label>
-						<input type="number" th:field="*{precio}" class="form-control">
+						<input type="number" th:field="*{precio}" class="form-control"  min="0">
 					</div>
 					<div class="form-group col-md-12">
 						<label for="activo">Activo: </label>
