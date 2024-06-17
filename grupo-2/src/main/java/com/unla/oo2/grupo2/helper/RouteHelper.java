@@ -20,6 +20,8 @@ public class RouteHelper {
 
 	// Routes for compra pages
 	public static final String COMPRA_INDEX = "/compra/index";
+	public static final String COMPRA_NEW = "/compra/new";
+	public static final String COMPRA_UPDATE = "/compra/update";
 
 	// Routes for pedidocompra pages
 	public static final String PEDIDOCOMPRA_INDEX = "/pedidocompra/index";
