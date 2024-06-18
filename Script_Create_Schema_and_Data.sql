@@ -7,9 +7,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-/*DROP DATABASE IF EXISTS `unla_test`; */
-/*CREATE DATABASE IF NOT EXISTS `unla_test`; */
-/*USE `unla_test`; */
+DROP DATABASE IF EXISTS `tp_grupo2`;
+CREATE DATABASE IF NOT EXISTS `tp_grupo2`;
+USE `tp_grupo2`;
 
 /* deshabilitar secure mode */
 SET SQL_SAFE_UPDATES = 0;
