@@ -60,8 +60,8 @@ public class ProductoController {
 		modelAndView.addObject("isAdmin", UserUtil.isRol(UserUtil.ROLE_ADMIN));
 
 		try {
-			modelAndView.addObject("productosMasVendidos", ventaService.productoMasVendido());
-			modelAndView.addObject("productosMenosVendidos", ventaService.productoMenosVendido());
+			modelAndView.addObject("productosMasVendidos", ventaService.productosMasMenosVendido(true));
+			modelAndView.addObject("productosMenosVendidos", ventaService.productosMasMenosVendido(false));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -54,37 +54,7 @@ public class VentaService implements IVentaService {
 		}
 	}
 
-	private void ordenarPorSeleccionDescendente(List<CantidadProductos> lista) {
-		int n = lista.size();
-		for (int i = 0; i < n - 1; i++) {
-			int maxIndex = i;
-			for (int j = i + 1; j < n; j++) {
-				if (lista.get(j).getCantidad() > lista.get(maxIndex).getCantidad()) {
-					maxIndex = j;
-				}
-			}
-			CantidadProductos temp = lista.get(maxIndex);
-			lista.set(maxIndex, lista.get(i));
-			lista.set(i, temp);
-		}
-	}
-
-	private void ordenarPorSeleccionAscendente(List<CantidadProductos> lista) {
-		int n = lista.size();
-		for (int i = 0; i < n - 1; i++) {
-			int minIndex = i;
-			for (int j = i + 1; j < n; j++) {
-				if (lista.get(j).getCantidad() < lista.get(minIndex).getCantidad()) {
-					minIndex = j;
-				}
-			}
-			CantidadProductos temp = lista.get(minIndex);
-			lista.set(minIndex, lista.get(i));
-			lista.set(i, temp);
-		}
-	}
-
-	public List<CantidadProductos> productoMasVendido() {
+	public List<CantidadProductos> productosMasMenosVendido(boolean masVendido) {
 		List<Venta> ventas = ventaRepository.findAll();
 		List<CantidadProductos> cantidadProductos = new ArrayList<CantidadProductos>();
 
@@ -96,8 +66,15 @@ public class VentaService implements IVentaService {
 			sumarPosicionEntero(cantidadProductos, venta.getProducto().getId(), venta.getCantidad());
 		}
 
-		ordenarPorSeleccionDescendente(cantidadProductos);
-
+		if(masVendido)
+		{
+				cantidadProductos.sort((c1,c2) -> (int) (c2.getCantidad() - c1.getCantidad()));
+		}
+		else
+		{
+			cantidadProductos.sort((c1,c2) -> (int) (c1.getCantidad() - c2.getCantidad()));
+		}
+	
 		for (CantidadProductos i : cantidadProductos) {
 			Producto producto = productoRepository.findById(i.getIdProducto()).get();
 			i.setNombre(producto.getNombre());
@@ -106,28 +83,4 @@ public class VentaService implements IVentaService {
 
 		return cantidadProductos;
 	}
-
-	public List<CantidadProductos> productoMenosVendido() {
-		List<Venta> ventas = ventaRepository.findAll();
-		List<CantidadProductos> cantidadProductos = new ArrayList<CantidadProductos>();
-
-		for (Producto producto : productoRepository.findAll()) {
-			cantidadProductos.add(new CantidadProductos(producto.getId(), 0, "", 0));
-		}
-
-		for (Venta venta : ventas) {
-			sumarPosicionEntero(cantidadProductos, venta.getProducto().getId(), venta.getCantidad());
-		}
-
-		ordenarPorSeleccionAscendente(cantidadProductos);
-
-		for (CantidadProductos i : cantidadProductos) {
-			Producto producto = productoRepository.findById(i.getIdProducto()).get();
-			i.setNombre(producto.getNombre());
-			i.setPrecio(producto.getPrecio());
-		}
-
-		return cantidadProductos;
-	}
-
 }
