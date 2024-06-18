@@ -19,7 +19,4 @@ public interface IVentaService {
 	
 	public List<CantidadProductos> productosMasMenosVendido(boolean masVendido);
 
-	//public List<CantidadProductos> productoMasVendido();
-
-	//public List<CantidadProductos> productoMenosVendido();
 }
