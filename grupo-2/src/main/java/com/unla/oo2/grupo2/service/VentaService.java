@@ -46,10 +46,10 @@ public class VentaService implements IVentaService {
 		}
 	}
 
-	private void sumarPosicionEntero(List<CantidadProductos> cantidadProductos, int idProducto) {
+	private void sumarPosicionEntero(List<CantidadProductos> cantidadProductos, int idProducto, int cantidad) {
 		for (CantidadProductos i : cantidadProductos) {
 			if (i.getIdProducto() == idProducto) {
-				i.setCantidad(i.getCantidad() + 1);
+				i.setCantidad(i.getCantidad() + cantidad);
 			}
 		}
 	}
@@ -93,7 +93,7 @@ public class VentaService implements IVentaService {
 		}
 
 		for (Venta venta : ventas) {
-			sumarPosicionEntero(cantidadProductos, venta.getProducto().getId());
+			sumarPosicionEntero(cantidadProductos, venta.getProducto().getId(), venta.getCantidad());
 		}
 
 		ordenarPorSeleccionDescendente(cantidadProductos);
@@ -116,7 +116,7 @@ public class VentaService implements IVentaService {
 		}
 
 		for (Venta venta : ventas) {
-			sumarPosicionEntero(cantidadProductos, venta.getProducto().getId());
+			sumarPosicionEntero(cantidadProductos, venta.getProducto().getId(), venta.getCantidad());
 		}
 
 		ordenarPorSeleccionAscendente(cantidadProductos);
