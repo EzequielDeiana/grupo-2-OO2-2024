@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.unla.oo2.grupo2.entity.PedidoCompra;
+import com.unla.oo2.grupo2.entity.Producto;
 import com.unla.oo2.grupo2.repository.IPedidoCompraRepository;
 import com.unla.oo2.grupo2.serviceInterfaces.IPedidoCompraService;
 
@@ -29,6 +30,24 @@ public class PedidoCompraService implements IPedidoCompraService {
 		return pedidoCompraRepository.findPedidoCompraNoComprado();
 	}
 
+	
+	public PedidoCompra findPedidoCompraNoComprado(Producto p)
+	{
+		PedidoCompra pc = null;
+		
+		List<PedidoCompra> lista = findPedidoCompraNoComprado();
+		int j = 0;
+
+		while (j < lista.size() && pc == null) {
+			if (lista.get(j).getProducto().getId() == p.getId()) {
+				pc = lista.get(j);
+			}
+			j++;
+		}		
+		return pc;	
+	}
+	
+	
 	public void add(PedidoCompra c) {
 		pedidoCompraRepository.save(c);
 	}
