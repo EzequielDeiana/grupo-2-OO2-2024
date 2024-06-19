@@ -116,7 +116,6 @@ public class ProductoController {
 
 	@PostMapping("/comprar/{id}")
 	public ModelAndView comprar(@PathVariable("id") int id, @Param("cantidadSolicitada") int cantidadSolicitada) {
-		System.out.println("estoy en la vista");
 		ModelAndView modelAndView = index();
 		User user = null;
 		Producto producto = null;
