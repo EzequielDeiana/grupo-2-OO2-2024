@@ -116,13 +116,11 @@ public class ProductoController {
 
 	@PostMapping("/comprar/{id}")
 	public ModelAndView comprar(@PathVariable("id") int id, @Param("cantidadSolicitada") int cantidadSolicitada) {
+		System.out.println("estoy en la vista");
 		ModelAndView modelAndView = index();
-		;
 		User user = null;
 		Producto producto = null;
-		List<PedidoCompra> pedidoCompra = null;
-		boolean existePedidoCompraDiaria = false;
-
+		PedidoCompra pedidoCompra = null;
 		try {
 			producto = productoService.findById(id).orElseThrow(() -> new Exception("Producto no encontrado"));
 			user = UserUtil.getUser();
@@ -130,36 +128,24 @@ public class ProductoController {
 			System.out.println(e.getMessage());
 		}
 
-		if (producto.getStockRestante() > 0 && producto.getStockRestante() >= cantidadSolicitada) {
+		if (producto.getStockRestante() >= cantidadSolicitada) {
 			producto.setStockRestante(producto.getStockRestante() - cantidadSolicitada);
 			productoService.add(producto);
-			Venta nuevaVenta = new Venta(LocalDate.now(), user, cantidadSolicitada * producto.getPrecio(), producto,
-					cantidadSolicitada);
+			Venta nuevaVenta = new Venta(LocalDate.now(), user, cantidadSolicitada * producto.getPrecio(), producto,cantidadSolicitada);
 			ventaService.add(nuevaVenta);
 
 			if (producto.getStockRestante() < 5) {
-				pedidoCompra = pedidoCompraService.findPedidoCompraNoComprado();
-				int j = 0;
-
-				while (j < pedidoCompra.size() && !existePedidoCompraDiaria) {
-					if (pedidoCompra.get(j).getProducto().getId() == id) {
-						existePedidoCompraDiaria = true;
-					}
-					j++;
-				}
-
-				if (!existePedidoCompraDiaria) {
+				pedidoCompra = pedidoCompraService.findPedidoCompraNoComprado(producto);
+				if (pedidoCompra == null) {
 					pedidoCompraService.add(new PedidoCompra(producto, LocalDate.now(), false, 0));
 				}
 			}
-			
 			modelAndView = index();
 		} else {
 			modelAndView = index();
 			modelAndView.addObject("error", "Error: Cantidad solicitada es superior al Stock Restante");
 		}
-		
+
 		return modelAndView;
 	}
-	
 }

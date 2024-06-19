@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.unla.oo2.grupo2.entity.PedidoCompra;
+import com.unla.oo2.grupo2.entity.Producto;
 
 public interface IPedidoCompraService {
 	public List<PedidoCompra> findAll();
@@ -15,5 +16,7 @@ public interface IPedidoCompraService {
 	public void delete(int id);
 
 	public List<PedidoCompra> findPedidoCompraNoComprado();
+
+	public PedidoCompra findPedidoCompraNoComprado(Producto producto);
 
 }
